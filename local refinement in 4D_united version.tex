@@ -1,0 +1,1626 @@
+\documentclass[a4paper,12pt]{amsart}
+\input epsf
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{epsfig}
+\usepackage{qtree}
+\usepackage{forest}
+\forestset{qtree/.style={for tree={parent anchor=south, 
+           child anchor=north,inner sep=0pt}}}
+\usepackage{flexisym}
+\usepackage{lscape}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usetikzlibrary{shadows}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta}
+\tikzset{>={Latex[width=3mm,length=3mm]}}
+
+% calign=fixed edge angles, calign primary angle=-30, calign secondary angle=30
+%  calign=fixed edge angles,
+%  calign primary angle=-30,calign secondary angle=60,
+
+\DeclareMathAlphabet\mathbold{OML}{cmm}{b}{it}
+\textheight=8.75in
+\textwidth=6in
+\oddsidemargin=-0.1in
+\evensidemargin=-0.1in
+\vsize 8.2in
+% Equation numbering
+\numberwithin{equation}{section}
+ 
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{definition}{Definition}[section]
+%\newtheorem{algorithm}{Algorithm}[section]
+\newtheorem{assumption}{Assumption}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+
+
+
+
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\Div}{\operatorname{Div}}
+\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+
+
+\def\b1{{\mathbf 1}}
+\def\bv{{\mathbf v}}
+\def\bu{{\mathbf u}}
+\def\bw{{\mathbf w}}
+\def\bb{{\mathbf b}}
+\def\bc{{\mathbf c}}
+\def\bff{{\mathbf f}}
+\def\bg{{\mathbf g}}
+\def\bh{{\mathbf h}}
+\def\br{{\mathbf r}}
+\def\bs{{\mathbf s}}
+\def\bd{{\mathbf d}}
+\def\be{{\mathbf e}}
+\def\bp{{\mathbf p}}
+\def\bq{{\mathbf q}}
+\def\bx{{\mathbf x}}
+\def\by{{\mathbf y}}
+\def\bz{{\mathbf z}}
+\def\bn{{\mathbf n}}
+\def\bbf{{\mathbf f}}
+\def\bB{{\mathbf B}}
+\def\bM{{\mathbf M}}
+\def\bV{{\mathbf V}}
+\def\bU{{\mathbf U}}
+\def\bY{{\mathbf Y}}
+\def\bF{{\mathbf F}}
+\def\bA{{\mathbf A}}
+\def\bB{{\mathbf B}}
+\def\bC{{\mathbf C}}
+\def\bD{{\mathbf D}}
+\def\bN{{\mathbf N}}
+\def\bT{{\mathbf T}}
+\def\bP{{\mathbf P}}
+\def\bQ{{\mathbf Q}}
+\def\bS{{\mathbf S}}
+\def\bR{{\mathbf R}}
+ 
+\def\bepsilon{{\boldsymbol \epsilon}}
+\def\balpha{{\boldsymbol \alpha}}
+\def\bdelta{{\boldsymbol \delta}}
+\def\blambda{{\boldsymbol \lambda}}
+\def\bmu{{\boldsymbol \mu}}
+ 
+ 
+\newcommand{\LD}{\langle}
+\newcommand{\RD}{\rangle}
+ 
+%-----------------------------------------------------------------
+\renewcommand{\O}{{\mathcal O}}
+\newcommand{\Q}{{\mathcal Q}}
+\newcommand{\R}{{\mathcal R}}
+\newcommand{\A}{{\mathcal A}}
+\newcommand{\B}{{\mathcal B}}
+\newcommand{\C}{{\mathcal C}}
+\newcommand{\D}{{\mathcal D}}
+\newcommand{\Sc}{{\mathcal S}}
+\newcommand{\F}{{\mathcal F}}
+\newcommand{\G}{{\mathcal G}}
+\newcommand{\I}{{\mathcal I}}
+\newcommand{\J}{{\mathcal J}}
+\newcommand{\M}{{\mathcal M}}
+\newcommand{\N}{{\mathcal N}}
+\newcommand{\X}{{\mathcal X}}
+\newcommand{\Y}{{\mathcal Y}}
+\newcommand{\calY}{{\mathcal Y}}
+\newcommand{\calS}{{\mathcal S}}
+\renewcommand{\L}{{\mathcal L}}
+\renewcommand{\P}{{\mathcal P}}
+ 
+\newcommand{\vertiii}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 
+    \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+ 
+\newcommand{\V}{\text{\bf V}}
+\newcommand{\K}{{\mathcal K}}
+\newcommand{\T}{{\mathcal T}}
+\newcommand{\E}{{\mathcal E}}
+
+\newcommand{\hatcalK}{\widehat{\mathcal K}}
+\newcommand{\hatcalS}{\widehat{\mathcal S}}
+\newcommand{\hatA}{\widehat{A}}
+%% \newcommand{\grad}{\nabla}
+%% \renewcommand{\div}{\text{div}}
+%% \renewcommand{\curl}{\text{curl}}
+%
+%
+\def\XVec#1{{\mathbf #1}}
+\def\XNorm#1{\left\| #1 \right\|}                       % norm
+\def\XIProd#1#2{\left\langle #1 ,~ #2 \right\rangle}    % inner product
+ 
+\def\XM{\mu}
+ 
+\def\XQ{Q}                     % interpolant
+\def\Xq#1{\XVec{q}_{#1}}       % rows of Q (interpolation to point #1)
+\def\Xu{\XVec{u}}              % unknown vector
+\def\Xf{\XVec{f}}              % right-hand-side vector
+\def\Xe{\XVec{e}}
+\def\Xr{\XVec{r}}
+\def\Xx{\XVec{x}}
+\def\Xv{\XVec{v}}
+\def\Xw{\XVec{w}}
+\def\Xn{\XVec{n}}              % normal vector
+\def\Xes{\Xe_s}
+\def\Xec{\Xe_c}
+\def\Xus{\Xu_s}
+\def\Xuc{\Xu_c}
+\def\Xvs{\Xv_s}
+\def\Xvc{\Xv_c}
+\def\bone{{\boldsymbol 1}}
+\def\bphi{{\boldsymbol \varphi}}
+\def\bpsi{{\boldsymbol \psi}}
+\def\bPsi{{\boldsymbol \Psi}}
+\def\btheta{{\boldsymbol \theta}}
+\def\bchi{{\boldsymbol \chi}}
+\def\boldeta{{\boldsymbol \eta}}
+\def\bolddelta{{\boldsymbol \delta}}
+\def\bsigma{{\boldsymbol \sigma}}
+\def\btau{{\boldsymbol \tau }}
+\def\bxi{{\boldsymbol \xi }}
+\def\bdelta{{\boldsymbol \delta}}
+ 
+\def\Nedelec{N\'ed\'elec\ }
+
+\def\bPi{{\boldsymbol \Pi}}
+\def\bPhi{{\boldsymbol \Phi}}
+
+\newcommand{\ott}[1]{\bar{#1}}
+ 
+
+\newcommand{\dt}{\partial_t} 
+\newcommand{\om}{\Omega} 
+
+\renewcommand{\arraystretch}{1.2}
+
+\DeclareMathOperator*{\argmin}{argmin}
+ 
+ 
+\title[Local refinement in 4D] 
+{Local refinement for 4D simplicial meshes}
+
+%\author[Voronin, Lee, Neum{\" u}ller, Sepulveda, and Vassilevski]
+%{Kirill Voronin, Chak Lee, Martin Neum{\" u}ller, Paulina Sepulveda, and Panayot S. Vassilevski}
+
+\address{Portland State University}
+\address{Center for Applied Scientific Computing,
+             Lawrence Livermore National Laboratory,
+             P.O. Box 808, L-561,
+             Livermore, CA 94551, U.S.A.}
+%% \email{panayot@llnl.gov}
+
+
+
+\keywords{local refinement, space-time, 4D}
+
+ 
+\subjclass{65F10, 65N20, 65N30}
+ 
+%\date{January 24, 2016--beginning; Today is \today}
+% \thanks{This work was supported through ARO Grant \# * .
+%Part of this work was performed under the auspices of the U.S. Department
+%of Energy by Lawrence Livermore National Laboratory under Contract
+%DE-AC52-07NA27344.}
+
+\begin{document}
+ 
+\begin{abstract}
+...
+\end{abstract}
+\maketitle
+
+\section{Discussion of the rules and their geometrical interpretation}
+
+One could notice now that the rules might not uniquely define the algorithm since the same rule can lead to different choice of refinement edges for the children.
+
+To illustrate that, each of the main rules generated by the diagrams is considered below in more detail. The two key ideas called \textbf{idea 1} and \textbf{idea 2} are introduced in consideration of the first case.
+
+\begin{itemize}
+	\item Case: $P_r \rightarrow P_b + P_b$. \\
+	Representative: 
+	$$ \begin{array}{c} 01278 \\ \left[02,01,12\right] \end{array} P
+	\rightarrow 
+	\begin{array}{c} 01678 \\ \left[01,08,18\right] \end{array} P +
+	\begin{array}{c} 12678 \\ \left[12,18,28\right] \end{array} P $$
+	with the new vertex $\left[02\right] = 6$ (comes from n = 4, ``4'')
+	
+	\begin{table}[h!]
+	\caption{Case: $P_r \rightarrow P_b + P_b$.}
+	\label{tab:Case1}
+	\begin{tabular}{|c|c|c|} \hline
+	parent & \multicolumn{2}{|c|}{01278} \\ \hline
+	children & 01678 & 12678 \\ \hline
+	inherited face & 0178 & 1278 \\ \hline
+	\multirow{3}{*}{cut faces} & 0167 & 1267 \\ 
+	 & 0168 & 1268 \\ 
+	 & 0678 & 2678 \\ \hline
+	 new face & 1678 & 1678 \\ \hline
+	\end{tabular}
+	\end{table}
+    Now, looking at the rule above we need to mark each of the children faces (choose an edge). 
+    
+    First, notice that we already know from the case rule the refinement edge for both children ($\left[01\right]$ and $\left[12\right]$ corrsepondingly). Also, we know from the concept of the refinement edge that it should be an intersection of three adjacent faces (this argument will be called as \textbf{idea 1} below. Thus we can mark the inherited face and the first two cut faces.
+    
+    Second, from the rule we see that $\left[18\right]$ and $\left[28\right]$ are marked, hence we can mark the new face.
+    
+    Third, for the one cut face left unmakred we have the marked edge: $\left[08\right]$ and $\left[28\right]$ directly from the rule.
+      
+    Still, there is non-uniqueness entering the case implicitly. Looking at the rule itself, one can notice that vertices $7$ and $8$ enter the situation equally. Then, why for all the rules at that level (look into the diagram) $8$ was preferred to $7$? The \textbf{idea 2} (which supports the tetrahedron case as well) is that whenever we have to choose between vertices, we first look at their generation. Here $8$ is the new vertex, hence it is younger, hence we choose $\left[01\right]$ and $\left[12\right]$. Thus, this idea is telling us that this is because $7$ is younger than $8$ since it appears at the previous level while $8$ is one level older. (As far as I have checked it is true for all other rules coming from the diagrams as well).
+    
+    Notice that in 3D case instead of two vertices $7$ and $8$ there will be only one, so no ambiguity arises there and \textbf{idea 2} is hidden behind the direct definition of the geometric rules.
+
+	Now imagine we know only the type transformation and the marked edges of the parent but not the particular refinement edges for the children. How we should define marked edges for the children?
+	
+	We suggest the following recipy for type $P_r$:
+	\begin{enumerate}
+		\item Inherited face gets the marked edge (future refinement edge) from the parent
+		\item If a cut face contains the refinement edge, it is its marked edge.
+		\item The face which does not, build its marked edge from the inherited endpoint of the parent's refinement edge ($0$ and $1$ in the considered case example) and the new vertex ($8$).
+		\item The new face builds its marked edge from the vertex which was in the parent's ``triangle of marked edges'' (i.e., $1$ from $012$)  and the new vertex ($8$).
+	\end{enumerate}
+    
+    
+	\item Case: $A2_f \rightarrow P_r + P_r$. \\
+	Representative: 
+	$$ \begin{array}{c} 01234 \\ \left[03,02,13\right] \end{array} A2
+	\rightarrow 
+	\begin{array}{c} 01274 \\ \left[02,01,12\right] \end{array} P +
+	\begin{array}{c} 12374 \\ \left[13,12,23\right] \end{array} P $$
+	with the new vertex $\left[03\right] = 7$ (comes from ?? diagram)
+	
+	\begin{table}[h!]
+	\caption{Case: $A2_f \rightarrow P_r + P_r$.}
+	\label{tab:Case2}
+	\begin{tabular}{|c|c|c|} \hline
+	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+	children & 01274 & 12374 \\ \hline
+	inherited face & 0124 & 1234 \\ \hline
+	\multirow{3}{*}{cut faces} & 0147 & 1347 \\ 
+	 & 0247 & 2347 \\ 
+	 & 0127 & 1237 \\ \hline
+	 new face & 1247 & 1247 \\ \hline
+	\end{tabular}
+	\end{table}    
+    Again, we need to mark each of the children faces. 
+    
+    First, we use the knowledge of the refinement edge. Adding \textbf{idea 1}, we mark three of the faces. Second, from the rule we mark the new face. Third, for the one cut face left unmarked we have the marked edge: $\left[08\right]$ and $\left[28\right]$ directly from the rule.
+    
+    Now, to the recipy for $A2_f$:
+	\begin{enumerate}
+		\item Inherited face gets the marked edge (future refinement edge) from the parent
+		\item If a cut face contains the refinement edge, it is its marked edge.
+		\item The face which does not, abandons the new vertex ($7$) and the vertex which doesn't enter the parent's ``tetrahedron of marked edges'' ($4$) and builds the marked edge from the rest two of its vertices.
+		\item The new face builds its marked edge from the vertices which were in the parent's ``tetrahedron of marked edges'' (i.e., $12$ from $0123$ for the left child), while the rest vertices from the tetrahedron of edges (endpoints of the ref. edge) never belong to the new face.
+	\end{enumerate}   
+	
+	Notice, that using the last rule, both children will mark the new face in the same way.
+	
+	\item Case: $A2_u \rightarrow A2_f + A2_f$. \\
+	Representative: 
+	$$ \begin{array}{c} 01234 \\ \left[04,03,14\right] \end{array} A2
+	\rightarrow 
+	\begin{array}{c} 01274 \\ \left[03,02,13\right] \end{array} A2 +
+	\begin{array}{c} 12374 \\ \left[14,13,24\right] \end{array} A2 $$
+	with the new vertex $\left[04\right] = 8$ (comes from ?? diagram)
+	
+	\begin{table}[h!]
+	\caption{Case: $A2_u \rightarrow A2_f + A2_f$.}
+	\label{tab:Case3}
+	\begin{tabular}{|c|c|c|} \hline
+	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+	children & 01238 & 12348 \\ \hline
+	inherited face & 0123 & 1234 \\ \hline
+	\multirow{3}{*}{cut faces} & 0128 & 4128 \\ 
+	 & 0138 & 4138 \\ 
+	 & 0238 & 4238 \\ \hline
+	 new face & 1238 & 1238 \\ \hline
+	\end{tabular}
+	\end{table}    
+    Again, we need to mark each of the children faces. 
+    Following the above used arguments, we mark all the faces and formulate the recipy for $A2_u$:
+    
+	\begin{enumerate}
+		\item Inherited face gets the marked edge (future refinement edge) from the parent
+		\item If a cut face contains the refinement edge, it is its marked edge.
+		\item The face which does not, takes the vertex which doesn't enter the parent's ``tetrahedron of marked edges'' ($4$ outside of $0123$) and marks the edge connecting this vertex with one of the endpoints of the parent's refinement edge ($0$ and $4$).
+		\item The new face builds its marked edge from the vertices which were in the parent's ``tetrahedron of marked edges'' (i.e., $13$ from $0123$ for the left child).
+	\end{enumerate}
+	 
+	\item Case: $P_b \rightarrow A2_u + A2_u$. \\
+	Representative: 
+	$$ \begin{array}{c} 12674 \\ \left[12,14,24\right] \end{array} P
+	\rightarrow 
+	\begin{array}{c} 19674 \\ \left[14,17,49\right] \end{array} A2 +
+	\begin{array}{c} 29674 \\ \left[24,27,49\right] \end{array} A2 $$
+	with the new vertex $\left[12\right] = 9$ (comes from n = 4, ``3'' diagram)
+	
+	\begin{table}[h!]
+	\caption{Case: $P_b \rightarrow A2_u + A2_u$.}
+	\label{tab:Case4}
+	\begin{tabular}{|c|c|c|} \hline
+	parent & \multicolumn{2}{|c|}{12674} \\ \hline
+	children & 19674 & 29674 \\ \hline
+	inherited face & 1674 & 2674 \\ \hline
+	\multirow{3}{*}{cut faces} & 1974 & 2974 \\ 
+	 & 1964 & 2964 \\ 
+	 & 1967 & 2967 \\ \hline
+	 new face & 6749 & 6749 \\ \hline
+	\end{tabular}
+	\end{table}    
+    Again, we need to mark each of the children faces. 
+    Following the above used arguments, we mark all the faces and formulate the recipy for $P_b$:
+    
+    	\begin{enumerate}
+		\item Inherited face gets the marked edge (future refinement edge) from the parent
+		\item If a cut face contains the refinement edge, it is its marked edge.
+		\item The face which does not, abandons the new vertex ($9$), takes the vertex which belongs to the parent's ``triangle of marked edges'' ($1$ and $2$ out of $124$) and marks the edge connecting this vertex with the older of the two vertices left ($7$) (\textbf{idea 2}).
+		\item The new face builds its marked edge from the vertex which was in the parent's ``triangle of marked edges'' (i.e., $4$ from $124$)  and the new vertex ($9$).
+	\end{enumerate}
+	
+	The roles of vertices $6$ and $7$ here are identical, so the overall choice of $7$ is based on \textbf{idea 2}.
+
+\end{itemize}
+ 
+The geometric recipes above are said to provide a uniquely determined refinement sequences in full accordance (check this!) with the diagrams coming from the Maubach's algorithm.
+
+However, there are still things to be defined. In particular, as mentioned earlier, there are more pentatop types then only $P$'s and $A2$'s.
+
+It is not fully understood now how the specific rules for the rest of the types affect the problem of closure finiteness but still we will have a look at them.
+
+\begin{itemize}
+	\item Type A1 (adjacent, but unlike A2, the refinement edge is not the middle one in the three-... chain).
+	$$ \begin{array}{c} 01234 \\ \left[01,12,23\right] \end{array} A1
+	\rightarrow ? + ? $$
+\end{itemize}
+
+\section{Brief description}
+
+Douglas and his coauthors develop in their paper an algorithm for local refinement for 3D simplicial meshes which has a theoretical proof. THey proved theat there exist only a fnite number of similarity classes and that the local refinement algorithm is finie (i.e., it will terminate after a finite number of steps).
+
+One of the main facts in their proof is the similarity between the proposed algorithm and the Maubach's algorithm which was developed for $n$-dimensional simplices.
+
+First, we study Maubach's algorithm in 4D case.
+
+\section{Maubach's algorithm}
+
+Maubach's algorithm takes a particular 4-simplex with one edge marked to be the refinement edge and tells how to define the refinement edges for the children. The algorithm depends on the vertex ordering thus we consider different choices of the refinement edge in terms of vertex ordering.
+
+The algorithm as it was formulated in Maubach's paper with $l$ being the so called level of the simplex.
+\begin{algorithm}
+    \caption{Bisect $n$-simplex}
+    \label{euclid}
+    \begin{algorithmic}[1] % The number tells where the line numbering should start
+        %\Procedure{Euclid}{$a,b$} %\Comment{The g.c.d. of a and b}
+            \State Begin
+            \State Let $k:= n - l(\mbox{simplex}) \, \mbox{mod} \, n$;
+            \State Get simplex vertices: $x_0, x_1, ..., x_{n-1}, x_n$;
+            \State Create the new vertex: $z := \frac{1}{2} \left\{ x_0 + x_k \right\}$;
+            \State Create $\mbox{descendant}_0$: $x_0, x_1, ..., x_{k-1}, z, x_{k+1}, ..., x_n$;
+            \State Create $\mbox{descendant}_1$: $x_1, x_2, ..., x_k, z, x_{k+1}, ..., x_n$;
+            \State Let $l(\mbox{descendant}_0) := l(\mbox{simplex}) + 1$;
+            \State Let $l(\mbox{descendant}_1) := l(\mbox{simplex}) + 1$;
+            \State End
+        %\EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+Notice that the above algorithm is completely independent of the simplex geometry and depends only on the choice of $l$ and vertex ordering. For our purposes (multiple local mesh refinements) one can think that $l$ will vary so the whole range should be considered.
+
+Below one can find full diagrams of Maubach's algorithm applied for a 4-dimensional simplex (called also a pentatop or a 4-simplex in what follows).
+
+Let $\{01234\}$ be a 4-simplex with vertices numbered from 0 to 4. Edges will be written as $[a,b]$ if the edge connects vertices with indices $a$ and $b$.
+We will also need to index middlepoints of the edges. 
+$$
+\begin{array}{cc}
+\mbox{edge} & \mbox{midpoint} \\
+\left[0,1\right] & 5 \\
+\left[0,2\right] & 6 \\
+\left[0,3\right] & 7 \\
+\left[0,4\right] & 8 \\
+\left[1,2\right] & 9 \\
+\left[1,3\right] & 10 \\
+\left[1,4\right] & 11 \\
+\left[2,3\right] & 12 \\
+\left[2,4\right] & 13 \\
+\left[3,4\right] & 14 \\
+\end{array}
+$$
+
+\begin{landscape}
+
+Case 1: ref. edge is $[0,4] = 8$ (to remind the midpoint index to the right of the equality sign)
+
+%\begin{forest}, baseline, qtree
+%[\texttt{(01234,`4')}\\ \texttt{[0,4]}
+%[Spec]
+%[I\textprime,
+%    [\texttt{(01234,`4')}\\$\alpha$are]
+%    [VP]
+%]]
+%\end{forest}
+
+\begin{forest}, baseline, qtree
+[\texttt{(01234,`4')}\\ \texttt{$[0,4] = 8$}
+  [\texttt{(01238,`3')}\\ \texttt{$[0,3] = 7$}, s-=10 
+    [\texttt{(01278,`2')}\\ \texttt{$[0,2] = 6$}
+      [\texttt{(01678,`1')}\\ \texttt{$[0,1] = 5$} 
+        [\texttt{(05678,`4')}\\ \texttt{$[0,8]$}  ]
+        [\texttt{(15678,`4')}\\ \texttt{$[1,8]$}, s+=10, l*=2, ignore edge  ]
+      ]
+      [\texttt{(12678,`1')}\\ \texttt{$[1,2] = 9$}
+        [\texttt{(19678,`4')}\\ \texttt{$[1,8]$} ]
+        [\texttt{(29678,`4')}\\ \texttt{$[2,8]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+    [\texttt{(12378,`2')}\\ \texttt{$[1,3] = 10$}
+      [\texttt{(12,10,78,`1')}\\ \texttt{$[1,2] = 9$} 
+        [\texttt{(19,10,78,`4')}\\ \texttt{$[1,8]$} ]
+        [\texttt{(29,10,78,`4')}\\ \texttt{$[2,8]$}, s+=10, l*=2, ignore edge ]
+      ]
+      [\texttt{(23,10,78,`1')}\\ \texttt{$[2,3] = 12$} 
+        [\texttt{(2,12,10,78,`4')}\\ \texttt{$[2,8]$} ]
+        [\texttt{(3,12,10,78,`4')}\\ \texttt{$[3,8]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+  ]
+  [\texttt{(12348,`3')}\\ \texttt{$[1,4] = 11$}, l*=6, s+=20
+    [\texttt{(123,11,8,`2')}\\ \texttt{$[1,3] = 10$} 
+      [\texttt{(12,10,11,8,`1')}\\ \texttt{$[1,2] = 9$ }
+        [\texttt{(19,10,11,8,`4')}\\ \texttt{$[1,8]$} ]
+        [\texttt{(29,10,11,8,`4')}\\ \texttt{$[2,8]$}, s+=10, l*=2, ignore edge ]
+      ]
+      [\texttt{(23,10,11,8,`1')}\\ \texttt{$[2,3] = 12$}
+        [\texttt{(2,12,10,11,8,`4')}\\ \texttt{$[2,8]$} ]
+        [\texttt{(3,12,10,11,8,`4')}\\ \texttt{$[3,8]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+    [\texttt{(234,11,8,`2')}\\ \texttt{$[2,4] = 13$} 
+      [\texttt{(23,13,11,8,`1')}\\ \texttt{$[2,3] = 12$} 
+        [\texttt{(2,12,13,11,8,`4')}\\ \texttt{$[2,8]$} ]
+        [\texttt{(3,12,13,11,8,`4')}\\ \texttt{$[3,8]$}, s+=10, l*=2, ignore edge ]
+      ]
+      [\texttt{(34,13,11,8,`1')}\\ \texttt{$[3,4] = 14$}
+        [\texttt{(3,14,13,11,8,`4')}\\ \texttt{$[3,8]$} ]
+        [\texttt{(4,14,13,11,8,`4')}\\ \texttt{$[4,8]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+  ]
+]
+\end{forest}
+\end{landscape}
+
+\begin{landscape}
+
+Case 2: ref. edge is $[0,3] = 7$ 
+
+\begin{forest}, baseline, qtree
+[\texttt{(01234,`4')}\\ \texttt{$[0,4] = 8$}
+  [\texttt{(01274,`2')}\\ \texttt{$[0,2] = 6$}, s-=10 
+    [\texttt{(01674,`1')}\\ \texttt{$[0,1] = 5$}
+      [\texttt{(05674,`4')}\\ \texttt{$[0,4] = 8$} 
+        [\texttt{(05678,`3')}\\ \texttt{$[0,7]$}  ]
+        [\texttt{(56748,`3')}\\ \texttt{$[4,5]$}, s+=10, l*=2, ignore edge  ]
+      ]
+      [\texttt{(15674,`4')}\\ \texttt{$[1,4] = 11$}
+        [\texttt{(1567,11,`3')}\\ \texttt{$[1,7]$} ]
+        [\texttt{(5674,11,`3')}\\ \texttt{$[4,5]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+    [\texttt{(12674,`1')}\\ \texttt{$[1,2] = 9$}
+      [\texttt{(19674,`4')}\\ \texttt{$[1,4] = 11$} 
+        [\texttt{(1967,11,`3')}\\ \texttt{$[1,7]$} ]
+        [\texttt{(9674,11,`3')}\\ \texttt{$[4,9]$}, s+=10, l*=2, ignore edge ]
+      ]
+      [\texttt{(29674,`4')}\\ \texttt{$[2,4] = 13$} 
+        [\texttt{(2967,13,`3')}\\ \texttt{$[2,7]$} ]
+        [\texttt{(9674,13,`3')}\\ \texttt{$[4,9]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+  ]
+  [\texttt{(12374,`2')}\\ \texttt{$[1,3] = 10$}, l*=6, s+=20
+    [\texttt{(12,10,74,`1')}\\ \texttt{$[1,2] = 9$} 
+      [\texttt{(19,10,74,`4')}\\ \texttt{$[1,4] = 11$ }
+        [\texttt{(19,10,7,11,'3')}\\ \texttt{$[1,7]$} ]
+        [\texttt{(9,10,74,11,`3')}\\ \texttt{$[4,9]$}, s+=10, l*=2, ignore edge ]
+      ]
+      [\texttt{(29,10,74,`4')}\\ \texttt{$[2,4] = 13$}
+        [\texttt{(29,10,7,13,`3')}\\ \texttt{$[2,7]$} ]
+        [\texttt{(9,10,74,13,`3')}\\ \texttt{$[4,9]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+    [\texttt{(23,10,74,`1')}\\ \texttt{$[2,3] = 12$} 
+      [\texttt{(2,12,10,74,`4')}\\ \texttt{$[2,4] = 13$} 
+        [\texttt{(2,12,10,7,13,`3')}\\ \texttt{$[2,7]$} ]
+        [\texttt{(12,19,74,13,`3')}\\ \texttt{$[4,12]$}, s+=10, l*=2, ignore edge ]
+      ]
+      [\texttt{(3,12,10,74,`4')}\\ \texttt{$[3,4] = 14$}
+        [\texttt{(3,12,19,7,14,`3')}\\ \texttt{$[3,7]$} ]
+        [\texttt{(12,10,74,14,`3')}\\ \texttt{$[4,12]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+  ]
+]
+\end{forest}
+\end{landscape}
+
+\newpage
+
+\begin{landscape}
+
+Case 3: ref. edge is $[0,2] = 6$ 
+
+\begin{forest}, baseline, qtree
+[\texttt{(01234,`2')}\\ \texttt{$[0,2] = 6$}
+  [\texttt{(01634,`1')}\\ \texttt{$[0,1] = 5$}, s-=10 
+    [\texttt{(05634,`4')}\\ \texttt{$[0,4] = 8$}
+      [\texttt{(05638,`3')}\\ \texttt{$[0,3] = 7$} 
+        [\texttt{(05678,`2')}\\ \texttt{$[0,6]$}  ]
+        [\texttt{(56378,`2')}\\ \texttt{$[3,5]$}, s+=10, l*=2, ignore edge  ]
+      ]
+      [\texttt{(56348,`3')}\\ \texttt{$[4,5] = 15$}
+        [\texttt{(563,15,8,`2')}\\ \texttt{$[3,5]$} ]
+        [\texttt{(634,15,8,`2')}\\ \texttt{$[4,6]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+    [\texttt{(15634,`4')}\\ \texttt{$[1,4] = 11$}
+      [\texttt{(1563,11,`3')}\\ \texttt{$[1,3] = 10$} 
+        [\texttt{(156,10,11,`2')}\\ \texttt{$[1,6]$} ]
+        [\texttt{(563,10,11,`2')}\\ \texttt{$[3,5]$}, s+=10, l*=2, ignore edge ]
+      ]
+      [\texttt{(5634,11,`3')}\\ \texttt{$[4,5] = 15$} 
+        [\texttt{(563,15,11,`2')}\\ \texttt{$[3,5]$} ]
+        [\texttt{(634,15,11,`2')}\\ \texttt{$[4,6]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+  ]
+  [\texttt{(12634,`1')}\\ \texttt{$[1,2] = 9$}, l*=6, s+=20
+    [\texttt{(19634,`4')}\\ \texttt{$[1,4] = 11$} 
+      [\texttt{(1963,11,`3')}\\ \texttt{$[1,3] = 10$ }
+        [\texttt{(196,10,11,'2')}\\ \texttt{$[1,6]$} ]
+        [\texttt{(963,10,11,`2')}\\ \texttt{$[3,9]$}, s+=10, l*=2, ignore edge ]
+      ]
+      [\texttt{(1934,11,`3')}\\ \texttt{$[4,9] = 16$}
+        [\texttt{(963,16,11,`2')}\\ \texttt{$[3,9]$} ]
+        [\texttt{(634,16,11,`2')}\\ \texttt{$[4,6]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+    [\texttt{(29634,`4')}\\ \texttt{$[2,4] = 13$} 
+      [\texttt{(2963,13,`3')}\\ \texttt{$[2,3] = 12$} 
+        [\texttt{(296,12,13,`2')}\\ \texttt{$[2,6]$} ]
+        [\texttt{(963,12,13,`2')}\\ \texttt{$[3,9]$}, s+=10, l*=2, ignore edge ]
+      ]
+      [\texttt{(9634,13,`3')}\\ \texttt{$[4,9] = 16$}
+        [\texttt{(963,16,13,`2')}\\ \texttt{$[3,9]$} ]
+        [\texttt{(634,16,13,`2')}\\ \texttt{$[4,6]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+  ]
+]
+\end{forest}
+
+\vspace{1.0em}
+
+Note, that additional points are introduced which are not midpoints of the edges, namely, $[4,5] = 15$ and $[4,9] = 16$.
+
+\end{landscape}
+
+\newpage
+
+\begin{landscape}
+
+Case 4: ref. edge is $[0,2] = 6$ 
+
+\begin{forest}, baseline, qtree
+[\texttt{(01234,`2')}\\ \texttt{$[0,2] = 6$}
+  [\texttt{(01634,`1')}\\ \texttt{$[0,1] = 5$}, s-=10 
+    [\texttt{(05634,`4')}\\ \texttt{$[0,4] = 8$}
+      [\texttt{(05638,`3')}\\ \texttt{$[0,3] = 7$} 
+        [\texttt{(05678,`2')}\\ \texttt{$[0,6]$}  ]
+        [\texttt{(56378,`2')}\\ \texttt{$[3,5]$}, s+=10, l*=2, ignore edge  ]
+      ]
+      [\texttt{(56348,`3')}\\ \texttt{$[4,5] = 15$}
+        [\texttt{(563,15,8,`2')}\\ \texttt{$[3,5]$} ]
+        [\texttt{(634,15,8,`2')}\\ \texttt{$[4,6]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+    [\texttt{(15634,`4')}\\ \texttt{$[1,4] = 11$}
+      [\texttt{(1563,11,`3')}\\ \texttt{$[1,3] = 10$} 
+        [\texttt{(156,10,11,`2')}\\ \texttt{$[1,6]$} ]
+        [\texttt{(563,10,11,`2')}\\ \texttt{$[3,5]$}, s+=10, l*=2, ignore edge ]
+      ]
+      [\texttt{(5634,11,`3')}\\ \texttt{$[4,5] = 15$} 
+        [\texttt{(563,15,11,`2')}\\ \texttt{$[3,5]$} ]
+        [\texttt{(634,15,11,`2')}\\ \texttt{$[4,6]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+  ]
+  [\texttt{(12634,`1')}\\ \texttt{$[1,2] = 9$}, l*=6, s+=20
+    [\texttt{(19634,`4')}\\ \texttt{$[1,4] = 11$} 
+      [\texttt{(1963,11,`3')}\\ \texttt{$[1,3] = 10$ }
+        [\texttt{(196,10,11,'2')}\\ \texttt{$[1,6]$} ]
+        [\texttt{(963,10,11,`2')}\\ \texttt{$[3,9]$}, s+=10, l*=2, ignore edge ]
+      ]
+      [\texttt{(1934,11,`3')}\\ \texttt{$[4,9] = 16$}
+        [\texttt{(963,16,11,`2')}\\ \texttt{$[3,9]$} ]
+        [\texttt{(634,16,11,`2')}\\ \texttt{$[4,6]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+    [\texttt{(29634,`4')}\\ \texttt{$[2,4] = 13$} 
+      [\texttt{(2963,13,`3')}\\ \texttt{$[2,3] = 12$} 
+        [\texttt{(296,12,13,`2')}\\ \texttt{$[2,6]$} ]
+        [\texttt{(963,12,13,`2')}\\ \texttt{$[3,9]$}, s+=10, l*=2, ignore edge ]
+      ]
+      [\texttt{(9634,13,`3')}\\ \texttt{$[4,9] = 16$}
+        [\texttt{(963,16,13,`2')}\\ \texttt{$[3,9]$} ]
+        [\texttt{(634,16,13,`2')}\\ \texttt{$[4,6]$}, s+=10, l*=2, ignore edge ]
+      ]
+    ]
+  ]
+]
+\end{forest}
+
+\vspace{1.0em}
+Notice that additional vertices (not only midpoints are introduced), $[2,4]$ and $[3,4]$.
+
+\end{landscape}
+
+Along the lines with Arnol'd paper for three-dimensional case, we introduce the concept of a \textit{marked pentatop} which is a pentatop with three marked edges, one called the \textit{refinement edge} (which will be bisected at the next refinement step) and two \textit{marked edges} which will be the refinement edges for the two direct children of the current pentatop.
+
+Next, we need a classification of all marked pentatops (cf. with three-dimensional case). Equivalently, we need a classification for mutual geometrical positioning of the three marked edges of the pentatop.
+
+Consider a pentatop with vertices $\left\{ 0,1,2,3,4 \right\}$ and assume its refinement edge is $[0,1]$.
+
+\begin{center}
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=5pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (source) [label={[xshift = 0.2cm, yshift=-0.5cm]$0$}] {};
+    \node[right= 2cm of source] (dest1) [label={[xshift = 0.2cm, yshift=-0.5cm]$2$}] {};
+    \node[draw=none,fill=none, right= 3.5cm of source] (dest2) [label={[xshift = 0.2cm, yshift=0.0cm]$y$}] {};
+    \node[below left= 1.0cm and 1.5cm of source] (dest3) [label={[xshift = 0.2cm, yshift=-0.5cm]$1$}] {};
+    \node[draw=none,fill=none, below left= 2.0cm and 3.0cm of source] (dest4) [label={[xshift = -0.2cm, yshift=0.2cm]$x$}] {};
+    \node[above= 2.0cm of source] (dest5) [label={[xshift = 0.4cm, yshift=0.0cm]$3$}] {};
+    \node[draw=none,fill=none,above= 3.0cm of source] (dest6) [label={[xshift = 0.0cm, yshift=0.2cm]$z$}] {};
+    \node[above left= 1.5cm and 2.0cm of source] (dest7) [label={[xshift = -0.5cm, yshift=-0.2cm]$4$}] {};
+    \node[draw=none,fill=none,above left = 2.25cm and 3.0cm of source] (dest8) [label={[xshift = -0.10cm, yshift=0.13cm]$t$}] {};
+    \draw (source) -- (dest1);
+    \draw[->] (dest1) -- (dest2);
+    \draw[color=red, thick] (source) -- (dest3);
+    \draw[->] (dest3) -- (dest4);
+    \draw (source) -- (dest5);
+    \draw[->] (dest5) -- (dest6);
+    \draw (source) -- (dest7);
+    \draw[->] (dest7) -- (dest8);
+
+    \draw (dest1) -- (dest3);
+    \draw (dest7) -- (dest1);
+    \draw (dest3) -- (dest7);
+    \draw (dest7) -- (dest5);
+    \draw (dest5) -- (dest3);
+    \draw (dest5) -- (dest1);
+
+\end{tikzpicture}
+\end{center}
+
+Then, one can determine the following types of 4-simplices:
+
+\begin{itemize}
+	\item Type O: Marked edges are, e.g. $[0,1], [2,3]$ and $[1,3]$, i.e. refinement edges for the children coincide;
+	\item Type A1: Marked edges are, e.g. $[0,1], [1,2]$ and $[2,3]$, i.e. refinement edges for the children coincide ara adjacent and the refinement edge is not in the middle;
+	\item Type A2: Marked edges are, e.g. $[0,1], [1,2]$ and $[0,3]$, i.e. refinement edges for the children coincide ara adjacent and the refinement edge is in the middle; (probably should be combined with A1)
+	\item Type P: Marked edges are, e.g. $[0,1], [1,2]$ and $[0,2]$, i.e. refinement edges form a triangle;
+	\item Type T: Marked edges are, e.g., $[0,1], [2,3]$ and $[3,4]$ and  touch all vertices, i.e. do not belong to a three-dimensional hyperplane (do we need T1 and T2, i.e. a differet cases if refinement edge is or is not connected to the rest marked edges?).
+\end{itemize}
+
+Note, that in comparison with the three-dimensional case a completely new type, type T (which is essentially 4D), enters the picture.
+
+Typical representatives of the pentatop types are presented below.
+
+\begin{minipage}[]{0.15\textwidth}
+  \begin{center}
+\scalebox{0.5}{
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=5pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (source) [label={[xshift = 0.2cm, yshift=-0.5cm]$0$}] {};
+    \node[right= 2cm of source] (dest1) [label={[xshift = 0.2cm, yshift=-0.5cm]$2$}] {};
+    \node[draw=none,fill=none, right= 3.5cm of source] (dest2) [label={[xshift = 0.2cm, yshift=0.0cm]$y$}] {};
+    \node[below left= 1.0cm and 1.5cm of source] (dest3) [label={[xshift = 0.2cm, yshift=-0.5cm]$1$}] {};
+    \node[draw=none,fill=none, below left= 2.0cm and 3.0cm of source] (dest4) [label={[xshift = -0.2cm, yshift=0.2cm]$x$}] {};
+    \node[above= 2.0cm of source] (dest5) [label={[xshift = 0.4cm, yshift=0.0cm]$3$}] {};
+    \node[draw=none,fill=none,above= 3.0cm of source] (dest6) [label={[xshift = 0.0cm, yshift=0.2cm]$z$}] {};
+    \node[above left= 1.5cm and 2.0cm of source] (dest7) [label={[xshift = -0.5cm, yshift=-0.2cm]$4$}] {};
+    \node[draw=none,fill=none,above left = 2.25cm and 3.0cm of source] (dest8) [label={[xshift = -0.10cm, yshift=0.13cm]$t$}] {};
+    \draw (source) -- (dest1);
+    \draw[->] (dest1) -- (dest2);
+    \draw[color=red, thick] (source) -- (dest3);
+    \draw[->] (dest3) -- (dest4);
+    \draw (source) -- (dest5);
+    \draw[->] (dest5) -- (dest6);
+    \draw (source) -- (dest7);
+    \draw[->] (dest7) -- (dest8);
+
+    \draw (dest1) -- (dest3);
+    \draw (dest7) -- (dest1);
+    \draw (dest3) -- (dest7);
+    \draw (dest7) -- (dest5);
+    \draw (dest5) -- (dest3);
+    \draw [color=red, thick](dest5) -- (dest1);
+
+\end{tikzpicture}
+}
+Type O
+\end{center}
+\end{minipage}
+\quad
+\begin{minipage}[]{0.15\textwidth}
+  \begin{center}
+\scalebox{0.5}{
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=5pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (source) [label={[xshift = 0.2cm, yshift=-0.5cm]$0$}] {};
+    \node[right= 2cm of source] (dest1) [label={[xshift = 0.2cm, yshift=-0.5cm]$2$}] {};
+    \node[draw=none,fill=none, right= 3.5cm of source] (dest2) [label={[xshift = 0.2cm, yshift=0.0cm]$y$}] {};
+    \node[below left= 1.0cm and 1.5cm of source] (dest3) [label={[xshift = 0.2cm, yshift=-0.5cm]$1$}] {};
+    \node[draw=none,fill=none, below left= 2.0cm and 3.0cm of source] (dest4) [label={[xshift = -0.2cm, yshift=0.2cm]$x$}] {};
+    \node[above= 2.0cm of source] (dest5) [label={[xshift = 0.4cm, yshift=0.0cm]$3$}] {};
+    \node[draw=none,fill=none,above= 3.0cm of source] (dest6) [label={[xshift = 0.0cm, yshift=0.2cm]$z$}] {};
+    \node[above left= 1.5cm and 2.0cm of source] (dest7) [label={[xshift = -0.5cm, yshift=-0.2cm]$4$}] {};
+    \node[draw=none,fill=none,above left = 2.25cm and 3.0cm of source] (dest8) [label={[xshift = -0.10cm, yshift=0.13cm]$t$}] {};
+    \draw (source) -- (dest1);
+    \draw[->] (dest1) -- (dest2);
+    \draw[color=red, thick] (source) -- (dest3);
+    \draw[->] (dest3) -- (dest4);
+    \draw (source) -- (dest5);
+    \draw[->] (dest5) -- (dest6);
+    \draw (source) -- (dest7);
+    \draw[->] (dest7) -- (dest8);
+
+    \draw [color=red, thick] (dest1) -- (dest3);
+    \draw (dest7) -- (dest1);
+    \draw (dest3) -- (dest7);
+    \draw (dest7) -- (dest5);
+    \draw (dest5) -- (dest3);
+    \draw [color=red, thick] (dest5) -- (dest1);
+
+\end{tikzpicture}
+}
+Type A1
+\end{center}
+
+\end{minipage}
+\quad
+\begin{minipage}[]{0.15\textwidth}
+  \begin{center}
+\scalebox{0.5}{
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=5pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (source) [label={[xshift = 0.2cm, yshift=-0.5cm]$0$}] {};
+    \node[right= 2cm of source] (dest1) [label={[xshift = 0.2cm, yshift=-0.5cm]$2$}] {};
+    \node[draw=none,fill=none, right= 3.5cm of source] (dest2) [label={[xshift = 0.2cm, yshift=0.0cm]$y$}] {};
+    \node[below left= 1.0cm and 1.5cm of source] (dest3) [label={[xshift = 0.2cm, yshift=-0.5cm]$1$}] {};
+    \node[draw=none,fill=none, below left= 2.0cm and 3.0cm of source] (dest4) [label={[xshift = -0.2cm, yshift=0.2cm]$x$}] {};
+    \node[above= 2.0cm of source] (dest5) [label={[xshift = 0.4cm, yshift=0.0cm]$3$}] {};
+    \node[draw=none,fill=none,above= 3.0cm of source] (dest6) [label={[xshift = 0.0cm, yshift=0.2cm]$z$}] {};
+    \node[above left= 1.5cm and 2.0cm of source] (dest7) [label={[xshift = -0.5cm, yshift=-0.2cm]$4$}] {};
+    \node[draw=none,fill=none,above left = 2.25cm and 3.0cm of source] (dest8) [label={[xshift = -0.10cm, yshift=0.13cm]$t$}] {};
+    \draw (source) -- (dest1);
+    \draw[->] (dest1) -- (dest2);
+    \draw[color=red, thick] (source) -- (dest3);
+    \draw[->] (dest3) -- (dest4);
+    \draw [color=red, thick] (source) -- (dest5);
+    \draw[->] (dest5) -- (dest6);
+    \draw (source) -- (dest7);
+    \draw[->] (dest7) -- (dest8);
+
+    \draw [color=red, thick] (dest1) -- (dest3);
+    \draw (dest7) -- (dest1);
+    \draw (dest3) -- (dest7);
+    \draw (dest7) -- (dest5);
+    \draw (dest5) -- (dest3);
+    \draw (dest5) -- (dest1);
+
+\end{tikzpicture}
+}
+Type A2
+\end{center}
+
+\end{minipage}
+\quad
+\begin{minipage}[]{0.15\textwidth}
+  \begin{center}
+\scalebox{0.5}{
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=5pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (source) [label={[xshift = 0.2cm, yshift=-0.5cm]$0$}] {};
+    \node[right= 2cm of source] (dest1) [label={[xshift = 0.2cm, yshift=-0.5cm]$2$}] {};
+    \node[draw=none,fill=none, right= 3.5cm of source] (dest2) [label={[xshift = 0.2cm, yshift=0.0cm]$y$}] {};
+    \node[below left= 1.0cm and 1.5cm of source] (dest3) [label={[xshift = 0.2cm, yshift=-0.5cm]$1$}] {};
+    \node[draw=none,fill=none, below left= 2.0cm and 3.0cm of source] (dest4) [label={[xshift = -0.2cm, yshift=0.2cm]$x$}] {};
+    \node[above= 2.0cm of source] (dest5) [label={[xshift = 0.4cm, yshift=0.0cm]$3$}] {};
+    \node[draw=none,fill=none,above= 3.0cm of source] (dest6) [label={[xshift = 0.0cm, yshift=0.2cm]$z$}] {};
+    \node[above left= 1.5cm and 2.0cm of source] (dest7) [label={[xshift = -0.5cm, yshift=-0.2cm]$4$}] {};
+    \node[draw=none,fill=none,above left = 2.25cm and 3.0cm of source] (dest8) [label={[xshift = -0.10cm, yshift=0.13cm]$t$}] {};
+    \draw [color=red, thick] (source) -- (dest1);
+    \draw[->] (dest1) -- (dest2);
+    \draw[color=red, thick] (source) -- (dest3);
+    \draw[->] (dest3) -- (dest4);
+    \draw (source) -- (dest5);
+    \draw[->] (dest5) -- (dest6);
+    \draw (source) -- (dest7);
+    \draw[->] (dest7) -- (dest8);
+
+    \draw [color=red, thick] (dest1) -- (dest3);
+    \draw (dest7) -- (dest1);
+    \draw (dest3) -- (dest7);
+    \draw (dest7) -- (dest5);
+    \draw (dest5) -- (dest3);
+    \draw (dest5) -- (dest1);
+
+\end{tikzpicture}
+}
+Type P
+\end{center}
+
+\end{minipage}
+\quad
+\begin{minipage}[]{0.15\textwidth}
+  \begin{center}
+\scalebox{0.5}{
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=5pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (source) [label={[xshift = 0.2cm, yshift=-0.5cm]$0$}] {};
+    \node[right= 2cm of source] (dest1) [label={[xshift = 0.2cm, yshift=-0.5cm]$2$}] {};
+    \node[draw=none,fill=none, right= 3.5cm of source] (dest2) [label={[xshift = 0.2cm, yshift=0.0cm]$y$}] {};
+    \node[below left= 1.0cm and 1.5cm of source] (dest3) [label={[xshift = 0.2cm, yshift=-0.5cm]$1$}] {};
+    \node[draw=none,fill=none, below left= 2.0cm and 3.0cm of source] (dest4) [label={[xshift = -0.2cm, yshift=0.2cm]$x$}] {};
+    \node[above= 2.0cm of source] (dest5) [label={[xshift = 0.4cm, yshift=0.0cm]$3$}] {};
+    \node[draw=none,fill=none,above= 3.0cm of source] (dest6) [label={[xshift = 0.0cm, yshift=0.2cm]$z$}] {};
+    \node[above left= 1.5cm and 2.0cm of source] (dest7) [label={[xshift = -0.5cm, yshift=-0.2cm]$4$}] {};
+    \node[draw=none,fill=none,above left = 2.25cm and 3.0cm of source] (dest8) [label={[xshift = -0.10cm, yshift=0.13cm]$t$}] {};
+    \draw (source) -- (dest1);
+    \draw[->] (dest1) -- (dest2);
+    \draw (source) -- (dest3);
+    \draw[->] (dest3) -- (dest4);
+    \draw (source) -- (dest5);
+    \draw[->] (dest5) -- (dest6);
+    \draw (source) -- (dest7);
+    \draw[->] (dest7) -- (dest8);
+
+    \draw [color=red, thick] (dest1) -- (dest3);
+    \draw (dest7) -- (dest1);
+    \draw (dest3) -- (dest7);
+    \draw [color=red, thick] (dest7) -- (dest5);
+    \draw (dest5) -- (dest3);
+    \draw [color=red, thick] (dest5) -- (dest1);
+
+\end{tikzpicture}
+}
+Type T
+\end{center}
+
+\end{minipage}
+
+Looking at the diagrams we can extract the following rules for pentatop type transformations:
+
+\begin{itemize}
+	\item From case 1:
+	\begin{enumerate}
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 01234 \\ \left[04,03,14\right] \end{array}	A2 \rightarrow 
+			\begin{array}{c} 01238 \\ \left[03,02,13\right] \end{array}	A2 +
+			\begin{array}{c} 12348 \\ \left[14,13,24\right] \end{array}	A2  					& \quad  \mbox{lvl 0}
+		\end{array}
+		$
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 01238 \\ \left[03,02,13\right] \end{array}	A2 \rightarrow 
+			\begin{array}{c} 01278 \\ \left[02,01,12\right] \end{array}	P +
+			\begin{array}{c} 12378 \\ \left[13,12,23\right] \end{array}	P  					& \quad \mbox{lvl 1}
+		\end{array}
+		$
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 12348 \\ \left[14,13,24\right] \end{array}	A2 \rightarrow 
+			\begin{array}{c} 123,11,8 \\ \left[13,12,23\right] \end{array}	P +
+			\begin{array}{c} 234,11,8 \\ \left[24,23,34\right] \end{array}	P  					& \quad  \mbox{lvl 1}
+		\end{array}
+		$
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 01278 \\ \left[02,01,12\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 01678 \\ \left[01,08,18\right] \end{array}	P +
+			\begin{array}{c} 12678 \\ \left[12,18,28\right] \end{array}	P  					& \quad \mbox{lvl 2}
+		\end{array}
+		$
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 12378 \\ \left[13,12,23\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 12,10,78 \\ \left[12,18,28\right] \end{array}	P +
+			\begin{array}{c} 23,10,78 \\ \left[23,28,38\right] \end{array}	P  					& \quad \mbox{lvl 2}
+		\end{array}
+		$	
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 123,11,8 \\ \left[13,12,23\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 12,10,11,8 \\ \left[12,18,28\right] \end{array}	P +
+			\begin{array}{c} 23,10,11,8 \\ \left[23,28,38\right] \end{array}	P  					& \quad \mbox{lvl 2}
+		\end{array}
+		$		
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 234,11,8 \\ \left[24,23,34\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 23,13,11,8 \\ \left[23,28,38\right] \end{array}	P +
+			\begin{array}{c} 34,13,11,8 \\ \left[34,38,48\right] \end{array}	P  					& \quad \mbox{lvl 2}
+		\end{array}
+		$		
+			
+	\end{enumerate}
+	\item From case 2:
+	\begin{enumerate}
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 01234 \\ \left[03,02,13\right] \end{array}	A2 \rightarrow 
+			\begin{array}{c} 01274 \\ \left[02,01,12\right] \end{array}	P +
+			\begin{array}{c} 12374 \\ \left[13,12,23\right] \end{array}	P  					& \quad  \mbox{lvl 0}
+		\end{array}
+		$
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 01274 \\ \left[02,01,12\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 01674 \\ \left[01,04,14\right] \end{array}	P +
+			\begin{array}{c} 12674 \\ \left[12,14,24\right] \end{array}	P  					& \quad  \mbox{lvl 1}
+		\end{array}
+		$
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 12374 \\ \left[13,12,23\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 12,10,74 \\ \left[12,14,24\right] \end{array}	P +
+			\begin{array}{c} 23,10,74 \\ \left[23,24,34\right] \end{array}	P  					& \quad  \mbox{lvl 1}
+		\end{array}
+		$
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 01674 \\ \left[01,04,14\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 05674 \\ \left[04,07,45\right] \end{array}	A2 +
+			\begin{array}{c} 15674 \\ \left[14,17,45\right] \end{array}	A2  					& \quad  \mbox{lvl 2}
+		\end{array}
+		$	
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 12674 \\ \left[12,14,24\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 19674 \\ \left[14,17,49\right] \end{array}	A2 +
+			\begin{array}{c} 29674 \\ \left[24,27,49\right] \end{array}	A2  					& \quad  \mbox{lvl 2}
+		\end{array}
+		$	
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 12,10,74 \\ \left[12,14,24\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 19,10,74 \\ \left[14,17,49\right] \end{array}	A2 +
+			\begin{array}{c} 29,10,74 \\ \left[24,27,49\right] \end{array}	A2  					& \quad  \mbox{lvl 2}
+		\end{array}
+		$
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 23,10,74 \\ \left[23,24,34\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 2,12,10,74 \\ \left[24,27,??[4,12]\right] \end{array}	A2 +
+			\begin{array}{c} 3,12,10,74 \\ \left[34,37,??[4,12]\right] \end{array}	A2  					& \quad  \mbox{lvl 2}
+		\end{array}
+		$
+		which is bad because $[4,12]$ vertex.				
+	\end{enumerate}
+    \item From case 3:
+    \begin{enumerate}
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 01234 \\ \left[02,01,12\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 01634 \\ \left[01,04,14\right] \end{array}	P +
+			\begin{array}{c} 12634 \\ \left[12,14,24]\right] \end{array} P  					& \quad  \mbox{lvl 0}
+		\end{array}
+		$
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 01634 \\ \left[01,04,14\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 05634 \\ \left[04,03,??\right] \end{array}	P +
+			\begin{array}{c} 15634 \\ \left[14,13,??\right] \end{array} P  					& \quad  \mbox{lvl 1}
+		\end{array}
+		$
+    	which is already bad because ?? (vertex).				
+
+    \end{enumerate}
+    
+    \item From case 4:
+    Nothing really comes from here because the middle of the ??(vertices) which do not fit into any 4-simplex type defined above. (? Check this)    
+
+\end{itemize}
+
+The rules suggest the following diagram (cf. with diagram in section 3) where subscripts $u$, $f$ for class A2, $r$ and $b$ for class P are introduced in order to distinguish two different ways of these class transformation due to the rules above):
+
+\begin{center}
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=white,minimum size=25pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (source) [label=center:$A2_u$] {};
+    \node[below right= 0.0cm and 4.0cm of source] (dest1) [label=center:$A2_f$] {};
+    \node[below right= 4.0cm and 4.0cm of source] (dest2) [label=center:$P_r$] {};
+    \node[below= 4.0cm of source] (dest3) [label=center:$P_b$] {};
+    \draw[->] (source) -- (dest1);
+    \draw[->] (dest1) -- (dest2);
+    \draw[->] (dest2) -- (dest3);
+    \draw[->] (dest3) -- (source);
+
+\end{tikzpicture}
+\end{center}
+
+Now, to complete the transformation diagram additional rules are required for the rest of the pentatop types (which are types O, A1 and T).
+
+Let's look more closely on one refinement step, considering the pentatop with vertices $\left\{01234\right\}$ and refinement edge $[0,1]$. Call the new vertex, the midpoint of the refinement edge, as vertex $5$. Then the two children will be $\left\{12345\right\}$ and $\left\{02345\right\}$.
+
+\begin{center}
+\begin{tabular}[!h]{|c|c|c|}
+\hline
+ children & 12345 & 02345 \\ \hline
+ inherited face & 1234  & 0234  \\ \hline 
+ \multirow{3}{*}{cut faces} & 1235 & 0235 \\
+ & 1245 & 0245 \\
+ & 1345 & 0345 \\ \hline
+ shared face & 2345 & 2345 \\ \hline
+\end{tabular}
+\end{center}
+Exact definitions of what are inherited, cut and shared faces are given in the Arnold's paper.
+The refinement edges for the children are already defined by the type of the starting pentatop. Now we are to define the marked edges for the children for the classes 0, A1 and T. We assume implicitly (this is actually an unnecessary assumption but it simplifies our life) that whenever a face of one of the children contains the refinement edge, it will be the marked edge for this face. Then all what is to be done is to choose the marked edge for the rest two faces.
+
+MISSING INFORMATION HERE, actually non-uniqueness and the idea f choosing the vertex with a smaller level comes into play right here.
+
+\begin{itemize}
+	\item Type A1: $[0,1], [1,2], [2,3]$.
+	
+	  \begin{center}
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=5pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (source) [label={[xshift = 0.2cm, yshift=-0.5cm]$0$}] {};
+    \node[right= 2cm of source] (dest1) [label={[xshift = 0.2cm, yshift=-0.5cm]$2$}] {};
+    \node[draw=none,fill=none, right= 3.5cm of source] (dest2) [label={[xshift = 0.2cm, yshift=0.0cm]$y$}] {};
+    \node[below left= 1.0cm and 1.5cm of source] (dest3) [label={[xshift = 0.2cm, yshift=-0.5cm]$1$}] {};
+    \node[draw=none,fill=none, below left= 2.0cm and 3.0cm of source] (dest4) [label={[xshift = -0.2cm, yshift=0.2cm]$x$}] {};
+    \node[above= 2.0cm of source] (dest5) [label={[xshift = 0.4cm, yshift=0.0cm]$3$}] {};
+    \node[draw=none,fill=none,above= 3.0cm of source] (dest6) [label={[xshift = 0.0cm, yshift=0.2cm]$z$}] {};
+    \node[above left= 1.5cm and 2.0cm of source] (dest7) [label={[xshift = -0.5cm, yshift=-0.2cm]$4$}] {};
+    \node[draw=none,fill=none,above left = 2.25cm and 3.0cm of source] (dest8) [label={[xshift = -0.10cm, yshift=0.13cm]$t$}] {};
+    \node[below left= 0.4cm and 0.6cm of source] (newv) [label={[xshift = 0.4cm, yshift=-0.25cm]$5$}] {};
+    \draw (source) -- (dest1);
+    \draw[->] (dest1) -- (dest2);
+    \draw[color=red, thick] (source) -- (dest3);
+    \draw[->] (dest3) -- (dest4);
+    \draw (source) -- (dest5);
+    \draw[->] (dest5) -- (dest6);
+    \draw (source) -- (dest7);
+    \draw[->] (dest7) -- (dest8);
+
+    \draw [color=red, thick] (dest1) -- (dest3);
+    \draw (dest7) -- (dest1);
+    \draw (dest3) -- (dest7);
+    \draw (dest7) -- (dest5);
+    \draw (dest5) -- (dest3);
+    \draw [color=red, thick] (dest5) -- (dest1);
+    \draw [color=blue, dashed] (newv) -- (dest1);
+    \draw [color=blue, dashed] (newv) -- (dest5);
+    \draw [color=blue, dashed] (newv) -- (dest7);
+
+\end{tikzpicture}
+Type A1
+\end{center}
+    We suggest that refinement edges are defined by the rule:
+    $$
+    A1 \rightarrow [1,2], \left\{134\right\}, [2,3] \quad + \quad [2,3], \left\{024\right\}, \left\{034\right\}
+    $$
+    where $\left\{abc\right\}$ is the longest edge among $[a,b],[a,c]$ and $[b,c]$.
+    If we choose $[1,3]$ instead of $\left\{134 \right\}$ for the first child and either $[0,2],[0,3]$ or $[2,4],[3,4]$ instead of $\left\{024 \right\}$ and $\left\{034 \right\}$ for the second child, then it will be converted to type P pentatop.
+	
+	
+	\item Type O: $[0,1], [2,3], [2,3]$.
+	
+	  \begin{center}
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=5pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (source) [label={[xshift = 0.2cm, yshift=-0.5cm]$0$}] {};
+    \node[right= 2cm of source] (dest1) [label={[xshift = 0.2cm, yshift=-0.5cm]$2$}] {};
+    \node[draw=none,fill=none, right= 3.5cm of source] (dest2) [label={[xshift = 0.2cm, yshift=0.0cm]$y$}] {};
+    \node[below left= 1.0cm and 1.5cm of source] (dest3) [label={[xshift = 0.2cm, yshift=-0.5cm]$1$}] {};
+    \node[draw=none,fill=none, below left= 2.0cm and 3.0cm of source] (dest4) [label={[xshift = -0.2cm, yshift=0.2cm]$x$}] {};
+    \node[above= 2.0cm of source] (dest5) [label={[xshift = 0.4cm, yshift=0.0cm]$3$}] {};
+    \node[draw=none,fill=none,above= 3.0cm of source] (dest6) [label={[xshift = 0.0cm, yshift=0.2cm]$z$}] {};
+    \node[above left= 1.5cm and 2.0cm of source] (dest7) [label={[xshift = -0.5cm, yshift=-0.2cm]$4$}] {};
+    \node[draw=none,fill=none,above left = 2.25cm and 3.0cm of source] (dest8) [label={[xshift = -0.10cm, yshift=0.13cm]$t$}] {};
+    \node[below left= 0.4cm and 0.6cm of source] (newv) [label={[xshift = 0.4cm, yshift=-0.25cm]$5$}] {};
+    \draw (source) -- (dest1);
+    \draw[->] (dest1) -- (dest2);
+    \draw[color=red, thick] (source) -- (dest3);
+    \draw[->] (dest3) -- (dest4);
+    \draw (source) -- (dest5);
+    \draw[->] (dest5) -- (dest6);
+    \draw (source) -- (dest7);
+    \draw[->] (dest7) -- (dest8);
+
+    \draw (dest1) -- (dest3);
+    \draw (dest7) -- (dest1);
+    \draw (dest3) -- (dest7);
+    \draw (dest7) -- (dest5);
+    \draw (dest5) -- (dest3);
+    \draw [color=red, thick] (dest5) -- (dest1);
+    \draw [color=blue, dashed] (newv) -- (dest1);
+    \draw [color=blue, dashed] (newv) -- (dest5);
+    \draw [color=blue, dashed] (newv) -- (dest7);
+
+\end{tikzpicture}
+Type O
+\end{center}
+	We suggest that refinement edges are defined by the rule:
+    $$
+    O \rightarrow [2,3], \left\{125\right\}, \left\{135\right\} \quad + \quad [2,3], \left\{025\right\}, \left\{035\right\}
+    $$
+    which can be transformed into a type P pentatop but in a non-unique way.
+	\item Type T: T1($[0,1], [1,2], [3,4]$) or T2 ($[0,1], [2,3], [3,4]$).
+	
+	  \begin{minipage}[]{0.4\textwidth}
+	  \begin{center}
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=5pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (source) [label={[xshift = 0.2cm, yshift=-0.5cm]$0$}] {};
+    \node[right= 2cm of source] (dest1) [label={[xshift = 0.2cm, yshift=-0.5cm]$2$}] {};
+    \node[draw=none,fill=none, right= 3.5cm of source] (dest2) [label={[xshift = 0.2cm, yshift=0.0cm]$y$}] {};
+    \node[below left= 1.0cm and 1.5cm of source] (dest3) [label={[xshift = 0.2cm, yshift=-0.5cm]$1$}] {};
+    \node[draw=none,fill=none, below left= 2.0cm and 3.0cm of source] (dest4) [label={[xshift = -0.2cm, yshift=0.2cm]$x$}] {};
+    \node[above= 2.0cm of source] (dest5) [label={[xshift = 0.4cm, yshift=0.0cm]$3$}] {};
+    \node[draw=none,fill=none,above= 3.0cm of source] (dest6) [label={[xshift = 0.0cm, yshift=0.2cm]$z$}] {};
+    \node[above left= 1.5cm and 2.0cm of source] (dest7) [label={[xshift = -0.5cm, yshift=-0.2cm]$4$}] {};
+    \node[draw=none,fill=none,above left = 2.25cm and 3.0cm of source] (dest8) [label={[xshift = -0.10cm, yshift=0.13cm]$t$}] {};
+    \node[below left= 0.4cm and 0.6cm of source] (newv) [label={[xshift = 0.4cm, yshift=-0.25cm]$5$}] {};
+    \draw (source) -- (dest1);
+    \draw[->] (dest1) -- (dest2);
+    \draw[color=red, thick] (source) -- (dest3);
+    \draw[->] (dest3) -- (dest4);
+    \draw (source) -- (dest5);
+    \draw[->] (dest5) -- (dest6);
+    \draw (source) -- (dest7);
+    \draw[->] (dest7) -- (dest8);
+
+    \draw [color=red, thick] (dest1) -- (dest3);
+    \draw (dest7) -- (dest1);
+    \draw (dest3) -- (dest7);
+    \draw [color=red, thick] (dest7) -- (dest5);
+    \draw (dest5) -- (dest3);
+    \draw (dest5) -- (dest1);
+    \draw [color=blue, dashed] (newv) -- (dest1);
+    \draw [color=blue, dashed] (newv) -- (dest5);
+    \draw [color=blue, dashed] (newv) -- (dest7);
+
+\end{tikzpicture}
+Type T1
+\end{center}
+\end{minipage}
+	  \begin{minipage}[]{0.4\textwidth}
+	  \begin{center}
+	  
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=5pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (source) [label={[xshift = 0.2cm, yshift=-0.5cm]$0$}] {};
+    \node[right= 2cm of source] (dest1) [label={[xshift = 0.2cm, yshift=-0.5cm]$2$}] {};
+    \node[draw=none,fill=none, right= 3.5cm of source] (dest2) [label={[xshift = 0.2cm, yshift=0.0cm]$y$}] {};
+    \node[below left= 1.0cm and 1.5cm of source] (dest3) [label={[xshift = 0.2cm, yshift=-0.5cm]$1$}] {};
+    \node[draw=none,fill=none, below left= 2.0cm and 3.0cm of source] (dest4) [label={[xshift = -0.2cm, yshift=0.2cm]$x$}] {};
+    \node[above= 2.0cm of source] (dest5) [label={[xshift = 0.4cm, yshift=0.0cm]$3$}] {};
+    \node[draw=none,fill=none,above= 3.0cm of source] (dest6) [label={[xshift = 0.0cm, yshift=0.2cm]$z$}] {};
+    \node[above left= 1.5cm and 2.0cm of source] (dest7) [label={[xshift = -0.5cm, yshift=-0.2cm]$4$}] {};
+    \node[draw=none,fill=none,above left = 2.25cm and 3.0cm of source] (dest8) [label={[xshift = -0.10cm, yshift=0.13cm]$t$}] {};
+    \node[below left= 0.4cm and 0.6cm of source] (newv) [label={[xshift = 0.4cm, yshift=-0.25cm]$5$}] {};
+    \draw (source) -- (dest1);
+    \draw[->] (dest1) -- (dest2);
+    \draw[color=red, thick] (source) -- (dest3);
+    \draw[->] (dest3) -- (dest4);
+    \draw (source) -- (dest5);
+    \draw[->] (dest5) -- (dest6);
+    \draw (source) -- (dest7);
+    \draw[->] (dest7) -- (dest8);
+
+    \draw (dest1) -- (dest3);
+    \draw (dest7) -- (dest1);
+    \draw (dest3) -- (dest7);
+    \draw [color=red, thick] (dest7) -- (dest5);
+    \draw (dest5) -- (dest3);
+    \draw [color=red, thick] (dest5) -- (dest1);
+    \draw [color=blue, dashed] (newv) -- (dest1);
+    \draw [color=blue, dashed] (newv) -- (dest5);
+    \draw [color=blue, dashed] (newv) -- (dest7);
+
+\end{tikzpicture}
+Type T2
+\end{center}
+\end{minipage}
+\vspace{1.0em}
+\newline
+	We suggest that refinement edges are defined by the rules:
+    $$
+    T1 \rightarrow [1,2], [3,4], [2,4] \quad + \quad [3,4], \left\{023\right\}, \left\{024\right\}
+    $$	
+    (again transforms into type P)
+    $$
+    T2 \rightarrow [2,3], [2,4], \left\{134\right\} \quad + \quad [3,4], [2,4], \left\{023\right\}
+    $$	
+    (also in type P)
+    where for type T2 we abandon the implicit assumption about the refinement edge for the inherited face to avoid inconsistency which can arise otherwise for the shared face of the children.
+\end{itemize}
+
+THe following suggestion is to judge the non-uniqueness. If we can transform into type P by choosing one or another vertex, we first choose the one which belongs to the generation with smaller number, or, if they are equal by any global geometrical ordering.
+
+DONT FORGET TO DESCRIBE THE NON-UNIQUENESS OF THE DIAGRAM (look at the comments around the hand-written diagram)
+
+An important point now is that the rules themselves deal with type transformation only,
+but not with the geometrical recipes of how to perform the exact refinement (mark the children's faces).
+
+Here INSERT the stuff from the the very first chapter.
+
+
+\section{Arnold's algorithm in 3D}
+
+In three-dimensional case D. Arnold and his cauthors developed a similar algorithm which is tightly connected to Maubach's algorithm but is formulated slightlt different.
+
+Below we briefly introduce the algorithm. 
+A \textit{marked tetrahedron} is a tetrahedron with three edges marked. One is called \textit{refinement edge} and it is the edge which will split in half by the next bisection call. The rest two of them (called \textit{marked edges}) are future refinement edges for the children (which will be created by the next bisection call). These marked edges must be on the \textit{refinement faces} - two faces which the refinement edge belongs to. There is also an additional notion of the \textit{flag} which can be set or unset. The flag is always unset unless the marked edges of the
+four faces are all coplanar (we call this a planar marked tetrahedron), in which case
+the flag may or may not be set (defined by the reule below).
+
+Then, several types of tetrahedrons are defined:
+\begin{itemize}
+\item  Type P, planar: the marked edges are coplanar. A type P tetrahedron is further 		classified as type Pf or type Pu, according to whether its flag is set or not, 			respectively.
+\item Type A, adjacent: the marked edges intersect the refinement edge, but are
+	not coplanar.
+\item Type O, opposite: the marked edges of the nonrefinement faces do not intersect 		the refinement edge. In this case, a pair of opposite edges are marked in the 			tetrahedron: one as the refinement edge, and the other as the marked edge of the 		two nonrefinement faces intersecting there.
+\item Type M, mixed: the marked edge of just one of the nonrefinement faces
+	intersects the refinement edge.
+\end{itemize}
+
+The tetrahedron types transformations can be summarized by the following diagram:
+
+\begin{center}
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=white,minimum size=20pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (source) [label=center:$P_u$] {};
+    \node[below right= 2cm and 3cm of source] (dest1) [label=center:$P_f$] {};
+    \node[below left= 2cm and 3cm of source] (dest2) [label=center:$A$] {};
+    \node[above right= 1.5cm and 1.5cm of source] (dest3) [label=center:$O$] {};
+    \node[above left= 1.5cm and 1.5cm of source] (dest4) [label=center:$M$] {};
+    \draw[->] (source) -- (dest1);
+    \draw[->] (dest2) -- (source);
+    \draw[->] (dest1) -- (dest2);
+    \draw[->] (dest3) -- (source);
+    \draw[->] (dest4) -- (source);
+
+%    \draw[->] (0,0) node (1000) [label=center:$P_u$] {};
+%        -- ++(-30:5.0cm) node (1001) [label=center:$P_f$] {}
+%        -- (1000) 
+%        -- ++(210:5.0cm) node (1002) [label=center:$A$] {}
+%        -- (1000) 
+%        -- ++(45:3.0cm) node (1003) [label=center:$O$] {}
+%        -- (1000) 
+%        -- ++(135:3.0cm) node (1004) [label=center:$M$] {};
+
+\end{tikzpicture}
+\end{center}
+
+Notice that after three levels of refinement one always ends up with a tetrahedron of type either $P_u$ or $A$. Of course, tetrahedrons of type $P_f$ can arise during the completion process (when the neighbors of the tetrahedrons initially marked for local refinement are refined to have a compatible mesh at the end of the refinement procedure).
+
+\section{Modification of Arnold's algorithm in MFEM}
+
+As one can notice, when the initial tetrahedron has class $?$ in Arnold's algorithm that, more new vertices than only midpoints of the edges are needed if one decides to refine it with three level bisection. 
+MFEM mesh structures feel inconvenient to do this and the modification idea is to simply don't let tetrahedrons have class $?$ at the start of the refinement process. To do this one can simply switch off(on$?$) the flag of the tetrahedron of class $?$ at the end of the previous refinement (or not set it during the initial tetrahedron marking process).
+This might probably violate theoretical estimates obtained by Arnlold but for small number of refinements it is fine (in the sense that no significant mesh deterioration has been reported).
+
+Unfortunately, exactly this trick doesn't work in 4D, because now one cannot start with both $?$ and $??$ classes of pentatops. It is fine to unflag pentatops but changing their type requires special care because one should keep refinement edges in the neighbouring simplices compatible.
+
+\section{Appendix A: Maubach's algorithm in 3D diagrams}
+
+Below one can find full diagrams of Maubach's algorithm applied for a 3-dimensional simplex, i.e. a tetrahedron.
+
+Let $\{0123\}$ be a 3-simplex with vertices numbered from 0 to 3. Edges will be written as $[a,b]$ if the edge connects vertices with indices $a$ and $b$.
+We will also need to index middlepoints of the edges. 
+$$
+\begin{array}{cc}
+\mbox{edge} & \mbox{midpoint} \\
+\left[0,1\right] & 4 \\
+\left[0,2\right] & 5 \\
+\left[0,3\right] & 6 \\
+\left[1,2\right] & 7 \\
+\left[1,3\right] & 8 \\
+\left[2,3\right] & 9 \\
+\end{array}
+$$
+
+\begin{landscape}
+
+Case 1: ref. edge is $[0,3] = 6$
+
+\begin{forest}, baseline, qtree
+[\texttt{(0123,`3')}\\ \texttt{$[0,3] = 6$}
+  [\texttt{(0126,`2')}\\ \texttt{$[0,2] = 5$}, 
+    [\texttt{(0156,`1')}\\ \texttt{$[0,1] = 4$}
+      [\texttt{(0456,`3')}\\ \texttt{$[0,6]$}]
+      [\texttt{(1456,`3')}\\ \texttt{$[1,6]$}, s+=10 , l*=2, ignore edge]
+    ]
+    [\texttt{(1256,`1')}\\ \texttt{$[1,2] = 7$}
+      [\texttt{(1756,`3')}\\ \texttt{$[1,6]$}]
+      [\texttt{(2756,`3')}\\ \texttt{$[2,6]$}, s+=10, l*=2, ignore edge]
+    ]
+  ]
+  [\texttt{(1236,`2')}\\ \texttt{$[1,3] = 8$}, s+=10
+    [\texttt{(1286,`1')}\\ \texttt{$[1,2] = 7$} 
+      [\texttt{(1786,`3')}\\ \texttt{$[1,6]$ }]
+      [\texttt{(2786,`3')}\\ \texttt{$[2,6]$}, s+=10, l*=2, ignore edge]
+    ]
+    [\texttt{(2386,`1')}\\ \texttt{$[2,3] = 9$}, s+=10 
+      [\texttt{(2986,`3')}\\ \texttt{$[2,6]$}]
+      [\texttt{(3986,`3')}\\ \texttt{$[3,6]$}, s+=10, l*=2, ignore edge]
+    ]
+  ]
+]
+\end{forest}
+
+\vspace{1.0em}
+
+Case 2: ref. edge is $[0,2] = 5$
+
+\begin{forest}, baseline, qtree
+[\texttt{(0123,`2')}\\ \texttt{$[0,2] = 5$}
+  [\texttt{(0153,`1')}\\ \texttt{$[0,1] = 4$}, 
+    [\texttt{(0453,`3')}\\ \texttt{$[0,3] = 6$}
+      [\texttt{(0456,`2')}\\ \texttt{$[0,5]$}]
+      [\texttt{(4536,`2')}\\ \texttt{$[3,4]$}, s+=10 , l*=2, ignore edge]
+    ]
+    [\texttt{(1453,`3')}\\ \texttt{$[1,3] = 8$}
+      [\texttt{(1458,`2')}\\ \texttt{$[1,5]$}]
+      [\texttt{(4538,`2')}\\ \texttt{$[3,4]$}, s+=10, l*=2, ignore edge]
+    ]
+  ]
+  [\texttt{(1253,`1')}\\ \texttt{$[1,2] = 7$}, s+=10
+    [\texttt{(1753,`3')}\\ \texttt{$[1,3] = 8$} 
+      [\texttt{(1758,`2')}\\ \texttt{$[1,5]$ }]
+      [\texttt{(7538,`2')}\\ \texttt{$[3,7]$}, s+=10, l*=2, ignore edge]
+    ]
+    [\texttt{(2753,`3')}\\ \texttt{$[2,3] = 9$}, s+=10 
+      [\texttt{(2759,`2')}\\ \texttt{$[2,5]$}]
+      [\texttt{(7539,`2')}\\ \texttt{$[3,7]$}, s+=10, l*=2, ignore edge]
+    ]
+  ]
+]
+\end{forest}
+
+\newpage 
+
+Case 3: ref. edge is $[0,1] = 4$
+
+\begin{forest}, baseline, qtree
+[\texttt{(0123,`1')}\\ \texttt{$[0,1] = 4$}
+  [\texttt{(0423,`3')}\\ \texttt{$[0,3] = 6$}, 
+    [\texttt{(0426,`2')}\\ \texttt{$[0,2] = 5$}
+      [\texttt{(0456,`1')}\\ \texttt{$[0,4]$}]
+      [\texttt{(4256,`1')}\\ \texttt{$[2,4]$}, s+=10 , l*=2, ignore edge]
+    ]
+    [\texttt{(4236,`2')}\\ \texttt{$[3,4] = 11$}
+      [\texttt{(42,11,6,`1')}\\ \texttt{$[2,4]$}]
+      [\texttt{(23,11,6,`1')}\\ \texttt{$[2,3]$}, s+=10, l*=2, ignore edge]
+    ]
+  ]
+  [\texttt{(1423,`3')}\\ \texttt{$[1,3] = 8$}, s+=10
+    [\texttt{(1428,`2')}\\ \texttt{$[1,2] = 7$} 
+      [\texttt{(1478,`1')}\\ \texttt{$[1,4]$ }]
+      [\texttt{(4278,`1')}\\ \texttt{$[2,4]$}, s+=10, l*=2, ignore edge]
+    ]
+    [\texttt{(4238,`2')}\\ \texttt{$[3,4] = 11$}, s+=10 
+      [\texttt{(42,11,8,`1')}\\ \texttt{$[2,4]$}]
+      [\texttt{(23,11,8,`1')}\\ \texttt{$[2,3]$}, s+=10, l*=2, ignore edge]
+    ]
+  ]
+]
+\end{forest}
+
+\vspace{1.0em}
+Notice that additional vertices (not only midpoints are introduced), $[2,4]$ and $[3,4]$.
+
+\end{landscape}
+
+Looking at the diagrams we can extract the following rules for \textit{marked tetrahedron} type's transformations:
+
+\begin{itemize}
+	\item From case 1:
+	\begin{enumerate}
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 0123 \\ \left[03,02,13\right] \end{array}	A \rightarrow 
+			\begin{array}{c} 0126 \\ \left[02,01,12\right] \end{array}	P +
+			\begin{array}{c} 0236 \\ \left[13,12,23\right] \end{array}	P  					& \quad  \mbox{lvl 0}
+		\end{array}
+		$
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 0126 \\ \left[02,01,12\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 0156 \\ \left[01,06,16\right] \end{array}	P +
+			\begin{array}{c} 1256 \\ \left[12,16,26\right] \end{array}	P  					& \quad \mbox{lvl 1}
+		\end{array}
+		$
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 1236 \\ \left[13,12,23\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 1286 \\ \left[12,16,26\right] \end{array}	P +
+			\begin{array}{c} 2386 \\ \left[23,26,36\right] \end{array}	P  					& \quad  \mbox{lvl 1}
+		\end{array}
+		$
+	\end{enumerate}
+	\item From case 2:
+	\begin{enumerate}
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 0123 \\ \left[02,01,12\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 0153 \\ \left[01,03,13\right] \end{array}	P +
+			\begin{array}{c} 1253 \\ \left[12,13,23\right] \end{array}	P  					& \quad  \mbox{lvl 0}
+		\end{array}
+		$
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 0153 \\ \left[01,03,13\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 0453 \\ \left[03,05,34\right] \end{array}	A +
+			\begin{array}{c} 1453 \\ \left[13,15,43\right] \end{array}	A  					& \quad \mbox{lvl 1}
+		\end{array}
+		$
+		\item 
+		$
+		\begin{array}{cc}
+			\begin{array}{c} 1253 \\ \left[12,13,23\right] \end{array}	P \rightarrow 
+			\begin{array}{c} 1753 \\ \left[13,15,37\right] \end{array}	A +
+			\begin{array}{c} 2753 \\ \left[23,25,37\right] \end{array}	A  					& \quad  \mbox{lvl 1}
+		\end{array}
+		$		
+	\end{enumerate}
+    \item From case 3:
+    Nothing really comes from here because the middle of the $[3,4]$ does not fit into any tetrahedron type defined above. (? Check this)    
+
+
+\end{itemize}
+
+The rules suggest the following diagram (cf. with diagram in section 3) where subscripts $u$ and $f$ are introduced only to create two types of class P tetrahedrons (which follows from two possible ways of class P transformation), so the meaning of \textit{flag} is symbolic in the diagram:
+
+\begin{center}
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=white,minimum size=20pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (source) [label=center:$A$] {};
+    \node[above right= 2cm and 4cm of source] (dest1) [label=center:$P_u$] {};
+    \node[below right= 2cm and 4cm of source] (dest2) [label=center:$P_f$] {};
+    \draw[->] (source) -- (dest1);
+    \draw[->] (dest1) -- (dest2);
+    \draw[->] (dest2) -- (source);
+
+%    \draw[->] (0,0) node (1000) [label=center:$P_u$] {};
+%        -- ++(-30:5.0cm) node (1001) [label=center:$P_f$] {}
+%        -- (1000) 
+%        -- ++(210:5.0cm) node (1002) [label=center:$A$] {}
+%        -- (1000) 
+%        -- ++(45:3.0cm) node (1003) [label=center:$O$] {}
+%        -- (1000) 
+%        -- ++(135:3.0cm) node (1004) [label=center:$M$] {};
+
+\end{tikzpicture}
+\end{center}
+
+Now, to complete the transformation diagram one simple use additional rules formulated in the Arnold's paper.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{thebibliography}{99}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem[NVV]{neumueller_vassilevski_villa}
+Martin Neumueller, Panayot S. Vassilevski, and Umberto Villa,
+``{\em Space-time CFOSLS methods with AMGe upscaling,}''
+Available as Lawrence Livermore National Laboratory Technical Report LLNL-CONF-683318, February 18, 2016.
+
+
+\bibitem[V08]{MLBFP}
+{\sc P.~S. Vassilevski,}
+``{\em Multilevel Block--Factorization Preconditioners.} 
+Matrix-based Analysis and Algorithms for Solving Finite Element Equations'',
+Springer, New York, 2008.
+
+\bibitem[B08]{behr}
+Marek Behr, ``{\em Simplex Space-Time Meshes in Finite Element Simulations,}'',
+Int. J. Numer. Meth. Fluids 2008; 57:1421–1434.
+
+\bibitem[KB]{karabelas_neumueller}
+Elias Karabelas, Martin Neumueller. 
+``{\em Generating admissible space-time meshes for moving domains in $d + 1$-dimensions,}''
+https://arxiv.org/abs/1505.03973.
+
+
+\bibitem[PS75]{minres}
+C. C. Paige and M. A. Saunders, ``{\em Solution of Sparse Indefinite Systems of Linear Equations}'',
+SIAM Journal on Numerical Analysis 1975; 12(4):617-629.
+
+\bibitem[HY02]{boomerAMG}
+Van Emden Henson and Ulrike Meier Yang, ``{\em Boomer{AMG}: A parallel algebraic multigrid solver and preconditioner}'',
+Applied Numerical Mathematics 2002; 41(1):155-177.
+
+\bibitem[BFKY]{hypre}
+A. Baker and R. Falgout and Tz. Kolev and U. Yang, ``{\em Scaling hypre's Multigrid Solvers to 100,000 Cores}'',
+High Performance Scientific Computing: Algorithms and Applications, Springer 2012; 261-279.
+
+\end{thebibliography}
+
+\end{document}
