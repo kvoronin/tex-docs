@@ -1754,6 +1754,27 @@ The rules suggest the following diagram (cf. with diagram in section 3) where su
 
 Now, to complete the transformation diagram one simple use additional rules formulated in the Arnold's paper.
 
+\section{Alternative algorithm (no proof, but truly local refinement)}
+The idea is to use Lebo's (is the name correct?) algorithm. The idea is to assign weights to all the edges which equal to the number of edges touching its two endpoints which belong to the target group of simplices.
+Then we choose edges with locally maximal weights (they will be inide the targeted group of course) and bisect them. together with the simplices which contain it.
+Then increase the weights of the neighboring edges and repeat until all the simplices of the target group are refined.
+
+Obviously in this algo the mesh always stays compatible. The algorithm is parallel as well, if we use global edge_to_edge connectivity to define the the weights.
+
+Also, it seems that we will never refine the boundary edges of the targeted group, which means that neighbors will never really get refined.
+
+But certainly there will be no theoretical bound on the number of similarity classes.
+
+
+\section{Latest conclusions}
+\begin{itemize}
+	\item In Arnold's algorithm there is no guarantee that the refimenet-to-conforming step will terminate before doing a uniform refinement of all the mesh elements. An interesting question if one can connect the expected number of neighbouring levels which will be refined with some probability theory by means of some sort of random walks over graphs.
+	\item It looks like a trade-off in theory - either you do something like Arnold's algorithm and have a bound on the number of similarity classes or you use an algorithm which refines only a boundaded number of neighboring layers (around the group of elements targeted for local refinement).
+	\item in 4D there is a large problem - both of the two P types give after 4 levels of refinement additional points (apart from edge midpoints) - midpoints of several medians. This stops the key step of Arnold's proof - that whenever in RefineToConformity there is a simplex with hanging node, this hanging node is a midpoint of an older generation's edge, which when combined with the fact that no new verticex but edge midpoind are introduced (type Pf is never used as a starting type, manually unflagged) results in the fact that all the neighbors will be refined no more than 3 times.
+	
+	A potential idea was to consider two cycles of 4-level refinement in 4D, in hope that there will be no extra point after that but now I doubt that this will be the case.
+\end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
