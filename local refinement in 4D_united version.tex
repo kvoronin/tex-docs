@@ -1755,15 +1755,17 @@ The rules suggest the following diagram (cf. with diagram in section 3) where su
 Now, to complete the transformation diagram one simple use additional rules formulated in the Arnold's paper.
 
 \section{Alternative algorithm (no proof, but truly local refinement)}
-The idea is to use Lebo's (is the name correct?) algorithm. The idea is to assign weights to all the edges which equal to the number of edges touching its two endpoints which belong to the target group of simplices.
-Then we choose edges with locally maximal weights (they will be inide the targeted group of course) and bisect them. together with the simplices which contain it.
+The idea is to use Luby's algorithm developed for finding maximal independent sets in graphs. 
+
+Here we'd like to to assign weights to all the edges equal to the number of edges touching its two endpoints which belong to the target group of simplices.
+Then we choose edges with locally maximal weights (using Luby's parallel algoritm) they will be inside the targeted group of course, if there are more than one simplex in the group) and bisect them. together with simplices which contain it (so we don't introduce any new vertices except the new midpoint).
 Then increase the weights of the neighboring edges and repeat until all the simplices of the target group are refined.
 
 Obviously in this algo the mesh always stays compatible. The algorithm is parallel as well, if we use global edge_to_edge connectivity to define the the weights.
 
 Also, it seems that we will never refine the boundary edges of the targeted group, which means that neighbors will never really get refined.
 
-But certainly there will be no theoretical bound on the number of similarity classes.
+But certainly there will be no theoretical bound on the number of similarity classes for such an algorithm.
 
 
 \section{Latest conclusions}
