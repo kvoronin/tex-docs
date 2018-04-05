@@ -6,6 +6,9 @@
 % Allows you to manipulate the page a bit
 \usepackage[a4paper]{geometry}
 
+\usepackage{authblk}
+\usepackage{hyperref}
+
 % Pulls the page out a bit - makes it look better (in my opinion)
 \usepackage{a4wide}
 
@@ -30,9 +33,6 @@
 
 % Provides commands to make subfigures (figures with (a), (b) and (c))
 \usepackage{subfigure}
-
-% Makes references hyperlinks in PDF output
-\usepackage{hyperref}
 
 % Provides ways to include syntax-highlighted source code
 \usepackage{listings}
@@ -83,6 +83,11 @@
 \pgfmathsetmacro{\zdeg}{90}
 \pgfmathsetmacro{\zx}{cos(\zdeg)}
 \pgfmathsetmacro{\zy}{sin(\zdeg)}
+
+%
+\newcommand*{\email}[1]{%
+    \normalsize\href{mailto:#1}{#1}\par
+    }
 
 
 \tikzset{%
@@ -367,12 +372,17 @@ myfillnode/.style={circle,minimum width=.5ex, fill=black,draw}, % fill with blac
 \def\bPhi{{\boldsymbol \Phi}}
 
 % Standard title, author etc.
-\title{Report 1, 2017 \footnote{This work was supported by ..., grant No. }}
-\author{Kirill Voronin}
+%\title{Report 1, 2017 \footnote{This work was supported by ..., grant No. }}
+\title{Tensor-product mesh construction in 4D}
+\author{Kirill Voronin \\
+Portland State University \\
+kirill.v.voronin@gmail.com}
+%\affil{Portland State University}
+%\email{kirill.v.voronin@gmail.com}
 \date{}
 % Put text on the left-hand and right-hand side of the header
 \fancyhead{}
-\lhead{Report 1, 2017}
+\lhead{Tensor-product mesh construction}
 \rhead{K. Voronin}
 \chead{}
 
@@ -381,8 +391,13 @@ myfillnode/.style={circle,minimum width=.5ex, fill=black,draw}, % fill with blac
 \maketitle
 
 \begin{abstract}
-In the report results obtained for the implemented parallel mesh generator and 4d elements are presented.
+In the draft results obtained for the implemented parallel tensor-product mesh generator and 4d elements are presented.
 \end{abstract}
+
+\section*{Purpose of this document}
+In the document a simple algorithm is proposed to construct in parallel tensor-product simplicial meshes in 4D and analyzed later on. All in all, it is almost a complete paper (yet unpublished since the results are weak).
+If anyone find this text useful or interesting, one is free to contact the author for further discussion. The author might be wrong in some of his statements, and will be very grateful for pointing out his mistakes.
+
 
 \section*{Introduction}
 
@@ -395,11 +410,11 @@ One of the alternative approaches which has gained much attention and developed 
 
 Certainly, for space-time methods appropriate space-time meshes are to be constructed. While a number of mesh generating software exist for two- and three-dimensional cases, almost none are known to the authors which consider four-dimensional case (three-dimensional space + time). Since space-time approaches introduce an additional dimension to the mesh, it is also important to be able to construct the space-time mesh in parallel. First, this will reduce memory requirements since the space-time mesh as a whole might not fit into the memory of a single computational node. Second, it will reduce the total time for mesh generation.
 
-This paper is focusing on the mesh generating algorithm which constructs tensor-product extension $(d+1)$-dimensional space-time meshes for given $d$-dimensional  (triangular or tetrahedral) space meshes in parallel. In section 1 space-time CFOSLS approach is outlined together with basic discretization details. The essence of the paper - mesh generating algorithm is presented in section 2. Apart from mesh generating it is visualization which might be important for space-time approaches. This question is addressed to in section 3. Finally, several numerical experiments in which we study the space-time approximation properties as well as the meshing algorithm performance are presented in section 4.
+This paper is focusing on the mesh generating algorithm which constructs tensor-product extension $(d+1)$-dimensional space-time meshes for given $d$-dimensional  (triangular or tetrahedral) space meshes in parallel. In section 1 space-time CFOSLS approach is outlined together with basic discretization details. The essence of the paper is mesh generating algorithm is presented in section 2. Apart from mesh generating it is visualization which might be important for space-time approaches. This question is addressed to in section 3. Finally, several numerical experiments in which we study the space-time approximation properties as well as the meshing algorithm performance are presented in section 4.
 
 \section{Space-time CFOSLS}
 Consider the following problem in a space-time cylinder $\Omega_T = \Omega \times [0, T]$ where $
-\Omega$ is a regular(?) domain:
+\Omega$ is a regular(in the most usual sense) domain:
 $$
 \frac{\partial S}{\partial t} + \operatorname{div}_x \left( \mathcal{L}(S) \right) = q(\mathbf{x}, t), \quad (\mathbf{x},t) \in \Omega_T
 $$
@@ -440,7 +455,7 @@ in $H(\div) \times V$ under the constraint
 $$
 (\operatorname{div}_{x,t} \bsigma, w) = (q, w) \, \, \text{for all} \, \, w \in L_2(\Omega_T).
 $$
-Here $K = K(\mathbf{x})$ is a symmetric and positive definite matrix coefficient, $\| \cdot \|_0$($\| \cdot \|_{0,K^{-1}}$) denotes the (weighted) $L_2$ norm w.r.t to the space-time domain $\Omega_T$ and $V$ is an appropriate functional space for $S$: $L_2$ in hyperbolic case and $H^1$ in parabolic case. It is assumed implicitly that initial and boundary conditions are incorporated into the definition of the considered functional spaces.
+Here $K = K(\mathbf{x})$ is a symmetric and positive definite matrix coefficient, $\| \cdot \|_0$ (or $\| \cdot \|_{0,K^{-1}}$) denotes the (weighted) $L_2$ norm w.r.t to the space-time domain $\Omega_T$ and $V$ is an appropriate functional space for $S$: $L_2$ in hyperbolic case and $H^1$ in parabolic case. It is assumed implicitly that initial and boundary conditions are incorporated into the definition of the considered functional spaces.
 
 In hyperbolic case, after writing down the minimum conditions for $J(\bsigma,S)$ the scalar unknown $S$  can be eliminated by using the following (assuming for simplicity that $K$ is identity):
 $$
@@ -806,12 +821,12 @@ In Fig.1 local-to-process mesh parts are shown for the slice with $t=0.1$ plane 
 
 \section{Numerical experiments}
 
-Numerical experiments were perfomed using Coeus cluster \cite{coeus} at Portland State University (PSU). The computational nodes used for numerical experiments have the following specification: Intel Xeon ???, GHz, RAM, Infiniband ...
+Numerical experiments were perfomed using Coeus cluster \cite{coeus} at Portland Institute of Computational Science (PICS). %The computational nodes used for numerical experiments have the following specification: Intel Xeon ???, GHz, RAM, Infiniband ...
 
 \subsection{Mesh generator}
 In general, time for solving the linear system is usually higher than time for mesh generation. Hence the goal of the performance testing for mesh generator is to show that the implemented mesh generating algotihm scales well and hence will not be a performance bottleneck when the number of processes will increase. As already mentioned, the presented algorithm requires very few communication between parallel processes and its nature is essentially parallel since it mainly consists of local procedures. Hence, one should expect it to show a very good scaling with respect to the number of processes. Time and memory scalability of the mesh generator are shown by several simple examples below.
 
-In table 1  time scalability for space-time mesh generation is presented for a mesh constructed using $n_{proc}$ number of MPI processes from a base mesh with 114,688 elements and 40 time slabs which result in 18,4 mln of elements for the space-time mesh. In the second column  configuration of the parallel system is given as $n \times m$, where $n$ is the number of computational nodes and $m$ is the number of cores per node. In the third column the mesh generation time is presented without considering the construction of the base mesh or doing any additional refinements afterwards. The last column shows the ratio of times between the considered configuration and the previous one (with the ideal ratio being proportional to the change in the number of computational cores which is two in the table).
+In Table 1  time scalability for space-time mesh generation is presented for a mesh constructed using $n_{proc}$ number of MPI processes from a base mesh with 114,688 elements and 40 time slabs which result in 18,4 mln of elements for the space-time mesh. In the second column  configuration of the parallel system is given as $n \times m$, where $n$ is the number of computational nodes and $m$ is the number of cores per node. In the third column the mesh generation time is presented without considering the construction of the base mesh or doing any additional refinements afterwards. The last column shows the ratio of times between the considered configuration and the previous one (with the ideal ratio being proportional to the change in the number of computational cores which is two in the table).
 
 
 %Initial 3D mesh: orthotope3D\_fine.mesh with 4 serial refinements \\
@@ -874,7 +889,7 @@ $n_{proc}$ & configuration   	& memory(Gb) 	& ratio \\
 \end{tabular}
 \end{center}
 
-From table 2 we can conclude that the memory scales almost linearly. 
+From Table 2 we can conclude that the memory scales almost linearly. 
 
 Thus, the presented parallel algorithm is able to handle large space-time meshes which can resolve the geometry of the considered problem with desired accuracy.
 
@@ -971,29 +986,26 @@ The numerical solution on a coarse mesh is presented in Fig. 3. Here three slice
   \includegraphics[width=\linewidth]{solution_3.png}
 %  \caption{A really Awesome Image}\label{fig:awesome_image2}
 \endminipage\hfill
-\caption{Numerical solution for hyperoblic problem in 4D. Slices for $t = 0.1$ (left), $t = 0.5$ (middle) and $t = 0.9$ (right).}
+\caption{Numerical solution for hyperbolic problem in 4D. Slices for $t = 0.1$ (left), $t = 0.5$ (middle) and $t = 0.9$ (right).}
 \end{figure}
-
 
 %\newpage
 
-
-\section{Acknowledgements}
-
-\section{To-do list:}
-\begin{itemize}
-	\item Rewrite the introduction
-	\item Add references to introduction
-	\item Check the existing references
-	\item Check the figure references
-	\item Iterate the contents
-\end{itemize}
+%\section{Acknowledgements}
+%
+%\section{To-do list:}
+%\begin{itemize}
+%	\item Rewrite the introduction
+%	\item Add references to introduction
+%	\item Check the figure references
+%	\item Proof read
+%\end{itemize}
 
 
 \begin{thebibliography}{100}
 
 \bibitem{Behr}
-M. Behr. ``Simplex Space-Time Meshes in Finite Element Simulations'',
+M. Behr. Simplex Space-Time Meshes in Finite Element Simulations,
 Int. J. Numer. Meth. Fluids 2008; 57:1421–1434.
 
 \bibitem{NeumuellerViz}
@@ -1011,10 +1023,10 @@ P.A. Raviart, J.M. Thomas. A mixed finite element method for second order ellipt
 Math. 606, Springer Verlag, 1977.
 
 \bibitem{hypre}
-HYPRE: A library of High Performance Preconditioners. https://www.llnl.gov/CASC/hypre/.
+HYPRE: A library of High Performance Preconditioners. https://www.llnl.gov/CASC/hypre.
 
 \bibitem{mfem}
-Modular Finite Element Methods (MFEM), http://mfem.org
+Modular Finite Element Methods (MFEM), http://mfem.org.
 
 \bibitem{qhull}
 Qhull. http://www.qhull.org
@@ -1023,10 +1035,10 @@ Qhull. http://www.qhull.org
 U. Ayachit. The ParaView Guide: A Parallel Visualization Application. Kitware Inc., Clifton Park (2015).
 
 \bibitem{vtk}
-W. Schroeder; K. Martin; B. Lorensen.The Visualization Toolkit (4th ed.), Kitware, (2006), ISBN 978-1-930934-19-1.
+W. Schroeder, K. Martin, B. Lorensen. The Visualization Toolkit (4th ed.), Kitware, (2006), ISBN 978-1-930934-19-1.
 
 \bibitem{coeus}
-Coeus cluster
+Coeus cluster. http://www.pi4cs.org/equipment.
 
 \end{thebibliography}
 
