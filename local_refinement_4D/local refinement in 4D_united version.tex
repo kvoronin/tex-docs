@@ -569,7 +569,7 @@ Case 3: ref. edge is $[0,2] = 6$
 
 \vspace{1.0em}
 
-Note, that additional points are introduced which are not midpoints of the edges, namely, $[4,5] = 15$ and $[4,9] = 16$.
+Note, that additional points are introduced which are not midpoints of the edges, namely, $[4,5] = 15$ and $[4,9] = 16$. Another critical thing to notice is the fact that the edge midpoint $[3,4] = 14$ is missing after full four levels of bisection.
 
 \end{landscape}
 
@@ -577,51 +577,51 @@ Note, that additional points are introduced which are not midpoints of the edges
 
 \begin{landscape}
 
-Case 4: ref. edge is $[0,2] = 6$ 
+Case 4: ref. edge is $[0,1] = 5$ 
 
 \begin{forest}, baseline, qtree
-[\texttt{(01234,`2')}\\ \texttt{$[0,2] = 6$}
-  [\texttt{(01634,`1')}\\ \texttt{$[0,1] = 5$}, s-=10 
-    [\texttt{(05634,`4')}\\ \texttt{$[0,4] = 8$}
-      [\texttt{(05638,`3')}\\ \texttt{$[0,3] = 7$} 
-        [\texttt{(05678,`2')}\\ \texttt{$[0,6]$}  ]
-        [\texttt{(56378,`2')}\\ \texttt{$[3,5]$}, s+=10, l*=2, ignore edge  ]
+[\texttt{(01234,`1')}\\ \texttt{$[0,1] = 5$}
+  [\texttt{(05234,`4')}\\ \texttt{$[0,4] = 8$}, s-=10 
+    [\texttt{(05238,`3')}\\ \texttt{$[0,3] = 7$}
+      [\texttt{(05278,`2')}\\ \texttt{$[0,2] = 6$} 
+        [\texttt{(05678,`1')}\\ \texttt{$[0,5]$}  ]
+        [\texttt{(52678,`1')}\\ \texttt{$[2,5]$}, s+=10, l*=2, ignore edge  ]
       ]
-      [\texttt{(56348,`3')}\\ \texttt{$[4,5] = 15$}
-        [\texttt{(563,15,8,`2')}\\ \texttt{$[3,5]$} ]
-        [\texttt{(634,15,8,`2')}\\ \texttt{$[4,6]$}, s+=10, l*=2, ignore edge ]
+      [\texttt{(52378,`2')}\\ \texttt{$[3,5] = 17$}
+        [\texttt{(52,17,78,`1')}\\ \texttt{$[2,5]$} ]
+        [\texttt{(23,17,78,`1')}\\ \texttt{$[2,3]$}, s+=10, l*=2, ignore edge ]
       ]
     ]
-    [\texttt{(15634,`4')}\\ \texttt{$[1,4] = 11$}
-      [\texttt{(1563,11,`3')}\\ \texttt{$[1,3] = 10$} 
-        [\texttt{(156,10,11,`2')}\\ \texttt{$[1,6]$} ]
-        [\texttt{(563,10,11,`2')}\\ \texttt{$[3,5]$}, s+=10, l*=2, ignore edge ]
+    [\texttt{(52348,`3')}\\ \texttt{$[4,5] = 15$}
+      [\texttt{(523,15,8`2')}\\ \texttt{$[3,5] = 17$} 
+        [\texttt{(52,17,15,8,`1')}\\ \texttt{$[2,5]$} ]
+        [\texttt{(23,17,15,8,`1')}\\ \texttt{$[2,3]$}, s+=10, l*=2, ignore edge ]
       ]
-      [\texttt{(5634,11,`3')}\\ \texttt{$[4,5] = 15$} 
-        [\texttt{(563,15,11,`2')}\\ \texttt{$[3,5]$} ]
-        [\texttt{(634,15,11,`2')}\\ \texttt{$[4,6]$}, s+=10, l*=2, ignore edge ]
+      [\texttt{(234,15,8,`2')}\\ \texttt{$[2,4] = 13$} 
+        [\texttt{(23,13,15,8,`1')}\\ \texttt{$[2,3]$} ]
+        [\texttt{(34,13,15,8,`1')}\\ \texttt{$[3,4]$}, s+=10, l*=2, ignore edge ]
       ]
     ]
   ]
-  [\texttt{(12634,`1')}\\ \texttt{$[1,2] = 9$}, l*=6, s+=20
-    [\texttt{(19634,`4')}\\ \texttt{$[1,4] = 11$} 
-      [\texttt{(1963,11,`3')}\\ \texttt{$[1,3] = 10$ }
-        [\texttt{(196,10,11,'2')}\\ \texttt{$[1,6]$} ]
-        [\texttt{(963,10,11,`2')}\\ \texttt{$[3,9]$}, s+=10, l*=2, ignore edge ]
+  [\texttt{(15234,`4')}\\ \texttt{$[1,4] = 11$}, l*=6, s+=20
+    [\texttt{(1523,11,`3')}\\ \texttt{$[1,3] = 10$} 
+      [\texttt{(152,10,11,`2')}\\ \texttt{$[1,2] = 9$ }
+        [\texttt{(159,10,11,'1')}\\ \texttt{$[1,5]$} ]
+        [\texttt{(529,10,11,`1')}\\ \texttt{$[2,5]$}, s+=10, l*=2, ignore edge ]
       ]
-      [\texttt{(1934,11,`3')}\\ \texttt{$[4,9] = 16$}
-        [\texttt{(963,16,11,`2')}\\ \texttt{$[3,9]$} ]
-        [\texttt{(634,16,11,`2')}\\ \texttt{$[4,6]$}, s+=10, l*=2, ignore edge ]
+      [\texttt{(523,10,11,`2')}\\ \texttt{$[3,5] = 17$}
+        [\texttt{(52,17,10,11,`1')}\\ \texttt{$[2,5]$} ]
+        [\texttt{(23,17,10,11,`1')}\\ \texttt{$[2,3]$}, s+=10, l*=2, ignore edge ]
       ]
     ]
-    [\texttt{(29634,`4')}\\ \texttt{$[2,4] = 13$} 
-      [\texttt{(2963,13,`3')}\\ \texttt{$[2,3] = 12$} 
-        [\texttt{(296,12,13,`2')}\\ \texttt{$[2,6]$} ]
-        [\texttt{(963,12,13,`2')}\\ \texttt{$[3,9]$}, s+=10, l*=2, ignore edge ]
+    [\texttt{(5234,11,`3')}\\ \texttt{$[4,5] = 15$} 
+      [\texttt{(523,15,11,2')}\\ \texttt{$[3,5] = 17$} 
+        [\texttt{(52,17,15,11,`1')}\\ \texttt{$[2,5]$} ]
+        [\texttt{(23,17,15,11,`1')}\\ \texttt{$[2,3]$}, s+=10, l*=2, ignore edge ]
       ]
-      [\texttt{(9634,13,`3')}\\ \texttt{$[4,9] = 16$}
-        [\texttt{(963,16,13,`2')}\\ \texttt{$[3,9]$} ]
-        [\texttt{(634,16,13,`2')}\\ \texttt{$[4,6]$}, s+=10, l*=2, ignore edge ]
+      [\texttt{(234,15,11,`2')}\\ \texttt{$[2,4] = 13$}
+        [\texttt{(23,13,15,11,`1')}\\ \texttt{$[2,3]$} ]
+        [\texttt{(34,13,15,11,`1')}\\ \texttt{$[3,4]$}, s+=10, l*=2, ignore edge ]
       ]
     ]
   ]
@@ -629,7 +629,7 @@ Case 4: ref. edge is $[0,2] = 6$
 \end{forest}
 
 \vspace{1.0em}
-Notice that additional vertices (not only midpoints are introduced), $[2,4]$ and $[3,4]$.
+Notice that additional vertices (not only midpoints are introduced), $[4,5] = 15$ and $[3,5]$ = 17. Notice also that the midpoint $[1,4] = 11$ is absent in the entire case diagram.
 
 \end{landscape}
 
@@ -1036,18 +1036,22 @@ Looking at the tree diagrams (Cases 1 - 4) we can extract the following rules fo
 		$
 		\begin{array}{cc}
 			\begin{array}{c} 01634 \\ \left[01,04,14\right] \end{array}	P \rightarrow 
-			\begin{array}{c} 05634 \\ \left[04,03,??\right] \end{array}	P +
-			\begin{array}{c} 15634 \\ \left[14,13,??\right] \end{array} P  					& \quad  \mbox{lvl 1}
+			\begin{array}{c} 05634 \\ \left[04,03,15!\right] \end{array}	P +
+			\begin{array}{c} 15634 \\ \left[14,13,15!\right] \end{array} P  					& \quad  \mbox{lvl 1}
 		\end{array}
 		$
-    	which is bad since we had to introduce an additional vertex, the midpoint of ?? (vertex).				
-
+    	which is bad since we had to introduce an additional vertex, the midpoint of $[4,5] = 15$.	
     \end{enumerate}
     
     \item From case 4:
-    Nothing really comes from here because the middle of the ??(vertices) which do not fit into any 4-simplex type defined above. (? Check this)    
+    Nothing really comes from here because already for the first rule we have to introduce vertex $[4,5] = 15$ which is not a midpoint of any edge of the initial simplex.
 
 \end{itemize}
+
+Remark. As it is pointed out in \cite{arnold}, in his paper \cite{maubach} Maubach essentially considered only case 1. But since we aim at considering arbitrary unstructured meshes, we need all the cases. A similar problem as in cases 3 and 4 happens already in 3D. This situation might happen if we start our refinement process with a tetrahedron of type $P_f$, and the following illustration shows what happens in this case.
+
+ILLUSTRATION
+
 
 The rules above suggest the following type transformaton diagram (cf. with diagram in section 6) where subscripts $u$, $f$ for class A2, $r$ and $b$ for class P are introduced in order to distinguish two different ways of these class transformation which appeared in the rules above):
 
@@ -1815,11 +1819,8 @@ The strategy itself is quite simple in \cite{rivara} and in 2D the author has pr
 
 \section{Things to finish}
 \begin{itemize}
-	\item In section 3, item "From case 3" requires identification of ??, and item "From case 4" will presumably have some text as well
-	\item The title of Section 3 is Maubach's tree diagrams, but in fact, formulation of rules is already beginning there which disagrees with the title.
 	\item Text between geometrical rules for main and additional pentatope types has some uncertain statements.
 	\item Proof read, a couple of times at least
-	\item Case 4 was copied from Case 3 in tree diagrams in 4D. And the note at the bottom of case 4 is also wrong. Must be fixed.
 
 \end{itemize}
 
