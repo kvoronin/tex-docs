@@ -222,9 +222,9 @@ However, a negative result was obtained. That is, the extension ca be formulated
 \maketitle
 
 \section{Purpose of this document}
-In the document a lot of details are given for  certain adaptive refinement strategies in 4D. If anyone find this useful or interesting, one is free to contact the author for further discussion. The author might be wrong in some of his statements, and will be very grateful for pointing out his mistakes.
+In the document a lot of details are given for  certain adaptive refinement strategies in 4D. Amount of details might be overwhelming but an attempt was made to highlight all really important moments with remarks in the text. If anyone find this text useful or interesting, one is free to contact the author for further discussion. The author might be wrong in some of his statements, and will be very grateful for pointing out his mistakes.
 
-It is implicitly assumed that the reader already knows the basic concepts of local refinement, e.g. what is a mesh closure, similarity classes, etc. 
+It is implicitly assumed that the reader already knows some basic concepts of local refinement, e.g. what is a mesh closure, number of similarity classes, etc. 
 
 %\section{Out-of-dated stuff}
 %
@@ -285,18 +285,21 @@ One of the main facts in their proof is the similarity between the proposed algo
 
 The rest of the paper is organized in the following way.
 In the next section (section 3) we give the key ideas of the Arnold's algorithm from \cite{arnold}.
-Then, in section 4 we present Maubach's general algorithm from \cite{maubach} and apply it in 4D case. The resulting tree diagrams are presented in full details. Then, in section 5 we ...
+Then, in section 4 we present Maubach's general algorithm from \cite{maubach} and apply it in 4D case. The resulting tree diagrams are presented in full details. Based on the tree diagrams and a concept of marked simplex from \cite{arnold} in section 5 we define necessary classification of the pentatopes and develop type transformation rules for those types that appear in Maubach's tree diagrams.
+Then, in section 6 we complete the type transformation rules by considering the rest of the pentatop types and suggest the final geometrical rules which are essentially the final form of the algorithm. These geometric rules are non-unique, several options are considered in this regard.
+Section 7 was meant to extend the proof from \cite{arnold} to 4D case but this attempt was unsuccessful. In Section 8 we discuss very shortly some of the most common alternatives to local refinement.
+In the Appendix section one can find full tree diagrams for application of Maubach's algorithm to 3D case.
+Finally, we end with a conclusions section.
 
-In the appendix one can find tree diagrams for Maubach's algorithm applied in 3D case.
 
-\section{Arnold's algorithm in 3D (short recap of \cite{arnold})}
+\section{Arnold's algorithm in 3D (short recap)}
 
 In \cite{arnold} D. Arnold and his coauthors proposed an algorithm which is tightly connected to Maubach's algorithm from \cite{maubach} but is formulated slightly differently (more in the way which we were trying to mimic in the previous sections).
 
 Below we briefly introduce the algorithm. 
 A \textit{marked tetrahedron} is a tetrahedron with three edges marked. One is called \textit{refinement edge} and it is the edge which will split in half by the next bisection call. The rest two of them (called \textit{marked edges}) are future refinement edges for the children (which will be created by the next bisection call). These marked edges must be on the \textit{refinement faces} which are the two faces which the refinement edge belongs to. There is also an additional notion of the \textit{flag} which can be set or unset. The flag is always unset unless the marked edges of the
 four faces are all coplanar (we call this a planar marked tetrahedron), in which case
-the flag may or may not be set (defined by a special rule below).
+the flag may or may not be set (defined by a special rule below). The reason for introducing flags will come clear later, when we discuss tree diagrams coming from Maubach's algorithm.
 
 Then, several types of tetrahedrons are defined:
 \begin{itemize}
@@ -308,7 +311,7 @@ Then, several types of tetrahedrons are defined:
 	intersects the refinement edge.
 \end{itemize}
 
-The tetrahedron types transformations can be summarized by the following diagram:
+The tetrahedron type transformations can be summarized by the following diagram:
 
 \begin{center}
 \begin{tikzpicture}
@@ -338,18 +341,17 @@ The tetrahedron types transformations can be summarized by the following diagram
 
 \end{tikzpicture}
 \end{center}
+With that, it is explicitly forbidden (by unflagging manually all $P_f$s which makes them $P_u$) to start the refinement step with a tetrahedron of type $P_f$. Then, after three levels of refinement one always ends up with a tetrahedron of type either $P_u$ or $A$. Of course, tetrahedrons of type $P_f$ can arise during the closure Step (when the neighbors of the tetrahedrons initially marked for local refinement are refined in order to have a compatible mesh at the end of the refinement procedure).
 
-Notice that after three levels of refinement one always ends up with a tetrahedron of type either $P_u$ or $A$. Of course, tetrahedrons of type $P_f$ can arise during the closure Step (when the neighbors of the tetrahedrons initially marked for local refinement are refined in order to have a compatible mesh at the end of the refinement procedure).
-
-\subsection{Modification of Arnold's algorithm in MFEM}
-
-As one can notice, when the initial tetrahedron has class $P_f$ in Arnold's algorithm, more new vertices than only all midpoints of the edges are needed to be introduced if one decides to refine it with a three level bisection. 
-MFEM mesh structures feel inconvenient in this case and the modification in MFEM was simply to not let tetrahedrons have type $P_u$ at the start of the refinement process. To do this one can simply switch off the flag of the tetrahedron of type $P$ at the end of the previous refinement (or not set it during the initial tetrahedron marking process).
-This might probably violate theoretical estimates obtained in \cite{arnold} but for a small number of refinements it is fine (in the sense that no noticeable mesh deterioration has been ever observed).
-
-Unfortunately, this trick doesn't work directly in 4D, because now one cannot start with both $P_u$ and $P_f$ pentatop types. It is fine to unflag pentatops but changing their type would bring a lot of trouble for a possible implementation since one should always keep refinement edges in the neighbouring simplices compatible.
-
-MFEM's team members claim that the trick is a modification.  I actually think this is exactly how the algorithm was meant to be understood in \cite{arnold} already.
+%\subsection{Modification of Arnold's algorithm in MFEM}
+%
+%As one can notice, when the initial tetrahedron has class $P_f$ in Arnold's algorithm, more new vertices than only all midpoints of the edges are needed to be introduced if one decides to refine it with a three level bisection (see the important remark in the end of section 3, and appendix section).
+%MFEM mesh structures feel inconvenient in this case and the modification in MFEM was simply to not let tetrahedrons have type $P_u$ at the start of the refinement process. To do this one can simply switch off the flag of the tetrahedron of type $P$ at the end of the previous refinement (or not set it during the initial tetrahedron marking process).
+%This might probably violate theoretical estimates obtained in \cite{arnold} but for a small number of refinements it is fine (in the sense that no noticeable mesh deterioration has been ever observed).
+%
+%Unfortunately, this trick doesn't work directly in 4D, because now one cannot start with both $P_u$ and $P_f$ pentatop types. It is fine to unflag pentatops but changing their type would bring a lot of trouble for a possible implementation since one should always keep refinement edges in the neighbouring simplices compatible.
+%
+%MFEM's team members claim that the trick is a modification.  I actually think this is exactly how the algorithm was meant to be understood in \cite{arnold} already.
 
 \section{Maubach's algorithm}
 
@@ -633,18 +635,142 @@ Notice that additional vertices (not only midpoints are introduced), $[4,5] = 15
 
 \end{landscape}
 
-Notice, that we had to introduce additional points which are not edge midpoints:
+\textbf{Remark.} (important!)
+Notice, that in tree diagrams for cases 3 and 4 we had to introduce additional points which are not edge midpoints:
 $$
 \begin{array}{cc}
 \mbox{edge} & \mbox{midpoint} \\
 \left[4,5\right] & 15 \\
 \left[4,9\right] & 16 \\
+\left[3,5\right] & 17 \\
 \end{array}
 $$
+This situation is similar to what happens in one of the 3D cases (see Case 3 in the tree diagrams for 3D in the Appendix). In terms of tetrahedron types introduced in \cite{arnold}, this bad behavior (additional nodes which are not midpoints) corresponds to a 3-level refinement for a tetrahedron of $P_f$ type.
+
+\begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=5pt,
+                            inner sep=0pt]
+
+    \node (dest0) [label={[xshift = -0.2cm, yshift=-0.5cm]$0$}] {};
+    \node[right= 5cm of dest0] (dest2) [label={[xshift = 0.2cm, yshift=-0.5cm]$2$}] {};
+    \node[draw=none,fill=none, right= 6.0cm of dest0] (yaxis) [label={[xshift = 0.1cm, yshift=0.0cm]$y$}] {};
+    
+    \node[below right= 2.0cm and 2.0cm of dest0] (dest1) [label={[xshift = 0.4cm, yshift=-0.3cm]$1$}] {};
+    \node[draw=none,fill=none, below right= 2.75cm and 2.75cm of source] (xaxis) [label={[xshift = -0.3cm, yshift=-0.4cm]$x$}] {};
+    \node[draw=none,fill=none,above= 2.0cm of dest0] (zaxis) [label={[xshift = 0.0cm, yshift=0.0cm]$z$}] {};
+    \node[above right= 3.0cm and 1.5cm of dest0] (dest3) [label={[xshift = 0.4cm, yshift=0.0cm]$3$}] {};
+
+    \node[fill = blue, below right= 1.0cm and 1.0cm of dest0] (dest4) [label={[xshift = 0.4cm, yshift=-0.3cm]$4$}] {};
+
+    \node[fill=red, right= 2.5cm of dest0] (dest5) [label={[xshift = 0.2cm, yshift=-0.5cm]$5$}] {};
+
+    \node[fill=red, below right= 1.0cm and 3.5cm of dest0] (dest7) [label={[xshift = 0.4cm, yshift=-0.3cm]$7$}] {};
+
+    \node[fill = none, above right= 1.5cm and 3.25cm of dest0] (dest9) [label={[xshift = 0.4cm, yshift=-0.3cm]$9$}] {};
+
+    \node[fill=yellow, above right= 1.5cm and 0.75cm of dest0] (dest6) [label={[xshift = 0.4cm, yshift=-0.3cm]$6$}] {};
+
+    \node[fill=yellow, above right= 0.5cm and 1.75cm of dest0] (dest8) [label={[xshift = 0.4cm, yshift=-0.3cm]$8$}] {};
+
+    \node[fill=red,above right= 1.0cm and 1.25cm of dest0] (dest11) [label={[xshift = -0.3cm, yshift=-0.3cm]$11$}] {};
+
+    
+    \draw[->] (dest2) -- (yaxis);
+    \draw[->] (dest1) -- (xaxis);
+    \draw[->] (dest0) -- (zaxis);
+    \draw (dest0) -- (dest2);
+    \draw[thick] (dest0) -- (dest1);
+    \draw (dest1) -- (dest2);
+    \draw (dest0) -- (dest3);
+    \draw (dest3) -- (dest1);
+    \draw (dest3) -- (dest2);
+    \draw[color=red,thick] (dest3) -- (dest4);
+%    \draw[color=red, thick] (source) -- (dest3);
+
+%    \draw (dest1) -- (dest3);
+
+\end{tikzpicture}
+\newline
+Fig. A tetraheron of type $P_f$ with ref. edge $[0,1]$ after three levels of refinement (edges ommited). Node colors: black (initial vertices), blue (first level,i.e. the refinement edge's midpoint), yellow (second level), red (thirs level).
+\end{center}
+\end{minipage}
+\hfill
+\begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=5pt,
+                            inner sep=0pt]
+
+    \node (dest0) [label={[xshift = -0.2cm, yshift=-0.5cm]$0$}] {};
+    \node[right= 5cm of dest0] (dest2) [label={[xshift = 0.2cm, yshift=-0.5cm]$2$}] {};
+    \node[draw=none,fill=none, right= 6.0cm of dest0] (yaxis) [label={[xshift = 0.1cm, yshift=0.0cm]$y$}] {};
+    
+    \node[below right= 2.0cm and 2.0cm of dest0] (dest1) [label={[xshift = 0.4cm, yshift=-0.3cm]$1$}] {};
+    \node[draw=none,fill=none, below right= 2.75cm and 2.75cm of source] (xaxis) [label={[xshift = -0.3cm, yshift=-0.4cm]$x$}] {};
+    \node[draw=none,fill=none,above= 2.0cm of dest0] (zaxis) [label={[xshift = 0.0cm, yshift=0.0cm]$z$}] {};
+    \node[above right= 3.0cm and 1.5cm of dest0] (dest3) [label={[xshift = 0.4cm, yshift=0.0cm]$3$}] {};
+
+    \node[fill = blue, below right= 1.0cm and 1.0cm of dest0] (dest4) [label={[xshift = 0.4cm, yshift=-0.3cm]$4$}] {};
+
+    \node[fill=red, right= 2.5cm of dest0] (dest5) [label={[xshift = 0.2cm, yshift=-0.5cm]$5$}] {};
+
+    \node[fill=red, below right= 1.0cm and 3.5cm of dest0] (dest7) [label={[xshift = 0.4cm, yshift=-0.3cm]$7$}] {};
+
+    \node[fill = none, above right= 1.5cm and 3.25cm of dest0] (dest9) [label={[xshift = 0.4cm, yshift=-0.3cm]$9$}] {};
+
+    \node[fill=yellow, above right= 1.5cm and 0.75cm of dest0] (dest6) [label={[xshift = 0.4cm, yshift=-0.3cm]$6$}] {};
+
+    \node[fill=yellow, above right= 0.5cm and 1.75cm of dest0] (dest8) [label={[xshift = 0.4cm, yshift=-0.3cm]$8$}] {};
+
+    \node[fill=red,above right= 1.0cm and 1.25cm of dest0] (dest11) [label={[xshift = -0.3cm, yshift=-0.3cm]$11$}] {};
+
+    
+    \draw[->] (dest2) -- (yaxis);
+    \draw[->] (dest1) -- (xaxis);
+    \draw[->] (dest0) -- (zaxis);
+    \draw (dest0) -- (dest2);
+    \draw[thick] (dest0) -- (dest1);
+    \draw (dest1) -- (dest2);
+    \draw (dest0) -- (dest3);
+    \draw (dest3) -- (dest1);
+    \draw (dest3) -- (dest2);
+    \draw[color=red,thick] (dest3) -- (dest4);
+    
+    \draw (dest2) -- (dest4);
+    \draw (dest2) -- (dest8);
+    \draw (dest4) -- (dest8);
+    \draw (dest2) -- (dest6);
+    \draw (dest4) -- (dest6);
+    
+    \draw (dest4) -- (dest7);
+    \draw (dest8) -- (dest7);
+
+    \draw (dest8) -- (dest11);
+    \draw (dest2) -- (dest11);
+
+    \draw (dest4) -- (dest5);
+    \draw (dest6) -- (dest5);
+
+    \draw (dest6) -- (dest11);
+    \draw (dest8) -- (dest11);
+
+%    \draw (dest1) -- (dest3);
+
+\end{tikzpicture}
+\newline
+Fig. A tetraheron of type $P_f$ with ref. edge $[0,1]$ after three levels of refinement.
+\end{center}
+\end{minipage}
+
+\vspace{1.0em}
+Notice that node 9 was not introduced at all. Instead we have a new edge connecting node 3 with node 4 and its midpoint (node 11). Clearly, the main argument which is based on observing edge generations doesn't come through if we consider such tetrahedrons.
+
 
 \section{Extending Arnold's algorithm to 4D}
 
-Following the lines of the Arnold's paper for 3D, we introduce the concept of a \textit{marked pentatop} which is a pentatop with three marked edges, one called the \textit{refinement edge} (which will be bisected at the next refinement step) and two \textit{marked edges} which will be the refinement edges for the two direct children of the current pentatop.
+Following the lines of the 3D framework from \cite{arnold}, we now introduce the concept of a \textit{marked pentatop} which is a pentatop with three marked edges, one called the \textit{refinement edge} (which will be bisected at the next refinement step) and two \textit{marked edges} which will be the refinement edges for two direct children of the current pentatop.
 
 Next, we need a classification of all marked pentatops (cf. with tetrahedron types introduced in \cite{arnold}). Equivalently, we need a classification for mutual geometrical positioning of the three marked edges of a pentatop.
 
@@ -899,7 +1025,7 @@ Type T (T1)
 
 \end{minipage}
 
-Looking at the tree diagrams (Cases 1 - 4) we can extract the following rules for pentatop type transformations (just be checking the refinement edges for pentatops and their direct children, level after level):
+Looking at the tree diagrams (Cases 1 - 4) from the previous section we can extract the following rules for pentatop type transformations (just be checking the refinement edges for pentatops and their direct children, level after level):
 
 \begin{itemize}
 	\item From case 1:
@@ -1048,12 +1174,74 @@ Looking at the tree diagrams (Cases 1 - 4) we can extract the following rules fo
 
 \end{itemize}
 
-Remark. As it is pointed out in \cite{arnold}, in his paper \cite{maubach} Maubach essentially considered only case 1. But since we aim at considering arbitrary unstructured meshes, we need all the cases. A similar problem as in cases 3 and 4 happens already in 3D. This situation might happen if we start our refinement process with a tetrahedron of type $P_f$, and the following illustration shows what happens in this case.
+\textbf{Remark}. As it is pointed out in \cite{arnold}, in his paper \cite{maubach} Maubach essentially considered only case 1. But since we aim at considering arbitrary unstructured meshes, we need all the cases. A similar problem as in cases 3 and 4 happens already in 3D, an illustration was given in the end of section 4. This situation might happen if we start our refinement process with a tetrahedron of type $P_f$, and the following illustration shows what happens in this case. Below we give an illustration of what happens in 4D (cf. with the tetrahedron of $P_f$ type in the end of section 3, the same happens here).
 
-ILLUSTRATION
+\begin{center}
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=5pt,
+                            inner sep=0pt]
+
+    % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
+    \node (dest0) [label={[xshift = 0.2cm, yshift=-0.5cm]$0$}] {};
+    \node[right= 4cm of dest0] (dest1) [label={[xshift = 0.2cm, yshift=-0.5cm]$2$}] {};
+    \node[draw=none,fill=none, right= 5.5cm of dest0] (dest2) [label={[xshift = 0.2cm, yshift=0.0cm]$y$}] {};
+    \node[below left= 2.0cm and 3.0cm of dest0] (dest3) [label={[xshift = 0.2cm, yshift=-0.5cm]$1$}] {};
+    \node[draw=none,fill=none, below left= 3.0cm and 4.5cm of dest0] (dest4) [label={[xshift = -0.2cm, yshift=0.2cm]$x$}] {};
+    \node[above= 4.0cm of dest0] (dest5) [label={[xshift = 0.4cm, yshift=0.0cm]$3$}] {};
+    \node[draw=none,fill=none,above= 5.0cm of dest0] (dest6) [label={[xshift = 0.0cm, yshift=0.2cm]$z$}] {};
+    \node[above left= 3.0cm and 4.0cm of dest0] (dest7) [label={[xshift = -0.5cm, yshift=-0.2cm]$4$}] {};
+    \node[draw=none,fill=none,above left = 4.0cm and 5.33cm of dest0] (dest8) [label={[xshift = -0.10cm, yshift=0.13cm]$t$}] {};
+
+    \node[fill=blue,right= 2.0cm of dest0] (node6) [label={[xshift = -0.2cm, yshift=0.0cm]$6$}] {};
+
+    \node[fill=yellow,below left= 1.0cm and 1.5cm of dest0] (node5) [label={[xshift = -0.2cm, yshift=0.0cm]$5$}] {};
+
+    \node[fill=yellow,below right= 0.92cm and 0.5cm of dest0] (node9) [label={[xshift = -0.2cm, yshift=0.0cm]$9$}] {};
+
+    \node[fill=red,above left= 1.5cm and 2.0cm of dest0] (node8) [label={[xshift = -0.1cm, yshift=0.0cm]$8$}] {};
+
+    \node[fill=red,above left= 0.5cm and 3.5cm of dest0] (node11) [label={[xshift = -0.3cm, yshift=-0.5cm]$11$}] {};
+
+    \node[fill=red,above left= 1.65cm and 0.5cm of dest0] (node13) [label={[xshift = +0.3cm, yshift=-0.7cm]$13$}] {};
+
+    \node[fill=green,above left= 0.4cm and 2.48cm of dest0] (node45) [label={[xshift = -0.5cm, yshift=-0.8cm]$[4,5]$}] {};
+
+    \node[fill=green,above left= 1.0cm and 1.75cm of dest0] (node49) [label={[xshift = -0.5cm, yshift=-0.7cm]$[4,9]$}] {};
+
+    \node[fill=green,above= 2.0cm of dest0] (node7) [label={[xshift = 0.2cm, yshift=-0.3cm]$7$}] {};
+
+    \node[fill=green,above left= 1.4cm and 1.2cm of dest0] (node10) [label={[xshift = 0.3cm, yshift=-0.7cm]$10$}] {};
+
+    \node[fill=green,above right= 1.95cm and 2.0cm of dest0] (node12) [label={[xshift = 0.3cm, yshift=-0.3cm]$12$}] {};
+
+    
+    \draw[color=red, thick] (dest0) -- (dest1);
+    \draw[->] (dest1) -- (dest2);
+    \draw (dest0) -- (dest3);
+    \draw[->] (dest3) -- (dest4);
+    \draw (dest0) -- (dest5);
+    \draw[->] (dest5) -- (dest6);
+    \draw (dest0) -- (dest7);
+    \draw[->] (dest7) -- (dest8);
+
+    \draw (dest1) -- (dest3);
+    \draw (dest7) -- (dest1);
+    \draw (dest3) -- (dest7);
+    \draw (dest7) -- (dest5);
+    \draw (dest5) -- (dest3);
+    \draw (dest5) -- (dest1);
+    
+    \draw[color=green,thick] (dest7) -- (node9);
+    \draw[color=green,thick] (dest7) -- (node5);
+
+\end{tikzpicture}
+\newline
+Fig. A pentatop from tree diagram for case 3, with refinement edge $[0,2] = 6$. One can notice where the additional nodes (which are not edge midpoints) are introduced and which one is missing. Node color notation: blue for the node introduced during the first level of bisection (i.e. the midpoint of the ref. edge), yellow (second level), red (third level), green (4th level).
+\end{center}
+Notice how the midpoint $[3,4]$ is not introduced at all. Instead, two nodes which are not midpoints ($[4,5]$ and $[4,9]$) appeared.
 
 
-The rules above suggest the following type transformaton diagram (cf. with diagram in section 6) where subscripts $u$, $f$ for class A2, $r$ and $b$ for class P are introduced in order to distinguish two different ways of these class transformation which appeared in the rules above):
+The rules above suggest the following type transformaton diagram (cf. with diagram in section 6) where subscripts $u$, $f$ for class A2, $r$ and $b$ for class P are introduced in order to distinguish two different ways of these classes transformations which appeared in the rules above, e.g. a $P$ type sometimes is split into two pentatops of $P$ type, sometimes into two $A2$ type pentatops):
 
 \begin{center}
 \begin{tikzpicture}
@@ -1061,23 +1249,28 @@ The rules above suggest the following type transformaton diagram (cf. with diagr
                             inner sep=0pt]
 
     % First, draw the inner hexagon with a ``pin'' -- namely, (3214)
-    \node (source) [label=center:$A2_u$] {};
-    \node[below right= 0.0cm and 4.0cm of source] (dest1) [label=center:$A2_f$] {};
-    \node[below right= 4.0cm and 4.0cm of source] (dest2) [label=center:$P_r$] {};
-    \node[below= 4.0cm of source] (dest3) [label=center:$P_b$] {};
-    \draw[->] (source) -- (dest1);
+    \node (dest0) [label=center:$A2_u$] {};
+    \node[right= 4.0cm of dest0] (dest1) [label=center:$A2_f$] {};
+    \node[below right= 4.25cm and 4.25cm of dest0] (dest2) [label=center:$P_r$] {};
+    \node[below= 4.0cm of dest0] (dest3) [label=center:$P_b$] {};
+
+    \draw[->] (dest0) -- (dest1);
     \draw[->] (dest1) -- (dest2);
     \draw[->] (dest2) -- (dest3);
-    \draw[->] (dest3) -- (source);
+    \draw[->] (dest3) -- (dest0);
 
 \end{tikzpicture}
+\newline
+Fig. Type transformation diagram in 4D, considering only the types which appear in the Maubach's tree diagrams.
 \end{center}
 
 \section{Completing the type tranformation rules and developing geometrical rules}
 
-One could notice now that the rules which govern the type transformation do not uniquely define a specific algorithm since the same rule can lead to different choice of refinement edges for the children. (But what we need are geometrical recipes of bisecting any possible pentatop!)
+One could notice now that the rules which define the pentatop's type transformation do not uniquely define the children for a given pentatop since the refinement edges for the children can be different for the same type. But what we need are geometrical recipes of bisecting any possible pentatop.
 
-To illustrate that, each of the main rules generated by the diagrams is considered below in more detail. The two key ideas called \textbf{idea 1} and \textbf{idea 2} are introduced in consideration of the first case.
+To illustrate that, each of the main rules generated by the diagrams is considered below in more details. For every case we proceed in two steps. First, we look at the particular representative of the rule and understand how to mark all the faces (choose an edge) for the children so that the choice will be consistent with the rule. Second, we formulate specific how-to instructions which can be applied for an arbitrary pentatop of considered type (we call such instructions a \textit{recipy}, or a \textit{geometrical recipy} in what follows).
+
+The two key ideas called \textbf{idea 1} and \textbf{idea 2} are introduced in consideration of the first case below.
 
 \begin{itemize}
 	\item Case: $P_r \rightarrow P_b + P_b$. \\
@@ -1087,10 +1280,25 @@ To illustrate that, each of the main rules generated by the diagrams is consider
 	\begin{array}{c} 01678 \\ \left[01,08,18\right] \end{array} P +
 	\begin{array}{c} 12678 \\ \left[12,18,28\right] \end{array} P $$
 	with the new vertex $\left[02\right] = 6$ (comes from n = 4, ``4'')
+
+%	\begin{table}[h!]
+%	\caption{Case: $P_r \rightarrow P_b + P_b$.}
+%	\label{tab:Case1}
+%	\begin{tabular}{|c|c|c|} \hline
+%	parent & \multicolumn{2}{|c|}{01278} \\ \hline
+%	children & 01678 & 12678 \\ \hline
+%	inherited face & 0178 & 1278 \\ \hline
+%	\multirow{3}{*}{cut faces} & 0167 & 1267 \\ 
+%	 & 0168 & 1268 \\ 
+%	 & 0678 & 2678 \\ \hline
+%	 new face & 1678 & 1678 \\ \hline
+%	\end{tabular}
+%	\end{table}
+
+\begin{minipage}[]{0.5\textwidth}
+  \begin{center}
 	
-	\begin{table}[h!]
-	\caption{Case: $P_r \rightarrow P_b + P_b$.}
-	\label{tab:Case1}
+	%\caption{Case: $P_r \rightarrow P_b + P_b$.}
 	\begin{tabular}{|c|c|c|} \hline
 	parent & \multicolumn{2}{|c|}{01278} \\ \hline
 	children & 01678 & 12678 \\ \hline
@@ -1100,26 +1308,46 @@ To illustrate that, each of the main rules generated by the diagrams is consider
 	 & 0678 & 2678 \\ \hline
 	 new face & 1678 & 1678 \\ \hline
 	\end{tabular}
-	\end{table}
+  \end{center}
+\end{minipage}
+\hfill
+\begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	\begin{tabular}{|c|c|c|} \hline
+	parent & \multicolumn{2}{|c|}{01278} \\ \hline
+	children & 01678 & 12678 \\ \hline
+	inherited face & \textbf{0}\textbf{1}78 & \textbf{1}\textbf{2}78 \\ \hline
+	\multirow{3}{*}{cut faces} & \textbf{0}\textbf{1}67 & \textbf{1}\textbf{2}67 \\ 
+	 & \textbf{0}\textbf{1}68 & \textbf{1}\textbf{2}68 \\ 
+	 & \textbf{0}67\textbf{8} & \textbf{2}67\textbf{8} \\ \hline
+	 new face & \textbf{1}67\textbf{8} & \textbf{1}67\textbf{8} \\ \hline
+	\end{tabular}
+  \end{center}
+\end{minipage}
+
+\begin{center}
+	Table. Case: $P_r \rightarrow P_b + P_b$. Endpoints of the marked edges are bold.
+\end{center}
+
     Now, looking at the rule above we need to mark each of the children faces (choose an edge). 
     
-    First, notice that we already know from the case rule the refinement edge for both children ($\left[01\right]$ and $\left[12\right]$ corrsepondingly). Also, we know from the concept of the refinement edge that it should be an intersection of three adjacent faces (this argument will be referred to as \textbf{idea 1} below). Thus we can mark the inherited face and the first two cut faces.
+    First, notice that we already know from the case rule (look at the representative above) the refinement edge for both children ($\left[01\right]$ and $\left[12\right]$ corrsepondingly). Also, we know from the concept of the refinement edge that it should be an intersection of three adjacent faces (this argument will be referred to as \textbf{idea 1} below). Thus we can mark the inherited face and the first two cut faces for both children.
     
     Second, from the rule we see that $\left[18\right]$ and $\left[28\right]$ are marked, hence we can mark the new face.
     
-    Third, for the one cut face left unmakred we have the marked edge: $\left[08\right]$ and $\left[28\right]$ directly from the rule.
+    Third, for the one cut face left unmarked we have the marked edge: $\left[08\right]$ and $\left[28\right]$ directly from the rule.
       
     Still, there is non-uniqueness entering the case implicitly. Looking at the rule itself, one can notice that vertices $7$ and $8$ enter the situation equally. Then, why for all the rules at that level (look into the diagram) $8$ was preferred to $7$? The \textbf{idea 2} (which supports the tetrahedron case as well) is that whenever we have to choose between vertices, we first look at their generation. Here $8$ is the new vertex, hence it is younger, hence we choose $\left[01\right]$ and $\left[12\right]$. Thus, this idea is telling us that this is because $7$ is \textit{younger} than $8$ since it appears at the previous level while $8$ is one level \textit{older}. (As far as we have checked it is true for all other rules coming from the diagrams as well).
     
-    Notice that in 3D case instead of two vertices $7$ and $8$ there will be only one, so no ambiguity arises there and \textbf{idea 2} is hidden behind the direct definition of the geometric rules.
+    Notice that in 3D case instead of two vertices $7$ and $8$ there will be only one, so no ambiguity arose there and \textbf{idea 2} is hidden behind the direct definition of the geometric rules in 3D.
 
 	Now imagine we know only the type transformation and the marked edges of the parent but not the particular refinement edges for the children. How we should define marked edges for the children?
 	
-	We suggest the following recipy for type $P_r$:
+	We suggest the following \textit{recipy} for type $P_r$:
 	\begin{enumerate}
-		\item Inherited face gets the marked edge (future refinement edge) from the parent
-		\item If a cut face contains the refinement edge, it is its marked edge.
-		\item The face which does not, build its marked edge from the inherited endpoint of the parent's refinement edge ($0$ and $1$ in the considered case example) and the new vertex ($8$).
+		\item Inherited face gets the marked edge (future refinement edge) from the parent;
+		\item If a cut face contains the refinement edge, it is its marked edge;
+		\item The face which does not, build its marked edge from the inherited endpoint of the parent's refinement edge ($0$ and $1$ in the considered case example) and the new vertex ($8$);
 		\item The new face builds its marked edge from the vertex which was in the parent's ``triangle of marked edges'' (i.e., $1$ from $012$)  and the new vertex ($8$).
 	\end{enumerate}
     
@@ -1130,11 +1358,26 @@ To illustrate that, each of the main rules generated by the diagrams is consider
 	\rightarrow 
 	\begin{array}{c} 01274 \\ \left[02,01,12\right] \end{array} P +
 	\begin{array}{c} 12374 \\ \left[13,12,23\right] \end{array} P $$
-	with the new vertex $\left[03\right] = 7$ (comes from ?? diagram)
+	with the new vertex $\left[03\right] = 7$ (comes from case 2 diagram).
 	
-	\begin{table}[h!]
-	\caption{Case: $A2_f \rightarrow P_r + P_r$.}
-	\label{tab:Case2}
+%	\begin{table}[h!]
+%	\caption{Case: $A2_f \rightarrow P_r + P_r$.}
+%	\label{tab:Case2}
+%	\begin{tabular}{|c|c|c|} \hline
+%	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+%	children & 01274 & 12374 \\ \hline
+%	inherited face & 0124 & 1234 \\ \hline
+%	\multirow{3}{*}{cut faces} & 0147 & 1347 \\ 
+%	 & 0247 & 2347 \\ 
+%	 & 0127 & 1237 \\ \hline
+%	 new face & 1247 & 1247 \\ \hline
+%	\end{tabular}
+%	\end{table}    
+    Again, we need to mark each of the children faces. 
+    
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
 	\begin{tabular}{|c|c|c|} \hline
 	parent & \multicolumn{2}{|c|}{01234} \\ \hline
 	children & 01274 & 12374 \\ \hline
@@ -1144,10 +1387,30 @@ To illustrate that, each of the main rules generated by the diagrams is consider
 	 & 0127 & 1237 \\ \hline
 	 new face & 1247 & 1247 \\ \hline
 	\end{tabular}
-	\end{table}    
-    Again, we need to mark each of the children faces. 
+  \end{center}
+\end{minipage}
+\hfill
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
+	\begin{tabular}{|c|c|c|} \hline
+	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+	children & 01274 & 12374 \\ \hline
+	inherited face & \textbf{0}1\textbf{2}4 & \textbf{1}2\textbf{3}4 \\ \hline
+	\multirow{3}{*}{cut faces} & \textbf{0}\textbf{1}47 & \textbf{1}\textbf{3}47 \\ 
+	 & \textbf{0}\textbf{2}47 & \textbf{2}\textbf{3}47 \\ 
+	 & \textbf{0}1\textbf{2}7 & \textbf{1}2\textbf{3}7 \\ \hline
+	 new face & \textbf{1}\textbf{2}47 & \textbf{1}\textbf{2}47 \\ \hline
+	\end{tabular}
+
+  \end{center}
+\end{minipage}
+
+\begin{center}
+	Table. Case: $A2_f \rightarrow P_r + P_r$. Endpoints of the marked edges are bold.
+\end{center}
     
-    First, we use the knowledge of the refinement edge. Adding \textbf{idea 1}, we mark three of the faces. Second, from the rule we mark the new face. Third, for the one cut face left unmarked we have the marked edge: $\left[08\right]$ and $\left[28\right]$ directly from the rule.
+    First, we use the knowledge of the refinement edge. Adding \textbf{idea 1}, we mark three of the faces. Second, from the rule we mark the new face. Third, for the one cut face left unmarked we have the marked edge: $\left[01\right]$ and $\left[13\right]$ directly from the rule.
     
     Now, to the recipy for $A2_f$:
 	\begin{enumerate}
@@ -1165,11 +1428,27 @@ To illustrate that, each of the main rules generated by the diagrams is consider
 	\rightarrow 
 	\begin{array}{c} 01274 \\ \left[03,02,13\right] \end{array} A2 +
 	\begin{array}{c} 12374 \\ \left[14,13,24\right] \end{array} A2 $$
-	with the new vertex $\left[04\right] = 8$ (comes from ?? diagram)
+	with the new vertex $\left[04\right] = 8$ (comes from case 2 diagram)
 	
-	\begin{table}[h!]
-	\caption{Case: $A2_u \rightarrow A2_f + A2_f$.}
-	\label{tab:Case3}
+%	\begin{table}[h!]
+%	\caption{Case: $A2_u \rightarrow A2_f + A2_f$.}
+%	\label{tab:Case3}
+%	\begin{tabular}{|c|c|c|} \hline
+%	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+%	children & 01238 & 12348 \\ \hline
+%	inherited face & 0123 & 1234 \\ \hline
+%	\multirow{3}{*}{cut faces} & 0128 & 4128 \\ 
+%	 & 0138 & 4138 \\ 
+%	 & 0238 & 4238 \\ \hline
+%	 new face & 1238 & 1238 \\ \hline
+%	\end{tabular}
+%	\end{table}    
+	
+    Again, we need to mark each of the children faces. 
+
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
 	\begin{tabular}{|c|c|c|} \hline
 	parent & \multicolumn{2}{|c|}{01234} \\ \hline
 	children & 01238 & 12348 \\ \hline
@@ -1179,15 +1458,36 @@ To illustrate that, each of the main rules generated by the diagrams is consider
 	 & 0238 & 4238 \\ \hline
 	 new face & 1238 & 1238 \\ \hline
 	\end{tabular}
-	\end{table}    
-    Again, we need to mark each of the children faces. 
+  \end{center}
+\end{minipage}
+\hfill
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
+	\begin{tabular}{|c|c|c|} \hline
+	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+	children & 01238 & 12348 \\ \hline
+	inherited face & \textbf{0}12\textbf{3} & \textbf{1}23\textbf{4} \\ \hline
+	\multirow{3}{*}{cut faces} & \textbf{0}1\textbf{2}8 & \textbf{4}\textbf{1}28 \\ 
+	 & \textbf{0}1\textbf{3}8 & \textbf{4}\textbf{1}38 \\ 
+	 & \textbf{0}2\textbf{3}8 & \textbf{4}\textbf{2}38 \\ \hline
+	 new face & \textbf{1}2\textbf{3}8 & \textbf{1}2\textbf{3}8 \\ \hline
+	\end{tabular}
+
+  \end{center}
+\end{minipage}
+
+\begin{center}
+	Table. Case: $A2_u \rightarrow A2_f + A2_f$. Endpoints of the marked edges are bold.
+\end{center}    
+    
     Following the above used arguments, we mark all the faces and formulate the recipy for $A2_u$:
     
 	\begin{enumerate}
 		\item Inherited face gets the marked edge (future refinement edge) from the parent
 		\item If a cut face contains the refinement edge, it is its marked edge.
-		\item The face which does not, takes the vertex which doesn't enter the parent's ``tetrahedron of marked edges'' ($4$ outside of $0123$) and marks the edge connecting this vertex with one of the endpoints of the parent's refinement edge ($0$ and $4$).
-		\item The new face builds its marked edge from the vertices which were in the parent's ``tetrahedron of marked edges'' (i.e., $13$ from $0123$ for the left child).
+		\item The face which does not, takes the vertex which doesn't enter the parent's ``tetrahedron of marked edges'' ($2$ outside of $0134$) and marks the edge connecting this vertex with one of the endpoints of the parent's refinement edge ($0$ and $4$).
+		\item The new face builds its marked edge from the vertices which were in the parent's ``tetrahedron of marked edges'' (i.e., $13$ from $0123$ for the left child and from $1238$ for the right child).
 	\end{enumerate}
 	 
 	\item Case: $P_b \rightarrow A2_u + A2_u$. \\
@@ -1198,9 +1498,24 @@ To illustrate that, each of the main rules generated by the diagrams is consider
 	\begin{array}{c} 29674 \\ \left[24,27,49\right] \end{array} A2 $$
 	with the new vertex $\left[12\right] = 9$ (comes from n = 4, ``3'' diagram)
 	
-	\begin{table}[h!]
-	\caption{Case: $P_b \rightarrow A2_u + A2_u$.}
-	\label{tab:Case4}
+%	\begin{table}[h!]
+%	\caption{Case: $P_b \rightarrow A2_u + A2_u$.}
+%	\label{tab:Case4}
+%	\begin{tabular}{|c|c|c|} \hline
+%	parent & \multicolumn{2}{|c|}{12674} \\ \hline
+%	children & 19674 & 29674 \\ \hline
+%	inherited face & 1674 & 2674 \\ \hline
+%	\multirow{3}{*}{cut faces} & 1974 & 2974 \\ 
+%	 & 1964 & 2964 \\ 
+%	 & 1967 & 2967 \\ \hline
+%	 new face & 6749 & 6749 \\ \hline
+%	\end{tabular}
+%	\end{table}    
+    Again, we need to mark each of the children faces. 
+    
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
 	\begin{tabular}{|c|c|c|} \hline
 	parent & \multicolumn{2}{|c|}{12674} \\ \hline
 	children & 19674 & 29674 \\ \hline
@@ -1210,8 +1525,29 @@ To illustrate that, each of the main rules generated by the diagrams is consider
 	 & 1967 & 2967 \\ \hline
 	 new face & 6749 & 6749 \\ \hline
 	\end{tabular}
-	\end{table}    
-    Again, we need to mark each of the children faces. 
+  \end{center}
+\end{minipage}
+\hfill
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
+	\begin{tabular}{|c|c|c|} \hline
+	parent & \multicolumn{2}{|c|}{12674} \\ \hline
+	children & 19674 & 29674 \\ \hline
+	inherited face & \textbf{1}67\textbf{4} & \textbf{2}67\textbf{4} \\ \hline
+	\multirow{3}{*}{cut faces} & \textbf{1}97\textbf{4} & \textbf{2}97\textbf{4} \\ 
+	 & \textbf{1}96\textbf{4} & \textbf{2}96\textbf{4} \\ 
+	 & \textbf{1}96\textbf{7} & \textbf{2}96\textbf{7} \\ \hline
+	 new face & 67\textbf{4}\textbf{9} & 67\textbf{4}\textbf{9} \\ \hline
+	\end{tabular}
+
+  \end{center}
+\end{minipage}    
+
+\begin{center}
+	Table. Case: $P_b \rightarrow A2_u + A2_u$. Endpoints of the marked edges are bold.
+\end{center}    
+    
     Following the above used arguments, we mark all the faces and formulate the recipy for $P_b$:
     
     	\begin{enumerate}
@@ -1221,25 +1557,42 @@ To illustrate that, each of the main rules generated by the diagrams is consider
 		\item The new face builds its marked edge from the vertex which was in the parent's ``triangle of marked edges'' (i.e., $4$ from $124$)  and the new vertex ($9$).
 	\end{enumerate}
 	
-	The roles of vertices $6$ and $7$ here are identical, so the overall choice of $7$ is based on \textbf{idea 2}.
+	The roles of vertices $6$ and $7$ here are identical, so the overall choice of $7$ instead of $6$ is based on \textbf{idea 2}.
 
 \end{itemize}
  
 The geometric recipes above are said to provide a uniquely determined refinement sequences in full accordance (check this!) with the diagrams coming from the Maubach's algorithm.
 
-However, there are still things left to be defined. In particular, as mentioned earlier, there are more pentatop types than only $P$'s and $A2$'s.
+However, there are still things left to be defined. In particular, as mentioned earlier, there are more pentatop types than only $P$'s and $A2$'s. We must now have a look at them.
 
-It is not fully understood how the specific rules for the rest of the types affect the problem of closure finiteness but still we must have a look at them.
-Looking at the theoretical proof for Arnold's algorithm, we conclude that whenever additional pentatop types disappear after the first refinement of the initial mesh, the only thing we should care about is how to transform them into $P$ and $A2$ types.
+\textbf{Remark.} Looking at the theoretical proof for Arnold's algorithm, we conclude that whenever additional pentatop types disappear after the first refinement of the initial mesh, the only thing we should care about is how to transform them into $P$ and $A2$ types.
 
 \begin{itemize}
-	\item Type $A1$ (adjacent, but unlike $A2$, the refinement edge is not the middle one in the three-... chain).
+	\item Type $A1$ (adjacent, but unlike $A2$, the refinement edge is not in the middle of the chain of marked edges).
 	$$ \begin{array}{c} 01234 \\ \left[01,12,23\right] \end{array} A1
 	\rightarrow ? + ? $$
-	with the new vertex $\left[01\right] = 5$
-	\begin{table}[h!]
-	\caption{Auxiliary case: $A1$.}
-	\label{tab:Case4}
+	with the new vertex $\left[01\right] = 5$.
+	
+	
+%	\begin{table}[h!]
+%	\caption{Auxiliary case: $A1$.}
+%	\label{tab:Case4}
+%	\begin{tabular}{|c|c|c|} \hline
+%	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+%	children & 12345 & 02345 \\ \hline
+%	inherited face & 1234 & 0234 \\ \hline
+%	\multirow{3}{*}{cut faces} & 1235 & 0235 \\ 
+%	 & 1245 & 0245 \\ 
+%	 & 1345 & 0345 \\ \hline
+%	 new face & 2345 & 2345 \\ \hline
+%	\end{tabular}
+%	\end{table}    
+	
+    Again, we need to mark each of the children faces. 
+
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
 	\begin{tabular}{|c|c|c|} \hline
 	parent & \multicolumn{2}{|c|}{01234} \\ \hline
 	children & 12345 & 02345 \\ \hline
@@ -1249,16 +1602,37 @@ Looking at the theoretical proof for Arnold's algorithm, we conclude that whenev
 	 & 1345 & 0345 \\ \hline
 	 new face & 2345 & 2345 \\ \hline
 	\end{tabular}
-	\end{table}    
-    Again, we need to mark each of the children faces. 
+  \end{center}
+\end{minipage}
+\hfill
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
+	\begin{tabular}{|c|c|c|} \hline
+	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+	children & 12345 & 02345 \\ \hline
+	inherited face & \textbf{1}\textbf{2}34 & 0\textbf{2}\textbf{3}4 \\ \hline
+	\multirow{3}{*}{cut faces} & \textbf{1}\textbf{2}35 & 0\textbf{2}\textbf{3}5 \\ 
+	 & \textbf{1}\textbf{2}45 & 0245 \\ 
+	 & 1345 & 0345 \\ \hline
+	 new face & \textbf{2}\textbf{3}45 & \textbf{2}\textbf{3}45 \\ \hline
+	\end{tabular}
+
+  \end{center}
+\end{minipage}    
+
+\begin{center}
+	Table. Auxiliary case: $A1$. Endpoints of the marked edges are bold. The faces where it is not clear how to make a choice, are left unmarked (see comments in the text). One of the choices is used in the corresponding recipy.
+\end{center}        
+    
     \textbf{Idea 1} immediately marks the inherited face and two of the cut faces for the left child and the inherited, one cut and the new face for the right child. (Geometrically left child is the child whose main refinement edge touches the parent's ref. edge).
     Now, one of the possible recipes for $A1$ which will convert it to type $P$ (this reduces the number of choices here):
     	\begin{enumerate}
 		\item Inherited face gets the marked edge (future refinement edge) from the parent
 		\item If a cut face contains the refinement edge, it is its marked edge.
 		\item The new face will contain one of the children's refinement edges, and it will be its marked edge.
-		\item Abandon vertex which doesn't belong to the parent's ``tetrahedron of marked edges'' ($4$ outside of $0123$) and mark the face left for the left child ($13$ for $1345$) and two faces left for the right child ($02$ and $03$ for $0245$ and $0345$.
-		Question: Maybe, one shouldn't drop the vertex for the right child but rather compare the vertex generations among $0$ and $4$?
+		\item Abandon (i.e. don't consider as an option) the new vertiex and the vertex which doesn't belong to the parent's ``tetrahedron of marked edges'' ($4$ outside of $0123$) and mark the face left unmarked for the left child ($13$ for $1345$) and two faces left unmarked for the right child ($02$ and $03$ for $0245$ and $0345$.
+		\textbf{Question}: Maybe, one shouldn't drop the vertex for the right child but rather compare the vertex generations among $0$ and $4$?
 	\end{enumerate}
 
 	  \begin{center}
@@ -1304,10 +1678,26 @@ Type A1
 	\item Type $T1$ (essentially four-dimensional).
 	$$ \begin{array}{c} 01234 \\ \left[01,12,34\right] \end{array} T1
 	\rightarrow ? + ? $$
-	with the new vertex $\left[01\right] = 5$
-	\begin{table}[h!]
-	\caption{Auxiliary case: $T1$.}
-	\label{tab:Case4}
+	with the new vertex $\left[01\right] = 5$.
+	
+%	\begin{table}[h!]
+%	\caption{Auxiliary case: $T1$.}
+%	\label{tab:Case4}
+%	\begin{tabular}{|c|c|c|} \hline
+%	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+%	children & 12345 & 02345 \\ \hline
+%	inherited face & 1234 & 0234 \\ \hline
+%	\multirow{3}{*}{cut faces} & 1235 & 0235 \\ 
+%	 & 1245 & 0245 \\ 
+%	 & 1345 & 0345 \\ \hline
+%	 new face & 2345 & 2345 \\ \hline
+%	\end{tabular}
+%	\end{table}    
+    Again, we need to mark each of the children faces. 
+
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
 	\begin{tabular}{|c|c|c|} \hline
 	parent & \multicolumn{2}{|c|}{01234} \\ \hline
 	children & 12345 & 02345 \\ \hline
@@ -1317,8 +1707,28 @@ Type A1
 	 & 1345 & 0345 \\ \hline
 	 new face & 2345 & 2345 \\ \hline
 	\end{tabular}
-	\end{table}    
-    Again, we need to mark each of the children faces. 
+  \end{center}
+\end{minipage}
+\hfill
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
+	\begin{tabular}{|c|c|c|} \hline
+	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+	children & 12345 & 02345 \\ \hline
+	inherited face & \textbf{1}\textbf{2}34 & 02\textbf{3}\textbf{4} \\ \hline
+	\multirow{3}{*}{cut faces} & \textbf{1}\textbf{2}35 & 0235 \\ 
+	 & \textbf{1}\textbf{2}45 & 0245 \\ 
+	 & 1345 & 0\textbf{3}\textbf{4}5 \\ \hline
+	 new face & \textbf{2}34\textbf{5} & 2\textbf{3}4\textbf{5} \\ \hline
+	\end{tabular}
+
+  \end{center}
+\end{minipage}    
+
+\begin{center}
+	Table. Auxiliary case: $T1$. Endpoints of the marked edges are bold. The faces where it is not clear how to make a choice, are left unmarked (see comments in the text). One of the choices is used in the final recipy.
+\end{center}
     
     \textbf{Idea 1} immediately marks the inherited face and two of the cut faces for the left child and the inherited, one cut and the new face for the right child. (Geometrically left child is the child whose main refinement edge touches the parent's ref. edge).
     
@@ -1330,22 +1740,40 @@ Type A1
 		\item The faces left are $1345$ for the left child and $0235$, $0245$ for the right child. 
 		\textbf{Critical!} Question: Cannot get type $P$ for the left child, what to do? Can make $A1$ for the left child, good enough? For the right child it can be a $P$ type choosing $0$ or $2$ (e.g., $0$ as an endpoint of the parent's ref. edge).
 	\end{enumerate}
+	Let's try a different option:
 		
 		Here we can probable live with \textbf{idea 3} which is to abandon idea 1 for T1 and T2 types.
-		A recipy for T1 which does not care about \textbf{idea 1}:
+		A final recipy for T1 which does not care about \textbf{idea 1}:
     	\begin{enumerate}
 		\item Inherited face gets the marked edge (future refinement edge) from the parent
-		\item The new face is marked by the edge connecting the only endpoint of the children's ref. edges (from that which doesn't belong to the new face plane), $2$ and the new vertex
-		\item The faces left are $1345$ for the left child and $0235$, $0245$ for the right child. 
+		\item The new face is marked by the edge connecting the only endpoint of the children's ref. edges (from that which doesn't belong to the new face plane), $2$ and the new vertex. For the left child it will result in $[2,5]$, for the right in $[3,5]$.
+		\item The faces left are $1345$ for the left child and $0235$, $0245$ for the right child. Here we complete the $P$ type for the children.
 	\end{enumerate}
 	
 	\item Type $T2$ (essentially four-dimensional).
 	$$ \begin{array}{c} 01234 \\ \left[01,23,34\right] \end{array} T2
 	\rightarrow ? + ? $$
-	with the new vertex $\left[01\right] = 5$
-	\begin{table}[h!]
-	\caption{Auxiliary case: $T2$.}
-	\label{tab:Case4}
+	with the new vertex $\left[01\right] = 5$.
+	
+%	\begin{table}[h!]
+%	\caption{Auxiliary case: $T2$.}
+%	\label{tab:Case4}
+%	\begin{tabular}{|c|c|c|} \hline
+%	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+%	children & 12345 & 02345 \\ \hline
+%	inherited face & 1234 & 0234 \\ \hline
+%	\multirow{3}{*}{cut faces} & 1235 & 0235 \\ 
+%	 & 1245 & 0245 \\ 
+%	 & 1345 & 0345 \\ \hline
+%	 new face & 2345 & 2345 \\ \hline
+%	\end{tabular}
+%	\end{table}    
+	
+    Again, we need to mark each of the children faces. 
+
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
 	\begin{tabular}{|c|c|c|} \hline
 	parent & \multicolumn{2}{|c|}{01234} \\ \hline
 	children & 12345 & 02345 \\ \hline
@@ -1355,26 +1783,47 @@ Type A1
 	 & 1345 & 0345 \\ \hline
 	 new face & 2345 & 2345 \\ \hline
 	\end{tabular}
-	\end{table}    
-    Again, we need to mark each of the children faces. 
+  \end{center}
+\end{minipage}
+\hfill
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
+	\begin{tabular}{|c|c|c|} \hline
+	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+	children & 12345 & 02345 \\ \hline
+	inherited face & 1\textbf{2}\textbf{3}4 & 02\textbf{3}\textbf{4} \\ \hline
+	\multirow{3}{*}{cut faces} & \textbf{1}\textbf{2}35 & 0235 \\ 
+	 & \textbf{1}\textbf{2}45 & 0245 \\ 
+	 & 1345 & 0\textbf{3}\textbf{4}5 \\ \hline
+	 new face & 2345 & 2345 \\ \hline
+	\end{tabular}
+
+  \end{center}
+\end{minipage}    
+
+\begin{center}
+	Table. Auxiliary case: $T2$. Endpoints of the marked edges are bold. The faces where it is not clear how to make a choice, are left unmarked (see comments in the text). One of the choices is used in the final recipy.
+\end{center}    
+    
     \textbf{Idea 1} immediately marks the inherited, one cut and the new face for both children. 
     
     Now, one of the possible recipes for $T2$ which will convert it to type $P? no!$ (this reduces the number of choices here):
     	\begin{enumerate}
-		\item Inherited face gets the marked edge (future refinement edge) from the parent
-		\item If a cut face contains the refinement edge, it is its marked edge.
+		\item Inherited face gets the marked edge (future refinement edge) from the parent;
+		\item If a cut face contains the refinement edge, it is its marked edge;
 		\item The new face contains both of the children's refinement edges, but the choice should be the same for both children, \textbf{how to decide}? Left and right children enter equally and if choose one, \textbf{idea 1} will be violated. We can make both children of $P$ type, but compatiblity is getting violated.
 		\end{enumerate}	
 		
 		Here we can probable live with \textbf{idea 3} which is to abandon idea 1 for T1 and T2 types.
-		A recipy for T2 which does not care about \textbf{idea 1}:
+		A final recipy for T2 which does not care about \textbf{idea 1}:
     	\begin{enumerate}
-		\item Inherited face gets the marked edge (future refinement edge) from the parent
-		\item Choose the child (called chosen child below) whose ref. edge does not touch the parent's ref. edge. Choose by some geometrical lexigographical order one vertex (referred to as \textbf{idea 4}), say $3$ out of this child's ref. edge, $34$.
-		\item The new face is marked by the edge connecting endpoint of the other child (see prev. item) which is not an endpoint of the parent's ref. edge ($2$ out of $12$) and the previously chosen vertex $3$.
+		\item Inherited face gets the marked edge (future refinement edge) from the parent;
+		\item Consider the child (called a \textit{chosen child} below) whose ref. edge does not touch the parent's ref. edge (in our example it's the right child). Choose by some geometrical lexigographical order one vertex (referred to as \textbf{idea 4}), say $3$ out of this child's ref. edge, $34$.
+		\item The new face is marked by the edge connecting endpoint of the other child (see prev. item) which is not an endpoint of the parent's ref. edge ($2$ out of $23$) and the previously chosen vertex $3$. In our examnple this will mark the edge $23$ for the new face.
 		\item The cut face which contains the children's ref. edge, marks it ($12$ in $1235$, $1245$ for the left child and $34$ in $0345$ for the right one).
 		\item The cut face of the chosen child which contains the marked edge of the new face, marks it ($23$ in $0235$ for the right child).
-		\item The las unmarked cut face of the chosen child completes ints P type tranformation (marks $24$ in $0245$).
+		\item The last unmarked cut face of the chosen child completes ints P type tranformation (marks $24$ in $0245$).
 		\item Complete the P type of the other child by marking the last cut face ($13$ in $1345$)
 		\end{enumerate}
 		
@@ -1467,10 +1916,27 @@ Type T2
 	\item Type $O$ (children refinement edges coincide).
 	$$ \begin{array}{c} 01234 \\ \left[01,23,23\right] \end{array} O
 	\rightarrow ? + ? $$
-	with the new vertex $\left[01\right] = 5$
-	\begin{table}[h!]
-	\caption{Auxiliary case: $O$.}
-	\label{tab:Case4}
+	with the new vertex $\left[01\right] = 5$.
+	
+%	\begin{table}[h!]
+%	\caption{Auxiliary case: $O$.}
+%	\label{tab:Case4}
+%	\begin{tabular}{|c|c|c|} \hline
+%	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+%	children & 12345 & 02345 \\ \hline
+%	inherited face & 1234 & 0234 \\ \hline
+%	\multirow{3}{*}{cut faces} & 1235 & 0235 \\ 
+%	 & 1245 & 0245 \\ 
+%	 & 1345 & 0345 \\ \hline
+%	 new face & 2345 & 2345 \\ \hline
+%	\end{tabular}
+%	\end{table}    
+	
+    Again, we need to mark each of the children faces. 
+
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
 	\begin{tabular}{|c|c|c|} \hline
 	parent & \multicolumn{2}{|c|}{01234} \\ \hline
 	children & 12345 & 02345 \\ \hline
@@ -1480,8 +1946,29 @@ Type T2
 	 & 1345 & 0345 \\ \hline
 	 new face & 2345 & 2345 \\ \hline
 	\end{tabular}
-	\end{table}    
-    Again, we need to mark each of the children faces. 
+  \end{center}
+\end{minipage}
+\hfill
+    \begin{minipage}[]{0.5\textwidth}
+  \begin{center}
+	
+	\begin{tabular}{|c|c|c|} \hline
+	parent & \multicolumn{2}{|c|}{01234} \\ \hline
+	children & 12345 & 02345 \\ \hline
+	inherited face & 1\textbf{2}\textbf{3}4 & 0\textbf{2}\textbf{3}4 \\ \hline
+	\multirow{3}{*}{cut faces} & 1\textbf{2}\textbf{3}5 & 0\textbf{2}\textbf{3}5 \\ 
+	 & 1245 & 0245 \\ 
+	 & 1345 & 0345 \\ \hline
+	 new face & \textbf{2}\textbf{3}45 & \textbf{2}\textbf{3}45 \\ \hline
+	\end{tabular}
+
+  \end{center}
+\end{minipage}    
+
+\begin{center}
+	Table. Auxiliary case: $O$. Endpoints of the marked edges are bold. The faces where it is not clear how to make a choice, are left unmarked (see comments in the text). One of the choices is used in the final recipy.
+\end{center} 
+
 
 	  \begin{center}
 \begin{tikzpicture}
@@ -1524,17 +2011,17 @@ Type O
     
     \textbf{Idea 1} immediately marks the inherited face, one of the cut faces and the new face for both children.
     
-    Now, one of the possible recipes for $T1$ which will convert it to type $P$ (this reduces the number of choices here):
+    Now, one of the possible recipes for $O$ which will convert it to type $P$ (this reduces the number of choices here):
     	\begin{enumerate}
-		\item Inherited face gets the marked edge (future refinement edge) from the parent
+		\item Inherited face gets the marked edge (future refinement edge) from the parent;
 		\item If a cut face contains the refinement edge, it is its marked edge.
 		\item The new face contains the children's refinement edge (here only one), hence the new face gets its marked edge.
-		\item To complete transformation into $P$ type, one only needs to choose one vertex left for the $P$ triangle (one out of $1$ and $14$ for the left child and one out of $0$ and $4$ for the right one). E.g., one can choose the endpoint of the parent's ref. edge ($0$ for the left and $1$ for the right) and that's it.
+		\item To complete transformation into $P$ type, one only needs to choose one vertex left for the $P$ triangle (one out of two vertices $1$ and $4$ for the left child and one out of $0$ and $4$ for the right one). E.g., one can choose the endpoint of the parent's ref. edge ($0$ for the left and $1$ for the right) and that's it.
 	\end{enumerate}	
 	
 \end{itemize}
 
-One of the remaining questions (aside form the question if it all works) is what flag to choose for the auxuliary types transformation, $P_r$ or $P_b$. Let's assume $P_r$ for a moment.
+One of the remaining questions (aside form the question if it all works) is what flag to choose for the auxuliary types transformation, $P_r$ or $P_b$. Let's assume $P_r$ for a moment since we don't have an argument of how to choose.
 
 After all that, the suggested type transformation diagram looks as the following:
 
@@ -1562,6 +2049,8 @@ After all that, the suggested type transformation diagram looks as the following
     \draw[->] (dest7) -- (dest2);
 
 \end{tikzpicture}
+\newline
+Fig. Complete type transformation diagram in 4D.
 \end{center}
 
 The next step will be a try to repeat the proof from the Arnold's paper.
@@ -1583,6 +2072,27 @@ Second, induction by $k$. The only difference is that for $k > 1$ only the start
 Proof pipeline seems not to work. The main reason is that we cannot guarantee that in the worst case only edge midpoints are introduced during the refinement of the main types of pentatops. Four levels of refinement for a pentatop of both $P$ types produce additional points (cases ? and ?? in the tree diagrams in 4D).
 
 See also the conclusion section for discussion.
+
+\section{Alternatives}
+
+\subsection{Using Luby's algorithm for graphs}
+A completely different idea is to use Luby's algorithm developed for finding maximal independent sets in graphs. It won't have a proof but the refinement is by construction essentially local.
+
+Here we' start with assigning weights to all the edges equal to the number of edges touching its two endpoints which belong to the target group of simplices.
+Then we choose edges with locally maximal weights (using Luby's parallel algorithm). Of course they will be inside the targeted group provided that there is more than one simplex in the group. Then we bisect them together with simplices which contain it (so we don't introduce any new vertices except the new midpoints).
+Then we increase the weights of the neighboring edges and repeat until all the simplices of the target group are refined.
+
+Obviously in this algo the mesh always stays compatible. The algorithm is parallel as well, if we use global edge_to_edge connectivity to define the weights.
+
+Also, it seems that we will never refine the boundary edges of the targeted group, which means that neighbors will never really get refined.
+
+The drawback is that there will be no theoretical bound on the number of similarity classes for such an algorithm.
+
+\subsection{Longest edge bisection}
+This is a well-known class of algorithms used in 2D/3D, sometimes also related to so called newest vertex bisection strategies.
+In 3D already there is no proof known to the author (e.g., see the discussions in \cite{survey} and \cite{arnold}). In 2D a proof was given in \cite{rivara} by M.-C. Rivara.
+
+The strategy itself is quite simple in \cite{rivara} and in 2D the author has proved that the minimal angle is bounded away from zero and there is a finite number of similarity classes generated by a repeated refinement steps.
 
 \section{Appendix: Tree diagrams for Maubach's algorithm in 3D}
 
@@ -1752,7 +2262,7 @@ Looking at the diagrams we can extract the following rules for \textit{marked te
 		$		
 	\end{enumerate}
     \item From case 3:
-    Nothing really comes from here because the middle of the $[3,4]$ does not fit into any tetrahedron type defined above. (? Check this)    
+    Nothing really comes from here because the middle of the $[3,4]$ does not fit into the framework, see the remark in the end of section 3.
 
 
 \end{itemize}
@@ -1786,28 +2296,6 @@ The rules suggest the following diagram (cf. with diagram in section 3) where su
 
 Now, to complete the transformation diagram one can use additional rules formulated in the Arnold's paper. This is the way I viewed the 3D algorithm from \cite{arnold} and this way of thinking was the basis for 4D case considerations.
 
-\section{Some alternatives}
-
-\subsection{Using Luby's algorithm for graphs}
-A completely different idea is to use Luby's algorithm developed for finding maximal independent sets in graphs. It won't have a proof but the refinement is by construction essentially local.
-
-Here we' start with assigning weights to all the edges equal to the number of edges touching its two endpoints which belong to the target group of simplices.
-Then we choose edges with locally maximal weights (using Luby's parallel algorithm). Of course they will be inside the targeted group provided that there is more than one simplex in the group. Then we bisect them together with simplices which contain it (so we don't introduce any new vertices except the new midpoints).
-Then we increase the weights of the neighboring edges and repeat until all the simplices of the target group are refined.
-
-Obviously in this algo the mesh always stays compatible. The algorithm is parallel as well, if we use global edge_to_edge connectivity to define the weights.
-
-Also, it seems that we will never refine the boundary edges of the targeted group, which means that neighbors will never really get refined.
-
-The drawback is that there will be no theoretical bound on the number of similarity classes for such an algorithm.
-
-\subsection{Longest edge bisection}
-This is a well-known class of algorithms used in 2D/3D, sometimes also related to so called newest vertex bisection strategies.
-In 3D already there is no proof known to the author (e.g., see the discussions in \cite{survey} and \cite{arnold}). In 2D a proof was given in \cite{rivara} by M.-C. Rivara.
-
-The strategy itself is quite simple in \cite{rivara} and in 2D the author has proved that the minimal angle is bounded away from zero and there is a finite number of similarity classes generated by a repeated refinement steps.
-
-
 \section{Conclusions}
 \begin{itemize}
 	\item In Arnold's algorithm there is no guarantee that the refine-to-conformity (or, mesh closure) step will terminate before doing a uniform refinement of all the mesh elements. An interesting question if one can relate the expected number of neighbouring levels which will be refined to some probability theory by considering some sort of random walks on the graphs.
@@ -1819,9 +2307,7 @@ The strategy itself is quite simple in \cite{rivara} and in 2D the author has pr
 
 \section{Things to finish}
 \begin{itemize}
-	\item Text between geometrical rules for main and additional pentatope types has some uncertain statements.
 	\item Proof read, a couple of times at least
-
 \end{itemize}
 
 
@@ -1862,9 +2348,8 @@ W.F. Mitchell. 30 years of newest vertex bisection. AIP Conference Proceedings, 
 M.-C. Rivara. Local modification of meshes for adaptive and/or 
 multigrid finite-element methods, Journal of Computational and  Applied Mathematics, 36 (1991), 79-89.
 
-
-\bibitem[MFEM]{mfem}
-MFEM (Modular Finite Element Methods), http://mfem.org.
+%\bibitem[MFEM]{mfem}
+%MFEM (Modular Finite Element Methods), http://mfem.org.
 
 \end{thebibliography}
 
