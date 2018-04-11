@@ -289,7 +289,7 @@ The rest of the paper is organized in the following way.
 In the next section (section 3) we give the key ideas of the Arnold's algorithm from \cite{arnold}.
 Then, in section 4 we present Maubach's general algorithm from \cite{maubach} and apply it in 4D case. The resulting tree diagrams are presented in full details. Based on the tree diagrams and a concept of marked simplex from \cite{arnold} in section 5 we define necessary classification of the pentatopes and develop type transformation rules for those types that appear in Maubach's tree diagrams.
 Then, in section 6 we complete the type transformation rules by considering the rest of the pentatop types and suggest the final geometrical rules which are essentially the final form of the algorithm. These geometric rules are non-unique, several options are considered in this regard.
-Section 7 was meant to extend the proof from \cite{arnold} to 4D case but this attempt was unsuccessful. In Section 8 we discuss very shortly some of the most common alternatives to local refinement.
+Section 7 was meant to extend the proof from \cite{arnold} to 4D case but this attempt was unsuccessful. In Section 8 we discuss very shortly some of the alternative approaches to local refinement.
 In the Appendix section one can find full tree diagrams for application of Maubach's algorithm to 3D case.
 Finally, we end with a conclusions section.
 
@@ -2102,8 +2102,19 @@ The next two papers were found in the very end of this research.
 A recently found alternative is red-green refinement framework. For example, in the recent work \cite{grande} a general algorithm is suggested which solves the green refinement problem in any $d$.
 
 \subsection{Bisection for $n$-simplices}
-Another practical approach which guarantees that only a bounded number of neighbors will be refined  in addition to the targeted group can be found in \cite{stevenson} and is said to work in any $d$.
+Another practical approach which guarantees that refinement extends beyond the initially marked group of simplices only up to a bounded distance from the group can be found in \cite{stevenson} and works in any $d$. The estimate on the refinement extension distance is a generalization of the result for $d=2$ from \cite{binev_dahmen_devore}.
+Another important feature of this approach is that instead of doing refinement of the targeted group of simplices first and then a refine-to-conformity step for the neighbors it is suggested to find recursively maximal groups of simplices which can be refined simultaneously (without introducing nonconformities) and refine them. The suggested bisection algorithm is based on tagging simplices and consistent enumeration of vertices. For $d > 2$ any conforming initial parition might be transformed into a 
+suitably tagged partition by refining it into $\frac{1}{2} (d+1)!$ subsimplices.
 
+\section{Conclusions}
+\begin{itemize}
+	\item In Arnold's algorithm there is no guarantee that the refine-to-conformity (or, mesh closure) step will terminate before doing a uniform refinement of all the mesh elements. An interesting question if one can relate the expected number of neighbouring levels which will be refined to some probability theory by considering some sort of random walks on the graphs.
+	\item (\textbf{main}) The proposed extension of \cite{arnold} to 4D has a huge problem: both of the two P types give after 4 levels of refinement additional points (apart from edge midpoints) - midpoints of several medians. This ruins the key step of Arnold's proof which is that whenever in RefineToConformity there is a simplex with hanging node, this hanging node is a midpoint of an older generation's edge, which when combined with the fact that no new vertices but edge midpoint are introduced (type $P_f$ is never used as a starting type, manually unflagged) implies that all the neighbors will be refined no more than 3 times.
+	
+	A potential way around was to consider two cycles of 4-level refinement in 4D, in hope that there would be no extra points after two cycles but this is not the case as it turned out.
+	\item The last two alternative approaches from the previous section might be the solution, however, we don't know where to find an implementation which works in 4D.
+
+\end{itemize}
 
 \section{Appendix: Tree diagrams for Maubach's algorithm in 3D}
 
@@ -2310,22 +2321,7 @@ The rules suggest the following diagram (cf. with diagram in section 3) where su
 \end{tikzpicture}
 \end{center}
 
-Now, to complete the transformation diagram one can use additional rules formulated in the Arnold's paper. This is the way I viewed the 3D algorithm from \cite{arnold} and this way of thinking was the basis for 4D case considerations.
-
-\section{Conclusions}
-\begin{itemize}
-	\item In Arnold's algorithm there is no guarantee that the refine-to-conformity (or, mesh closure) step will terminate before doing a uniform refinement of all the mesh elements. An interesting question if one can relate the expected number of neighbouring levels which will be refined to some probability theory by considering some sort of random walks on the graphs.
-	\item It looks like a trade-off in theory - either you do something like in \cite{arnold} and get a bound on the number of similarity classes or you use an algorithm which refines only a bounded number of neighboring layers (around the group of elements targeted for local refinement).
-	\item (\textbf{main}) The proposed extension of \cite{arnold} to 4D has a huge problem: both of the two P types give after 4 levels of refinement additional points (apart from edge midpoints) - midpoints of several medians. This ruins the key step of Arnold's proof which is that whenever in RefineToConformity there is a simplex with hanging node, this hanging node is a midpoint of an older generation's edge, which when combined with the fact that no new vertices but edge midpoint are introduced (type $P_f$ is never used as a starting type, manually unflagged) implies that all the neighbors will be refined no more than 3 times.
-	
-	A potential way around was to consider two cycles of 4-level refinement in 4D, in hope that there would be no extra points after two cycles but this is not the case as it turned out.
-\end{itemize}
-
-\section{Things to finish}
-\begin{itemize}
-	\item Proof read, a couple of times at least
-\end{itemize}
-
+Now, to complete the transformation diagram one can use additional rules formulated in the Arnold's paper. This is the way we consider the 3D algorithm from \cite{arnold} and this was the basis for considering the 4D case.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2335,14 +2331,14 @@ Now, to complete the transformation diagram one can use additional rules formula
   \def\url#1{\texttt{#1}}\fi
 \expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
 
-\bibitem[B08]{behr}
-M. Behr, ``{\em Simplex Space-Time Meshes in Finite Element Simulations,}'',
-Int. J. Numer. Meth. Fluids 2008; 57:1421–1434.
+%\bibitem[B08]{behr}
+%M. Behr, ``{\em Simplex Space-Time Meshes in Finite Element Simulations,}'',
+%Int. J. Numer. Meth. Fluids 2008; 57:1421–1434.
 
-\bibitem[KB]{karabelas_neumueller}
-E. Karabelas, M. Neumueller. 
-``{\em Generating admissible space-time meshes for moving domains in $d + 1$-dimensions,}''
-https://arxiv.org/abs/1505.03973.
+%\bibitem[KB]{karabelas_neumueller}
+%E. Karabelas, M. Neumueller. 
+%``{\em Generating admissible space-time meshes for moving domains in $d + 1$-dimensions,}''
+%https://arxiv.org/abs/1505.03973.
 
 \bibitem[ARN]{arnold}
 D. N. Arnold, A. Mukherjee, and L. Pouly. Locally Adapted Tetrahedral Meshes Using Bisection, SIAM. J. Sci. Comput., 22 (2000), No. 2, 431-448.
@@ -2372,6 +2368,10 @@ J. Grande. Red-Green Refinement of Simplicial Meshes in D Dimensions, https://ww
 
 \bibitem[STE]{stevenson}
 R. Stevenson. The Completion of Locally Refined Simplicial Partitions Created by Bisection, Mathematics of Computation, volume 77, No. 261, 2008, p.227-241.
+
+\bibitem[BDV]{binev_dahmen_devore}
+P. Binev, W. Dahmen and R. DeVore. Adaptive finite element methods with convergence rates. Numer. Math., 
+97(2):219-268, 2004.
 
 \end{thebibliography}
 
