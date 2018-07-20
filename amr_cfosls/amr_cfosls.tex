@@ -1,0 +1,399 @@
+\documentclass[a4paper,12pt]{amsart}
+\input epsf
+\usepackage{epsfig}
+\usepackage{amsmath}
+
+\DeclareMathAlphabet\mathbold{OML}{cmm}{b}{it}
+\textheight=8.75in
+\textwidth=6in
+\oddsidemargin=-0.1in
+\evensidemargin=-0.1in
+\vsize 8.2in
+% Equation numbering
+\numberwithin{equation}{section}
+ 
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{algorithm}{Algorithm}[section]
+\newtheorem{assumption}{Assumption}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+
+
+
+
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\Div}{\operatorname{Div}}
+\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+
+
+\def\b1{{\mathbf 1}}
+\def\bv{{\mathbf v}}
+\def\bu{{\mathbf u}}
+\def\bw{{\mathbf w}}
+\def\bb{{\mathbf b}}
+\def\bc{{\mathbf c}}
+\def\bff{{\mathbf f}}
+\def\bg{{\mathbf g}}
+\def\bh{{\mathbf h}}
+\def\br{{\mathbf r}}
+\def\bs{{\mathbf s}}
+\def\bd{{\mathbf d}}
+\def\be{{\mathbf e}}
+\def\bp{{\mathbf p}}
+\def\bq{{\mathbf q}}
+\def\bx{{\mathbf x}}
+\def\by{{\mathbf y}}
+\def\bz{{\mathbf z}}
+\def\bn{{\mathbf n}}
+\def\bbf{{\mathbf f}}
+\def\bB{{\mathbf B}}
+\def\bM{{\mathbf M}}
+\def\bV{{\mathbf V}}
+\def\bU{{\mathbf U}}
+\def\bY{{\mathbf Y}}
+\def\bF{{\mathbf F}}
+\def\bA{{\mathbf A}}
+\def\bB{{\mathbf B}}
+\def\bC{{\mathbf C}}
+\def\bD{{\mathbf D}}
+\def\bN{{\mathbf N}}
+\def\bT{{\mathbf T}}
+\def\bP{{\mathbf P}}
+\def\bQ{{\mathbf Q}}
+\def\bS{{\mathbf S}}
+\def\bR{{\mathbf R}}
+ 
+\def\bepsilon{{\boldsymbol \epsilon}}
+\def\balpha{{\boldsymbol \alpha}}
+\def\bdelta{{\boldsymbol \delta}}
+\def\blambda{{\boldsymbol \lambda}}
+\def\bmu{{\boldsymbol \mu}}
+ 
+ 
+ 
+%-----------------------------------------------------------------
+\renewcommand{\O}{{\mathcal O}}
+\newcommand{\Q}{{\mathcal Q}}
+\newcommand{\R}{{\mathcal R}}
+\newcommand{\A}{{\mathcal A}}
+\newcommand{\B}{{\mathcal B}}
+\newcommand{\C}{{\mathcal C}}
+\newcommand{\D}{{\mathcal D}}
+\newcommand{\Sc}{{\mathcal S}}
+\newcommand{\F}{{\mathcal F}}
+\newcommand{\G}{{\mathcal G}}
+\newcommand{\I}{{\mathcal I}}
+\newcommand{\J}{{\mathcal J}}
+\newcommand{\M}{{\mathcal M}}
+\newcommand{\N}{{\mathcal N}}
+\newcommand{\X}{{\mathcal X}}
+\newcommand{\Y}{{\mathcal Y}}
+\newcommand{\calY}{{\mathcal Y}}
+\newcommand{\calS}{{\mathcal S}}
+\renewcommand{\L}{{\mathcal L}}
+\renewcommand{\P}{{\mathcal P}}
+ 
+\newcommand{\vertiii}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 
+    \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+ 
+\newcommand{\V}{\text{\bf V}}
+\newcommand{\K}{{\mathcal K}}
+\newcommand{\T}{{\mathcal T}}
+\newcommand{\E}{{\mathcal E}}
+
+\newcommand{\hatcalK}{\widehat{\mathcal K}}
+\newcommand{\hatcalS}{\widehat{\mathcal S}}
+\newcommand{\hatA}{\widehat{A}}
+%% \newcommand{\grad}{\nabla}
+%% \renewcommand{\div}{\text{div}}
+%% \renewcommand{\curl}{\text{curl}}
+%
+%
+\def\XVec#1{{\mathbf #1}}
+\def\XNorm#1{\left\| #1 \right\|}                       % norm
+\def\XIProd#1#2{\left\langle #1 ,~ #2 \right\rangle}    % inner product
+ 
+\def\XM{\mu}
+ 
+\def\XQ{Q}                     % interpolant
+\def\Xq#1{\XVec{q}_{#1}}       % rows of Q (interpolation to point #1)
+\def\Xu{\XVec{u}}              % unknown vector
+\def\Xf{\XVec{f}}              % right-hand-side vector
+\def\Xe{\XVec{e}}
+\def\Xr{\XVec{r}}
+\def\Xx{\XVec{x}}
+\def\Xv{\XVec{v}}
+\def\Xw{\XVec{w}}
+\def\Xn{\XVec{n}}              % normal vector
+\def\Xes{\Xe_s}
+\def\Xec{\Xe_c}
+\def\Xus{\Xu_s}
+\def\Xuc{\Xu_c}
+\def\Xvs{\Xv_s}
+\def\Xvc{\Xv_c}
+\def\bone{{\boldsymbol 1}}
+\def\bphi{{\boldsymbol \varphi}}
+\def\bpsi{{\boldsymbol \psi}}
+\def\bPsi{{\boldsymbol \Psi}}
+\def\btheta{{\boldsymbol \theta}}
+\def\bchi{{\boldsymbol \chi}}
+\def\boldeta{{\boldsymbol \eta}}
+\def\bolddelta{{\boldsymbol \delta}}
+\def\bsigma{{\boldsymbol \sigma}}
+\def\btau{{\boldsymbol \tau }}
+\def\bxi{{\boldsymbol \xi }}
+\def\bdelta{{\boldsymbol \delta}}
+ 
+\def\Nedelec{N\'ed\'elec\ }
+
+\def\bPi{{\boldsymbol \Pi}}
+\def\bPhi{{\boldsymbol \Phi}}
+
+\newcommand{\ott}[1]{\bar{#1}}
+ 
+
+\newcommand{\dt}{\partial_t} 
+\newcommand{\om}{\Omega} 
+
+\renewcommand{\arraystretch}{1.2}
+
+\DeclareMathOperator*{\argmin}{argmin}
+ 
+ 
+\title[AMR with the minimization solver, report] 
+{Adaptive refinement with the minimization solver, numerical results, report}
+
+\address{Portland State University}
+
+\keywords{CFOSLS, space-time, adaptive mesh refinement, multilevel algorithms, multigrid}
+
+\begin{document}
+ 
+\begin{abstract}
+Adaptive mesh refinement is studied for constrained first-order system least-squares (CFOSLS) formulations for three-dimensional space-time problems. The central idea of the considered framework is to minimize the least-squares functional under the divergence constraint which makes the method conservative. Following this idea, we use local functional values as a natural measure of the local errors.
+
+Two test problems are considered, one is the Laplace equation in an L-shaped domain and the second is the transport equation in $H(\div)-L^2$ formulation.
+
+Efficiency of the proposed refinement strategy is compared numerically to the uniform refinement. In addition to the traditional refinement strategy based on local element errors, a modified strategy which noticeably smoothes out the error distribution is implemented by exploiting supplementary face error indicators.
+
+For solving the arising linear systems, an efficient multilevel algorithm is proposed which minimizes the eneregy functional over a hierarchy of mesh levels. The multilevel algorithm outperforms the simpler block-diagonal preconditioners in terms of iteration count significantly.
+
+The results obtained show that ...
+\end{abstract}
+\maketitle
+
+\section{Introduction}
+
+\section{Problem statement}
+Description of the setup in general terms, applicable to both Laplace an transport.
+
+\section{Refinement strategy}
+Description of the element error indicators, and a modification with the face error indicators.
+
+Definition of threshold in MFEM:
+$$
+\mbox{threshold} = \max \left\lbrace \mbox{total error} \cdot \mbox{total error fraction} \cdot n_{el}^{-\frac{1}{p}}, \, \mbox{local error goal} \right\rbrace.
+$$
+
+Total error is defined by
+$$
+\mbox{total error}  = 
+\left\{ 
+\begin{array}{lc}
+\left( \sum_i \left(\mbox{local error i}\right)^p \right)^{1/p}, & p < \infty \\
+\max_i \mbox{local error i}, & p = \infty \\
+\end{array}
+\right.
+$$
+
+Default parameter values are:
+\begin{itemize}
+	\item $\mbox{total error fraction} = 0.5$;
+	\item $p = \infty$;
+	\item $\mbox{local error goal} = 0.0$.
+\end{itemize}
+
+\section{Linear solvers}
+
+\subsection{Block-diagonal preconditioners}
+
+\subsection{Multilevel minimization solver}
+
+\section{Results}
+
+\subsection{Refinement stats?}
+
+\subsection{Comparison to the uniform refinement}
+
+Laplace
+
+Transport
+
+Pictures
+
+\subsection{Solver comparison}
+
+Block-diagonal preconditioner
+
+Multilevel solver
+
+
+For example, for the first two tables, total error fraction for the adaptive mesh refinement was 0.95.
+This means, that with default values for the rest of parameters,
+a refinement criteria was
+$$
+\mbox{local error i} \geq 0.95 \max_j \mbox{local error j}
+$$
+
+For the L-shaped domain, this strategy leads to the following refinement statistics:
+
+\begin{table}[h!]
+\caption{AMR stats, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
+\label{tab:amr_stats_lshape3D_HdivH1lapl}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|c|} \hline
+\#dofs & $n_{\mbox{el, marked}}$ & $\mbox{marked el,} \%$ & $n_{\mbox{el, new}}$ & $\mbox{new el,} \%$ \\ \hline
+63677  & 6    & 0.03  & 362  & 1.86 \\ \hline 
+64861  & 1    & 0.005 & 85   & 0.43 \\ \hline
+65139  & 6    & 0.03  & 694  & 3.49 \\ \hline
+67381  & 2    & 0.01  & 88   & 0.43 \\ \hline
+67678  & 2    & 0.01  & 114  & 0.55 \\ \hline
+68053  & 2    & 0.01  & 174  & 0.84 \\ \hline
+68626  & -    & -     & -    & -    \\ \hline
+\end{tabular}}
+%checked
+\end{table}
+
+\begin{table}[h!]
+\caption{AMR stats, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
+\label{tab:amr_stats_lshape3D_HdivH1lapl}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|c|c|c|} \hline
+\#dofs & \#iter1 & \#iter2 & $\varepsilon_{\bsigma}$ & $\varepsilon_u$ & funct & funct for $\pi exsol$ \\ \hline
+63677  & 1           & 1 & 0.073 & 0.008  & 0.00029 & 0.00034 \\ \hline 
+64861  & 1+5         & 2 & 0.068 & 0.0069 & 0.00025 & 0.00028 \\ \hline 
+65139  & 1+5+4       & 2 & 0.067 & 0.0068 & 0.00024 & 0.00027 \\ \hline
+67381  & 1+5+4+7     & 3 & 0.062 & 0.0056 & 0.0002  & 0.00023 \\ \hline
+67678  & 1+5+4+7+3   & 2 & 0.061 & 0.0054 & 0.00019 & 0.00022 \\ \hline
+68053  & 1+5+4+7+3+5 & 2 & 0.060 & 0.0053 & 0.00019 & 0.00022 \\ \hline
+
+\end{tabular}}
+\end{table}
+
+Notations: \#iter1 is for the setup with re-solving from coarsest to finest level each time, \#iter2 is for simple minimization solver at the finest level. The numbers are the numbers of V-cycles so that the first number (1) in column 2 (\#iter1) corresponds to the single iteration (solution of the global system for a correction) at the coarsest level.
+
+Next, the same test but with total error fraction equal to 0.8.
+
+\begin{table}[h!]
+\caption{AMR stats, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
+\label{tab:amr_stats_lshape3D_HdivH1lapl}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|c|} \hline
+\#dofs & $n_{\mbox{el, marked}}$ & $\mbox{marked el,} \%$ & $n_{\mbox{el, new}}$ & $\mbox{new el,} \%$ \\ \hline
+63677  & 9    & 0.05  & 623  & 3.2 \\ \hline 
+65709  & 15   & 0.07  & 859  & 4.2 \\ \hline
+68501  & 50   & 0.24  & 3290 & 15.7 \\ \hline
+79092  & 42   & 0.17  & 2272 & 9.4 \\ \hline
+86468  & 10   & 0.04  & 949  & 3.6  \\ \hline
+89541  & 111  & 0.4   & 6584 & 23.9 \\ \hline
+110743 & -    & -     & -    & -    \\ \hline
+\end{tabular}}
+%checked
+\end{table}
+
+\begin{table}[h!]
+\caption{AMR stats, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
+\label{tab:amr_stats_lshape3D_HdivH1lapl}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|c|c|} \hline
+\#dofs & \#iter & $\varepsilon_{\bsigma}$ & $\varepsilon_u$ & funct & funct for $\pi exsol$ \\ \hline
+63677  & 1           & 0.073 & 0.008  & 0.00029 & 0.00034 \\ \hline 
+65709  & 1+6         & 0.066 & 0.0065 & 0.00023 & 0.00026 \\ \hline 
+68501  & 1+6+7       & 0.059 & 0.0052 & 0.00019 & 0.00022 \\ \hline
+79092  & 1+6+7+5     & 0.052 & 0.0036 & 0.00013 & 0.00015 \\ \hline
+86468  & 1+6+7+5+8   & 0.048 & 0.0031 & 0.00010 & 0.00013 \\ \hline
+89541  & 1+6+7+5+8+4 & 0.047 & 0.0031 & 0.00009 & 0.00012 \\ \hline
+\end{tabular}}
+\end{table}
+
+\begin{table}[h!]
+\caption{Uniform refinement, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
+\label{tab:ur_stats_lshape3D_HdivH1lapl}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|} \hline
+\#dofs & \#iter & $\varepsilon_{\bsigma}$ & $\varepsilon_u$  \\ \hline
+63677  & 9  & 0.073 & 0.008  \\ \hline 
+501049 & 11 & 0.047 & 0.0032 \\ \hline 
+\end{tabular}}
+\end{table}
+Here a MG preconditioner was used, \#levels = 2 and 3.
+
+
+\section{Possible things for the paper}
+
+\begin{itemize}
+	\item Minimization solver
+	\item AMR scheme for the minimization solver, three approaches
+	\item Refinement strategies including beta	
+	\item Laplace equation in the L-shaped domain and transport in the cube (pictures, comparison with uniform refinement and comparison between different approaches)
+\end{itemize}
+
+What would be the main concept (idea) of the paper?
+
+We can say "we suggest a minimization solver for AMR in the considered CFOSLS setting".
+
+I'd like to say that we can efficiently reuse the previous iterations in terms of the iteration count, but the results don't show it.
+
+\section{To-do list}
+\begin{itemize}
+	\item Write the draft for theoretical sections
+	\item Numerical results: tables
+	\item Numerical resuls: pictures
+	\item Introduction
+\end{itemize}
+
+\section{Questions:}
+
+\begin{itemize}
+	\item How to include results by Paulina?
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{thebibliography}{99}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem[WH]{mixedfem_adapt}
+B.I. Wohlmuth and R. H. W. Ronald H. W. Hoppe. A comparison of a posteriori error estimators for mixed finite element discretizations by Raviart-Thomas elements. MATH.COMP, 68:1347–1378, 1999.
+
+\bibitem[BMM]{fosls_adapt}
+Local error estimates and adaptive refinement for first-order system least squares (FOSLS), M. Berndt, T. Manteuffel, and S. McCormick, E.T.N.A. 6 (1998), pp. 35-43.
+
+\bibitem[AMMJT]{fosls_adapt2}
+Efficiency-based adaptive local refinement for first-order system least-squares formulations, J. Adler, T. Manteuffel, S. McCormick, J. Nolting, J. Ruge, and L. Tang, SIAM J. Sci. Comp. 33 (2011), pp. 1-24. 
+
+\bibitem[NVV]{neumueller_vassilevski_villa}
+Martin Neumueller, Panayot S. Vassilevski, and Umberto Villa,
+``{\em Space-time CFOSLS methods with AMGe upscaling,}''
+Available as Lawrence Livermore National Laboratory Technical Report LLNL-CONF-683318, February 18, 2016.
+
+
+\bibitem[V08]{MLBFP}
+{\sc P.~S. Vassilevski,}
+``{\em Multilevel Block--Factorization Preconditioners.} 
+Matrix-based Analysis and Algorithms for Solving Finite Element Equations'',
+Springer, New York, 2008.
+
+\end{thebibliography}
+
+\end{document}
