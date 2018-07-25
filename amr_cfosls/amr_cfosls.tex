@@ -36,7 +36,7 @@
 
 \def\b1{{\mathbf 1}}
 \def\bv{{\mathbf v}}
-\def\bu{{\mathbf u}}
+\def\bu{{\mathbf a}} % redefined
 \def\bw{{\mathbf w}}
 \def\bb{{\mathbf b}}
 \def\bc{{\mathbf c}}
@@ -204,202 +204,226 @@ The results obtained show that ...
 
 \textbf{Description of the setup in general terms, applicable to both Laplace and transport.}
 
-%\bigskip
+\bigskip
+
+Let $\Omega\subset \mathbb{R}^n$ be an open bounded spatial domain with Lipschitz boundary $\partial \Omega$ and let 
+$\Omega_{T} = \Omega\times (0,T)\subset \mathbb{R}^{n+1}$ be the corresponding space-time domain,  where $T>0$ represents the final time.  
+
+Following \cite{our_paper_cfosls} we start with a unified CFOSLS formulation for a partial differential equation:
+\begin{align} \label{Problem}
+\div \L(u) := \frac{\partial}{\partial_t} \big(\L_t(u) \big)+ \mathrm{div}_\Xx \big( \L_\Xx (u)\big)& = f(\Xx, t), \qquad \text{ for all } (\Xx,t) \in \Omega_T,
+\end{align}
+where we define the space-time differential operator $\L$ to be
+\[
+\L(u) =  \begin{bmatrix} \L_\Xx(u) \\ \L_t(u) \end{bmatrix}.
+\]
+The operators $\div$ and $\div_\Xx$ stand for the $(n+1)$- and $n$-dimensional divergence operators, i.e., for a $C^1$-vector function $\mathbf{g}(\Xx,t)$ in $\mathbb{R}^{n+1}$ with components
+
+$$
+\mathbf{g} =  \begin{bmatrix} \mathbf{g}^\Xx 
+\\ g^t \end{bmatrix}, \quad 
+\mathbf{g}^\Xx \in \mathbb{R}^{n}, \quad g^t \in \mathbb{R} \quad \, \forall (\Xx,t) \in \Omega_T
+$$
+we can write
+$$
+\div \mathbf{g} = \partial_t g^t + \sum_{i = 1}^{n} \partial_{\Xx_i} \mathbf{g}^{\Xx}_i = \partial_t g^t + \div_\Xx \mathbf{g}^{\Xx}.
+$$
+
+Different PDEs can be written in this general form but in this paper we will consider only two particular examples: the Laplace equation in $\mathbb{R}^{n+1}$ and the transport equation. The corresponding definiton of $\L_\Xx(u)$ and $\L_t(u)$ can be found  in Table~\ref{tab:PDE_operators}.
+
+\begin{remark}
+Certainly, the Laplace equation is time-independent in the usual sense. However, one might consider the Laplace equation in $\mathbb{R}^{n+1}$ as a time-dependent equation by referring one of the coordinates as ``time''. In order to give a unified presentation of the problems we study it is more convenient for us to take this point of view. In the current paper the Laplace equation plays a role of a ``nice'' problem for which we expect corresponding solvers (preconditioners) to work well.
+\end{remark}
+
+As usual, in order to have a well-posed problem for equation \eqref{Problem} we impose boundary conditions on $\Gamma = \partial \Omega_T$ specified in Table~\ref{tab:PDE_operators}. We will consider additional notations for specific parts of the space-time boundary of $\Omega_T$, namely 
+\[
+\Gamma_0 := \Omega\times\{0\},\quad\Gamma_s := \partial\Omega\times(0, T),\quad\Gamma_D := \Gamma_0\cup\Gamma_s,
+\]
+and also (for the transport equation)
+\[
+\Gamma_- := \{\Xx\in\partial\Omega \,|\, \bu\cdot\bn < 0 \}\times(0, T)
+\]
+where $\bu(\Xx,t) : \Omega_T \rightarrow \mathbb{R}^n$ is a given advection vector for which we use standard assumptions that guarantee the well-posedness \cite{evans} of problem \eqref{Problem}. Boundary conditions for  \eqref{Problem} can be formally written as
+\[
+tr (u) = 0,
+\]
+where the actual definitions of the trace operator $tr$ for the different PDEs are listed in Table~\ref{tab:PDE_operators}. For simplicity, we restrict ourselves to homogeneous boundary conditions since the treatment of inhomogeneous boundary conditions is straightforward. 
+\begin{table}[h]
+\caption{Definitions of $\L_\Xx(u)$, $\L_t(u)$, and $tr(u)$ for different PDEs.}
+\label{tab:PDE_operators}
+\begin{tabular}{ |c||c|c|c|} \hline
+PDEs & $\quad \L_\Xx(u) \quad$ & $\quad \L_t(u) \quad$ & $\quad tr(u) \quad$  \\ \hline
+Laplace equation & $-\nabla_\Xx u$ & $-\partial_t u$ & $u|_{\Gamma_D}$ \\ \hline
+Transport equation & $\bu u$ & $u$ & $u|_{\Gamma_0\,\cup\,\Gamma_-}$   \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Constrained first-order system least-squares} 
+Following \cite{neumueller_vassilevski_villa} we rewrite equation \eqref{Problem} as a first-order system by introducing a new variable $\bsigma := \L(u)$, 
+obtaining 
+\begin{equation}
+\begin{array}{c}
+\bsigma - \L(u)  = 0,  \\ 
+\div \bsigma = f. 
+\end{array}
+\label{eq:fos} 
+\end{equation}
+
+For the transport equation we are going to use an alternative (not fully equivalent) formulation. To this aim, first notice that the scalar unknown $u$ can be rewritten  for each $(\Xx,t)$ in terms of $\bsigma$ as
+$$
+u = \frac{1}{\| \bb \|^2 } \, \bsigma \cdot \bb
+$$
+since
+$$
+\bsigma = \L(u) = \left[ \begin{array}{c} \bu \\ 1 \end{array} \right] u \equiv \bb u
+$$
+where we introduced the space-time vector function
+\[
+\bb = \bb(\Xx,t) := \begin{bmatrix} \bu(\Xx,t) \\ 1 \end{bmatrix}.
+\]
+Notice that $\bb^T\bb \equiv \bu^T\bu+1 \ge 1$, thus $\bb^T\bb$ is a strictly positive function.
+
+Now, for the transport equation we can get rid of $u$ in the first equation of (\eqref{eq:fos}) and arrive at
+\begin{equation}
+\begin{array}{c}
+K \bsigma = 0,  \\ 
+\div \bsigma = f. 
+\end{array}
+\label{eq:alt_fos} 
+\end{equation}
+which we will refer to as ``alternative'' formulation for the transport equation below.
+
+We will also make use of the following well-known functional spaces: $L^2(\Omega_T)$, the space of square-integrable functions in $\Omega_T$; $H^1(\Omega_T) = \{ u \in L^2(\Omega_T) : \, \nabla u \in L^2(\Omega_T)^{n+1} \} $; $H(\div; \Omega_T) = \{ \bsigma \in L^2(\Omega_T)^{n+1} : \, \div \bsigma \in L^2(\Omega_T) \}$ and omit $\Omega_T$ for the sake of brevity. Also, we denote by  $(\cdot,\cdot)$ the inner product with respect to scalar and vector $L^2$, and by $\|\cdot \|$ the corresponding norm. From now on we will understand all differential operators in the weak sense. %, and $\|\cdot\|_K$ will denote a $K$-weighted $L^2(\Omega_T)$ norm, where $K$ is a symmetric positive definite matrix.
+
+To formulate the least squares problem  we  consider the following spaces with weakly imposed boundary conditions:
+\begin{equation}
+\begin{split}
+R & := \{\,\btheta \in H(\div) \;|\; tr^\sigma(\btheta) = 0\,\};\\
+V & := \{\,v \in H^1 \;|\; tr^u(v) = 0\,\},\\
+\end{split}
+\label{eq:spaces}
+\end{equation}
+where the definitions of the trace operators $tr^{\sigma}$ and $tr^u$ are given in Table~\ref{tab:FOSLS_operators}. These trace operators are well defined, see \cite{gatica}. 
+
+\begin{table}[h]
+\caption{Definitions of $tr^{\sigma}(\bsigma)$, and $tr^u(u)$ for the different PDEs.}
+\label{tab:FOSLS_operators}
+\begin{tabular}{ |c||c|c|} \hline
+PDEs & $\quad tr^{\sigma}(\bsigma) \quad$ & $\quad tr^u(u) \quad$  \\ \hline
+Laplace equation & N/A & $u|_\Gamma$ \\ \hline
+Transport equation & N/A & $u|_{\Gamma_0\,\cup\,\Gamma_-}$ \\ \hline
+\end{tabular}
+\end{table}
+
+Then, for any given $f\in L^2$ the FOSLS functional for problem \eqref{eq:fos} 
+\begin{align}
+J(\bsigma, u) = \left\| \bsigma - \L(u) \right\|^2 + \| f-\div \bsigma \| ^2 \label{pfunctional}
+\end{align} 
+is well defined in $R \times V$.
+Now, the constrained space-time first-order system least squares (CFOSLS) problem is to find the minimizer of the functional \eqref{pfunctional} 
+under the constraint given by the conservation equation:
+\begin{equation}
+(\bsigma, u) = \argmin_{(\btheta, v)\in R\times V} J(\btheta, v) \;\text{ subject to } \, \div \bsigma = f. 
+\label{eq:minimization}
+\end{equation}
+The constraint is imposed in a weak sense by introducing a Lagrange multiplier from $L_2$. Notice that because the constraint enforces $f-\div \bsigma = 0$, we can omit the second term $\| f-\div \bsigma \| ^2$ in the functional \eqref{pfunctional} in our CFOSLS formulation.
+
+
+\subsection{Variational CFOSLS formulation} 
+For the system \eqref{eq:fos} we define the operator
+\[ 
+\A(\bsigma, u ) = \bsigma -\L(u).
+\]
+It is well known that the minimizer of the constrained minimization problem \eqref{eq:minimization} is characterized by the first order (or Karush-Kuhn-Tucker) optimality condition, which leads in our case to the following saddle point system: 
+
+Find $(\bsigma, u) \in R\times V$ and $\lambda \in L^2$ such that 
+\begin{equation}
+\begin{array}{lll}
+\big(\A(\bsigma, u), \A(\btheta, v) \big) + (\lambda, \mathrm{div}\,  \btheta) & = 0  & \;\forall\; (\btheta, v) \in R\times V,     \\
+( \div  \bsigma,\mu )  &= (f, \mu) &  \;\forall\;  \mu\in L^2.
+\end{array}
+\label{eq:kkt_system}
+\end{equation} 
+%where
+%\begin{align*}
+% H_*(\Omega_T) 
+% &=\{ u \in L^2(0,T: H^1_0(\Omega)): u(x,0) = 0  \text{ for all } x \in \om\} 
+%\end{align*}
+
+The continuity of the bilinear form corresponding to the operator $\A$ is obvious due to the choice of spaces $R$ and $V$. Also, this form can be considered to be weakly-coercive in the sense of the definition given in \cite{AdlerVassilevski}.
+
+\begin{remark}
+A traditional variational FOSLS formulation would be written in our notations as:
+
+Find $(\bsigma, u) \in R\times V$ such that 
+\[
+\big(\A(\bsigma, u ), \A(\btheta, v) \big) + \big( \div \bsigma, \div \btheta \big) = \big(f, \div \btheta\big) \qquad \;\forall\; (\btheta, v) \in R\times V.
+\]
+\end{remark}
+
+\begin{remark}\label{rmk:complicate}
+Notice that, since $u$ belongs to $H^1$, for the scalar conservation law we can consider a different second term $\| \div (\bu u) - f \|^2$ in the FOSLS functional \eqref{pfunctional}. Then we will have an extra weighted diffusion term $(\bu  \, \nabla_x u, \bu \, \nabla_x u)$ for $u$ (which already exists for heat and wave equations due to the definition of $\bsigma$ for these problems).
+
+Then, instead of \eqref{eq:kkt_system}, we will have the following
+ system:
+\begin{equation}
+\begin{array}{lll}
+\big(\A_+(\bsigma, u), \A_+(\btheta, v) \big) + (\lambda, \mathrm{div}\,  \btheta) & = \big( f, \div (\bu v) \big)  & \;\forall\; (\btheta, v) \in R\times V,     \\
+( \div  \bsigma,\mu )  &= (f, \mu) &  \;\forall\;  \mu\in L^2.
+\end{array}
+\label{eq:kkt_system_compl}
+\end{equation} 
+with
+\begin{equation}
+\A_+(\bsigma, u) = \begin{bmatrix} \A(\bsigma, u) \\ \div (\bu u) \end{bmatrix}.
+\label{eq:Adefine}
+\end{equation}
+We use this modified formulation when we consider scalar conservation law with $u\in~H^1$.
+\end{remark}
+
+As one can notice, in equation \eqref{eq:kkt_system}  we seek for $u$ in $V \subset H^1$. However, in case of the scalar conservation law we can also allow $u$ to  have less regularity. This is due to the fact that unlike the other example problems,  the definition of $\mathcal{L}(u)$ does not involve any derivatives of $u$.  
 %
-%Let $\Omega\subset \mathbb{R}^n$ be an open bounded spatial domain with Lipschitz boundary $\partial \Omega$ and let 
-%$\Omega_{T} = \Omega\times (0,T)\subset \mathbb{R}^{n+1}$ be the corresponding space-time domain,  where $T>0$ represents the final time.  
-%
-%Along the lines of \cite{our_paper_cfosls}, below we give a short overview of the unified CFOSLS formulation for a partial differential equation:
-%\begin{align} \label{Problem}
-%\div \L(u) := \frac{\partial}{\partial_t} \big(\L_t(u) \big)+ \mathrm{div}_\Xx \big( \L_\Xx (u)\big)& = f(\Xx, t), \qquad \text{ for all } (\Xx,t) \in \Omega_T,
-%\end{align}
-%where we define the space-time differential operator $\L$ to be
-%\[
-%\L(u) =  \begin{bmatrix} \L_\Xx(u) \\ \L_t(u) \end{bmatrix}.
-%\]
-%The definiton of $\L_\Xx(u)$ and $\L_t(u)$ which correspond to the Laplace equation and the transport equation can be found  in Table~\ref{tab:PDE_operators}.
-%The operators $\div$ and $\div_\Xx$ stand for the $(n+1)$- and $n$-dimensional divergence operators, i.e., for a $C^1$-vector function $\mathbf{g}(\Xx,t)$ in $\mathbb{R}^{n+1}$ with components
-%
-%$$
-%\mathbf{g} =  \begin{bmatrix} \mathbf{g}^\Xx 
-%\\ g^t \end{bmatrix}, \quad 
-%\mathbf{g}^\Xx \in \mathbb{R}^{n}, \quad g^t \in \mathbb{R} \quad \, \forall (\Xx,t) \in \Omega_T
-%$$
-%we can write
-%$$
-%\div \mathbf{g} = \partial_t g^t + \sum_{i = 1}^{n} \partial_{\Xx_i} \mathbf{g}^{\Xx}_i = \partial_t g^t + \div_\Xx \mathbf{g}^{\Xx}.
-%$$
-%
-%% the space of square-integrable functions in $\Omega_T$ denoted by $L^2(\Omega_T)$ , the space of scalar functions $u$ in $L^2(\Omega_T)$ with $\nabla u$ in $L^2(\Omega_T)^{n+1}$, denoted by $H^1(\Omega_T)$ and the space of vector functions $\bsigma$ in $L^2(\Omega_T)^{n+1} $ with $\div \bsigma$ in $L^2(\Omega_T)$, denoted by $H(\div; \Omega_T)$.  
-%
-%
-%In order to have a well-posed problem for equation \eqref{Problem} we impose boundary conditions on $\partial \Omega_T$ specified in Table~\ref{tab:PDE_operators}. Notice that these ``boundary conditions" on  $\partial \Omega_T$ will contain both initial and boundary conditions in the usual sense of time-dependent PDEs. We will consider additional notations for specific parts of the space-time boundary of $\Omega_T$, namely 
-%\[
-%\Gamma_0 := \Omega\times\{0\},\quad\Gamma_s := \partial\Omega\times(0, T),\quad\Gamma_D := \Gamma_0\cup\Gamma_s,
-%\]
-%and, for scalar conservation law, we will also introduce 
-%\[
-%\Gamma_- := \{\Xx\in\partial\Omega \,|\, \bu\cdot\bn < 0 \}\times(0, T)
-%\]
-%where $\bu(\Xx,t) : \Omega_T \rightarrow \mathbb{R}^n$ is a given advection vector for which we use standard assumptions that guarantee the well-posedness \cite{evans} of problem \eqref{Problem}. Boundary conditions for  \eqref{Problem} can be formally written as
-%\[
-%tr (u) = 0,
-%\]
-%where the actual definitions of the trace operator $tr$ for the different PDEs are listed in Table~\ref{tab:PDE_operators}. For simplicity, we restrict ourselves to homogeneous boundary conditions since the treatment of inhomogeneous boundary conditions is straightforward. 
-%\begin{table}[h]
-%\caption{Definitions of $\L_\Xx(u)$, $\L_t(u)$, and $tr(u)$ for different PDEs.}
-%\label{tab:PDE_operators}
-%\begin{tabular}{ |c||c|c|c|} \hline
-%PDEs & $\quad \L_\Xx(u) \quad$ & $\quad \L_t(u) \quad$ & $\quad tr(u) \quad$  \\ \hline
-%Heat equation & $-\nabla_\Xx u$ & $u$ & $u|_{\Gamma_D}$ \\ \hline
-%Conservation law & $\bu u$ & $u$ & $u|_{\Gamma_0\,\cup\,\Gamma_-}$   \\ \hline
-%Wave equation & $-\nabla_\Xx u$ & $\partial_t u$ & $[u|_{\Gamma_D}, \,\partial_tu|_{\Gamma_0}]$    \\ \hline
-%\end{tabular}
-%\end{table}
-%
-%\subsection{Constrained space-time formulation} 
-%Following \cite{neumueller_vassilevski_villa} we rewrite equation \eqref{Problem} as a first-order system by introducing a new variable $\bsigma := \L(u)$, 
-%obtaining 
-%\begin{equation}
-%\begin{array}{c}
-%\bsigma - \L(u)  = 0,  \\ 
-%\div \bsigma = f. 
-%\end{array}
-%\label{eq:fos} 
-%\end{equation}
-%
-%We will also make use of the following well-known functional spaces: $L^2(\Omega_T)$, the space of square-integrable functions in $\Omega_T$; $H^1(\Omega_T) = \{ u \in L^2(\Omega_T) : \, \nabla u \in L^2(\Omega_T)^{n+1} \} $; $H(\div; \Omega_T) = \{ \bsigma \in L^2(\Omega_T)^{n+1} : \, \div \bsigma \in L^2(\Omega_T) \}$ and omit $\Omega_T$ for the sake of brevity. Also, we denote by  $(\cdot,\cdot)$ the inner product with respect to scalar and vector $L^2$, and by $\|\cdot \|$ the corresponding norm. From now on we will understand all differential operators in the weak sense. %, and $\|\cdot\|_K$ will denote a $K$-weighted $L^2(\Omega_T)$ norm, where $K$ is a symmetric positive definite matrix.
-%
-%To formulate the least squares problem  we  consider the following spaces with weakly imposed boundary conditions:
-%\begin{equation}
-%\begin{split}
-%R & := \{\,\btheta \in H(\div) \;|\; tr^\sigma(\btheta) = 0\,\};\\
-%V & := \{\,v \in H^1 \;|\; tr^u(v) = 0\,\},\\
-%\end{split}
-%\label{eq:spaces}
-%\end{equation}
-%where the definitions of the trace operators $tr^{\sigma}$ and $tr^u$ are given in Table~\ref{tab:FOSLS_operators}. These trace operators are well defined, see \cite{gatica}. 
-%
-%\begin{table}[h]
-%\caption{Definitions of $tr^{\sigma}(\bsigma)$, and $tr^u(u)$ for the different PDEs.}
-%\label{tab:FOSLS_operators}
-%\begin{tabular}{ |c||c|c|} \hline
-%PDEs & $\quad tr^{\sigma}(\bsigma) \quad$ & $\quad tr^u(u) \quad$  \\ \hline
-%Heat equation & N/A & $u|_{\Gamma_D}$ \\ \hline
-%Conservation law  & N/A & $u|_{\Gamma_0\,\cup\,\Gamma_-}$ \\ \hline
-%Wave equation     &  $(\bsigma\cdot\bn)|_{\Gamma_0}$ & $u|_{\Gamma_D}$  \\ \hline
-%\end{tabular}
-%\end{table}
-%
-%Then, for any given $f\in L^2$ the FOSLS functional for problem \eqref{eq:fos} 
-%\begin{align}
-%J(\bsigma, u) = \left\| \bsigma - \L(u) \right\|^2 + \| f-\div \bsigma \| ^2 \label{pfunctional}
-%\end{align} 
-%is well defined in $R \times V$.
-%Now, the constrained space-time first-order system least squares (CFOSLS) problem is to find the minimizer of the functional \eqref{pfunctional} 
-%under the constraint given by the conservation equation:
-%\begin{equation}
-%(\bsigma, u) = \argmin_{(\btheta, v)\in R\times V} J(\btheta, v) \;\text{ subject to } \, \div \bsigma = f. 
-%\label{eq:minimization}
-%\end{equation}
-%The constraint is imposed in a weak sense by introducing a Lagrange multiplier from $L_2$. Notice that because the constraint enforces $f-\div \bsigma = 0$, we can omit the second term $\| f-\div \bsigma \| ^2$ in the functional \eqref{pfunctional} in our CFOSLS formulation.
-%
-%
-%\subsection{Variational CFOSLS formulation} 
-%For the system \eqref{eq:fos} we define the operator
-%\[ 
-%\A(\bsigma, u ) = \bsigma -\L(u).
-%\]
-%It is well known that the minimizer of the constrained minimization problem \eqref{eq:minimization} is characterized by the first order (or Karush-Kuhn-Tucker) optimality condition, which leads in our case to the following saddle point system: 
-%
-%Find $(\bsigma, u) \in R\times V$ and $\lambda \in L^2$ such that 
-%\begin{equation}
-%\begin{array}{lll}
-%\big(\A(\bsigma, u), \A(\btheta, v) \big) + (\lambda, \mathrm{div}\,  \btheta) & = 0  & \;\forall\; (\btheta, v) \in R\times V,     \\
-%( \div  \bsigma,\mu )  &= (f, \mu) &  \;\forall\;  \mu\in L^2.
-%\end{array}
-%\label{eq:kkt_system}
-%\end{equation} 
-%%where
-%%\begin{align*}
-%% H_*(\Omega_T) 
-%% &=\{ u \in L^2(0,T: H^1_0(\Omega)): u(x,0) = 0  \text{ for all } x \in \om\} 
-%%\end{align*}
-%
-%The continuity of the bilinear form corresponding to the operator $\A$ is obvious due to the choice of spaces $R$ and $V$. Also, this form can be considered to be weakly-coercive in the sense of the definition given in \cite{AdlerVassilevski}.
-%
-%\begin{remark}
-%A traditional variational FOSLS formulation would be written in our notations as:
-%
-%Find $(\bsigma, u) \in R\times V$ such that 
-%\[
-%\big(\A(\bsigma, u ), \A(\btheta, v) \big) + \big( \div \bsigma, \div \btheta \big) = \big(f, \div \btheta\big) \qquad \;\forall\; (\btheta, v) \in R\times V.
-%\]
-%\end{remark}
-%
-%\begin{remark}\label{rmk:complicate}
-%Notice that, since $u$ belongs to $H^1$, for the scalar conservation law we can consider a different second term $\| \div (\bu u) - f \|^2$ in the FOSLS functional \eqref{pfunctional}. Then we will have an extra weighted diffusion term $(\bu  \, \nabla_x u, \bu \, \nabla_x u)$ for $u$ (which already exists for heat and wave equations due to the definition of $\bsigma$ for these problems).
-%
-%Then, instead of \eqref{eq:kkt_system}, we will have the following
-% system:
-%\begin{equation}
-%\begin{array}{lll}
-%\big(\A_+(\bsigma, u), \A_+(\btheta, v) \big) + (\lambda, \mathrm{div}\,  \btheta) & = \big( f, \div (\bu v) \big)  & \;\forall\; (\btheta, v) \in R\times V,     \\
-%( \div  \bsigma,\mu )  &= (f, \mu) &  \;\forall\;  \mu\in L^2.
-%\end{array}
-%\label{eq:kkt_system_compl}
-%\end{equation} 
-%with
-%\begin{equation}
-%\A_+(\bsigma, u) = \begin{bmatrix} \A(\bsigma, u) \\ \div (\bu u) \end{bmatrix}.
-%\label{eq:Adefine}
-%\end{equation}
-%We use this modified formulation when we consider scalar conservation law with $u\in~H^1$.
-%\end{remark}
-%
-%As one can notice, in equation \eqref{eq:kkt_system}  we seek for $u$ in $V \subset H^1$. However, in case of the scalar conservation law we can also allow $u$ to  have less regularity. This is due to the fact that unlike the other example problems,  the definition of $\mathcal{L}(u)$ does not involve any derivatives of $u$.  
-%%
-%%First we consider space \textcolor{blue}{ (why $\tilde V $, if it is not defined later maybe we can erase it)}  $\tilde{V} = L^2(\Omega_T)$ instead of $V$ for $u$ and impose the boundary conditions on $\bsigma$: $(\bsigma\cdot\bn)|_{\Gamma_0\,\cup\,\Gamma_-}$ instead of those for $u$ in $H^1$ case.
-%Hence, we can obtain a new formulation by seeking $u  \in L^2(\om)$ instead of $V$ and imposing the boundary conditions on $\bsigma$ instead of $u$, i.e. replacing $u|_{\Gamma_0\,\cup\,\Gamma_-}$ with $(\bsigma\cdot\bn)|_{\Gamma_0\,\cup\,\Gamma_-}$. 
-%
-%Next, as it follows from the first equation of \eqref{eq:fos},  the scalar unknown $u$ can be expressed in terms of $\bsigma$:
-%\begin{equation}
-%u = \frac1{\bb^T \bb }\bb^T \bsigma,
-%\label{eq:S}
-%\end{equation}
-%where we introduced the space-time vector function
-%\[
-%\bb = \bb(\Xx,t) := \begin{bmatrix} \bu(\Xx,t) \\ 1 \end{bmatrix}.
-%\]
-%Notice that $\bb^T\bb \equiv \bu^T\bu+1 \ge 1$, thus $\bb^T\bb$ is a strictly positive function.
-%
-%Now we substitute \eqref{eq:S} for $u$ in \eqref{eq:kkt_system} and redefine $\A(\bsigma,u)$ in \eqref{eq:kkt_system} to depend on $\bsigma$ only. The final variational problem then reads as:
-%
-%Find $\bsigma \in R$ and $\lambda \in L^2$ such that 
-%\begin{equation}
-%\begin{array}{lll}
-%\big( K \bsigma, \btheta \big) + (\lambda, \mathrm{div}\,  \btheta) & = 0  & \;\forall\; \btheta \in R,     \\
-%( \div  \bsigma,\mu )  &= (f, \mu) &  \;\forall\;  \mu\in L^2.
-%\end{array}
-%\label{eq:altkkt_system}
-%\end{equation}
-%where we have introduced a symmetric positive semi-definite matrix coefficient $K(x,t)$ defined as 
-%\begin{equation}
-%K :=  I - \frac{1}{\bb^T\bb} \bb \bb^T.
-%\end{equation}
-%Notice that \eqref{eq:altkkt_system} can be obtained as a variational formulation of the minimization problem for the following modified functional:
-%$$
-%\tilde{J}(\bsigma) = \left\| \bsigma \right\|_K^2 + \| f- \div \bsigma \| ^2, \label{modfunctional}
-%$$
-%where $\|\bsigma\|_K$ represents the $K$-weighted $L^2$ seminorm for $\bsigma$. 
-%
-%\begin{remark}
-%One should be careful when considering the alternative formulation \eqref{eq:altkkt_system}. Although it looks similar to a standard mixed formulation for a Laplace equation, the presense of the matrix weight $K$ makes it very different. $K(x,t)$ is rank-deficient (since $K \cdot \bb \equiv 0$) at any point $(\Xx,t)$ but the corresponding global operator is non-singular at the kernel of the divergence operator due to the underlying assumption that the original differential problem is well-posed, which implies, in particular, that the global matrix corresponding to $(K\cdot,\cdot)$ should  be positive definite in the subspace $\{\bsigma \in R : \div \, \bsigma = 0\}$. Local rank deficiency certainly affects the conditioning number of the resulting linear system and makes the problem of finding optimal iterative solvers much more complicated.
-%\end{remark}
-%
-%\begin{remark}
-%Once $\bsigma$ is found as a solution to \eqref{eq:altkkt_system}, $u$ can be recovered from the weak form of \eqref{eq:S} if needed.
-%\end{remark}
+%First we consider space \textcolor{blue}{ (why $\tilde V $, if it is not defined later maybe we can erase it)}  $\tilde{V} = L^2(\Omega_T)$ instead of $V$ for $u$ and impose the boundary conditions on $\bsigma$: $(\bsigma\cdot\bn)|_{\Gamma_0\,\cup\,\Gamma_-}$ instead of those for $u$ in $H^1$ case.
+Hence, we can obtain a new formulation by seeking $u  \in L^2(\om)$ instead of $V$ and imposing the boundary conditions on $\bsigma$ instead of $u$, i.e. replacing $u|_{\Gamma_0\,\cup\,\Gamma_-}$ with $(\bsigma\cdot\bn)|_{\Gamma_0\,\cup\,\Gamma_-}$. 
+
+Next, as it follows from the first equation of \eqref{eq:fos},  the scalar unknown $u$ can be expressed in terms of $\bsigma$:
+\begin{equation}
+u = \frac1{\bb^T \bb }\bb^T \bsigma,
+\label{eq:S}
+\end{equation}
+where we introduced the space-time vector function
+\[
+\bb = \bb(\Xx,t) := \begin{bmatrix} \bu(\Xx,t) \\ 1 \end{bmatrix}.
+\]
+Notice that $\bb^T\bb \equiv \bu^T\bu+1 \ge 1$, thus $\bb^T\bb$ is a strictly positive function.
+
+Now we substitute \eqref{eq:S} for $u$ in \eqref{eq:kkt_system} and redefine $\A(\bsigma,u)$ in \eqref{eq:kkt_system} to depend on $\bsigma$ only. The final variational problem then reads as:
+
+Find $\bsigma \in R$ and $\lambda \in L^2$ such that 
+\begin{equation}
+\begin{array}{lll}
+\big( K \bsigma, \btheta \big) + (\lambda, \mathrm{div}\,  \btheta) & = 0  & \;\forall\; \btheta \in R,     \\
+( \div  \bsigma,\mu )  &= (f, \mu) &  \;\forall\;  \mu\in L^2.
+\end{array}
+\label{eq:altkkt_system}
+\end{equation}
+where we have introduced a symmetric positive semi-definite matrix coefficient $K(x,t)$ defined as 
+\begin{equation}
+K :=  I - \frac{1}{\bb^T\bb} \bb \bb^T.
+\end{equation}
+Notice that \eqref{eq:altkkt_system} can be obtained as a variational formulation of the minimization problem for the following modified functional:
+$$
+\tilde{J}(\bsigma) = \left\| \bsigma \right\|_K^2 + \| f- \div \bsigma \| ^2, \label{modfunctional}
+$$
+where $\|\bsigma\|_K$ represents the $K$-weighted $L^2$ seminorm for $\bsigma$. 
+
+\begin{remark}
+One should be careful when considering the alternative formulation \eqref{eq:altkkt_system}. Although it looks similar to a standard mixed formulation for a Laplace equation, the presense of the matrix weight $K$ makes it very different. $K(x,t)$ is rank-deficient (since $K \cdot \bb \equiv 0$) at any point $(\Xx,t)$ but the corresponding global operator is non-singular at the kernel of the divergence operator due to the underlying assumption that the original differential problem is well-posed, which implies, in particular, that the global matrix corresponding to $(K\cdot,\cdot)$ should  be positive definite in the subspace $\{\bsigma \in R : \div \, \bsigma = 0\}$. Local rank deficiency certainly affects the conditioning number of the resulting linear system and makes the problem of finding optimal iterative solvers much more complicated.
+\end{remark}
+
+\begin{remark}
+Once $\bsigma$ is found as a solution to \eqref{eq:altkkt_system}, $u$ can be recovered from the weak form of \eqref{eq:S} if needed.
+\end{remark}
 
 
 \section{Refinement strategy}
