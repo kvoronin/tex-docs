@@ -1,0 +1,952 @@
+Starting /usr/bin/mpirun...
+Solving the Laplace equation in AMR setting with a minimization solver 
+Options used:
+   --feorder 1
+   --sref 1
+   Elements with wrong orientation: 38Elements with wrong orientation: 38 / 38 (fixed) / 38 (fixed)
+
+--pref 0
+   --whichD 3
+   --visualization
+   --prec-option 1
+   --spaceS H1
+   --spacesigma Hdiv
+   --visualization
+Space for sigma: Hdiv 
+Space for S: H1 
+For the records: numsol = 11, mesh_file = ../data/netgen_lshape3D_onemoretry_coarsest.netgen
+Number of mpi processes: 4
+AMR active 
+REFERENCE_SOLUTION active 
+USE_MINSOLVER passive 
+RECOARSENING_AMR passive 
+CLEVER_STARTING_GUESS active 
+Reading a 3d mesh from the file ../data/netgen_lshape3D_onemoretry_coarsest.netgen
+Elements with wrong orientation: 38 / 38 (fixed)
+Creating parmesh(3d) from the serial mesh (3d)
+Mesh::GeneratePartitioning(...): edgecut = 40
+Mesh::GeneratePartitioning(...): edgecut = 40
+Mesh::GeneratePartitioning(...): edgecut = 40
+Parallel Mesh Stats:
+Elements with wrong orientation: 38 / 38 (fixed)
+Mesh::GeneratePartitioning(...): edgecut = 40
+
+                minimum     average     maximum       total
+ vertices            16          26          36         106
+ edges              101         123         143         493
+ faces              160         173         185         692
+ elements            75          76          77         304
+ neighbors            3           3           3
+
+            minimum     maximum
+ h         0.428399    0.716266
+ kappa      1.68327     8.22104
+
+ Euler number             1
+
+Number of blocks in the formulation: 3
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+fosls_func_version = 1
+beta for the face marking strategy: 1e+06
+starting n_el = starting n_el = 76
+starting n_el = 76
+starting n_el = 75
+77
+
+AMR iteration 0
+Number of unknowns: 4803
+
+Solving the saddle point system 
+Iterative solver converged in 
+278 iterations with a residual norm of 1.19476e-11.
+Iterative solver took 0.231526s. 
+component No. 0: || error || / || exact_sol || = 0.0637028
+component No. 0: || exact - proj || / || exact || = 0.0652867
+component No. 1: || error || / || exact_sol || = 0.0126191
+component No. 1: || exact - proj || / || exact || = 0.00940088
+|| div (sigma_h) || = 7.0493e-11 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 182.905
+Sum of local mass = 0
+Sum of local mass loss = 1.37262e-10
+component No. 0: || error || / || exact_sol || = 0.0637028
+component No. 0: || exact - proj || / || exact || = 0.0652867
+component No. 1: || error || / || exact_sol || = 0.0126191
+component No. 1: || exact - proj || / || exact || = 0.00940088
+|| div (sigma_h) || = 7.0493e-11 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 182.905
+Sum of local mass = 0
+Sum of local mass loss = 1.37262e-10
+global_total_error = 0.268209
+mesh ne: mesh ne: 76
+marked elements: 
+
+mesh ne: 75
+marked elements: 
+
+mesh ne: 76
+marked elements: 
+(20, 7) (21, 7) 
+77
+marked elements: 
+
+Marked elements percentage = 2.5974 % 
+nmarked_el = 2, nel_before = 77
+nel_after = 92
+number of elements introduced = 15
+percentage (w.r.t to # before) of elements introduced = 19.4805% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 1
+Number of unknowns: 6821
+
+Solving the saddle point system 
+Iterative solver converged in 335 iterations with a residual norm of 1.37074e-11.
+Iterative solver took 0.386996s. 
+component No. 0: || error || / || exact_sol || = 0.0559329
+component No. 0: || exact - proj || / || exact || = 0.0582789
+component No. 1: || error || / || exact_sol || = 0.00754445
+component No. 1: || exact - proj || / || exact || = 0.00599808
+|| div (sigma_h) || = 9.81199e-11 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 182.727
+Sum of local mass = 0
+Sum of local mass loss = 1.64881e-10
+component No. 0: || error || / || exact_sol || = 0.0559329
+component No. 0: || exact - proj || / || exact || = 0.0582789
+component No. 1: || error || / || exact_sol || = 0.00754445
+component No. 1: || exact - proj || / || exact || = 0.00599808
+|| div (sigma_h) || = 9.81199e-11 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 182.727
+Sum of local mass = 0
+Sum of local mass loss = 1.64881e-10
+global_total_error = 0.215044
+mesh ne: 141
+marked elements: 
+
+mesh ne: 92
+marked elements: 
+(37, 7) 
+mesh ne: 118
+marked elements: 
+
+mesh ne: 91
+marked elements: 
+(17, 7) (50, 7) (51, 7) 
+Marked elements percentage = 4.34783 % 
+nmarked_el = 4, nel_before = 92
+nel_after = 180
+number of elements introduced = 88
+percentage (w.r.t to # before) of elements introduced = 95.6522% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 2
+Number of unknowns: 10311
+
+Solving the saddle point system 
+Iterative solver converged in 355 iterations with a residual norm of 1.33265e-11.
+Iterative solver took 1.14605s. 
+component No. 
+0: || error || / || exact_sol || = 0.0449034
+component No. 
+0: || exact - proj || / || exact || = 0.0445907
+component No. 1: || error || / || exact_sol || = 0.00494825
+component No. 1: || exact - proj || / || exact || = 0.00342693
+|| div (sigma_h) || = 9.37322e-11 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 201.653
+Sum of local mass = 0
+Sum of local mass loss = 1.52865e-10
+component No. 0: || error || / || exact_sol || = 0.0449034
+component No. 0: || exact - proj || / || exact || = 0.0445907
+component No. 1: || error || / || exact_sol || = 0.00494825
+component No. 1: || exact - proj || / || exact || = 0.00342693
+|| div (sigma_h) || = 9.37322e-11 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 201.653
+Sum of local mass = 0
+Sum of local mass loss = 1.52865e-10
+global_total_error = 0.17617
+mesh ne: mesh ne: 139
+marked elements: 
+
+mesh ne: 219
+marked elements: 
+
+mesh ne: 141
+marked elements: 
+(77, 7) (78, 7) (84, 7) (85, 7) 
+180
+marked elements: 
+
+Marked elements percentage = 2.22222 % 
+nmarked_el = 4, nel_before = 180
+nel_after = 221
+number of elements introduced = 41
+percentage (w.r.t to # before) of elements introduced = 22.7778% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 3
+Number of unknowns: 15371
+
+Solving the saddle point system 
+Iterative solver converged in 
+394 iterations with a residual norm of 1.45597e-11.
+Iterative solver took 1.14178s. 
+component No. 0: || error || / || exact_sol || = 0.0371696
+component No. 0: || exact - proj || / || exact || = 0.0388179
+component No. 1: || error || / || exact_sol || = 0.00335187
+component No. 1: || exact - proj || / || exact || = 0.00235069
+|| div (sigma_h) || = 1.18777e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 207.427
+Sum of local mass = 0
+Sum of local mass loss = 1.46197e-10
+component No. 0: || error || / || exact_sol || = 0.0371696
+component No. 0: || exact - proj || / || exact || = 0.0388179
+component No. 1: || error || / || exact_sol || = 0.00335187
+component No. 1: || exact - proj || / || exact || = 0.00235069
+|| div (sigma_h) || = 1.18777e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 207.427
+Sum of local mass = 0
+Sum of local mass loss = 1.46197e-10
+global_total_error = 0.144252
+mesh ne: 221
+marked elements: 
+(37, 7) (98, 7) (mesh ne: 319
+marked elements: 
+
+mesh ne: 152, 7) 
+mesh ne: 235
+marked elements: 
+(19, 7) (92, 7) (93, 7) (100, 7) (127, 7) (141, 7) 
+247
+marked elements: 
+
+Marked elements percentage = 4.0724 % 
+nmarked_el = 9, nel_before = 221
+nel_after = 391
+number of elements introduced = 170
+percentage (w.r.t to # before) of elements introduced = 76.9231% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 4
+Number of unknowns: 24419
+
+Solving the saddle point system 
+Iterative solver converged in 410 iterations with a residual norm of 1.41399e-11.
+Iterative solver took 3.00958s. 
+component No. 0: || error || / || exact_sol || = 0.0282721
+component No. 0: || exact - proj || / || exact || = 0.0294572
+component No. 1: || error || / || exact_sol || = 0.0020639
+component No. 1: || exact - proj || / || exact || = 0.00130063
+|| div (sigma_h) || = 1.45927e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 242.659
+Sum of local mass = 0
+Sum of local mass loss = 1.84056e-10
+component No. 0: || error || / || exact_sol || = 0.0282721
+component No. 0: || exact - proj || / || exact || = 0.0294572
+component No. 1: || error || / || exact_sol || = 0.0020639
+component No. 1: || exact - proj || / || exact || = 0.00130063
+|| div (sigma_h) || = 1.45927e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 242.659
+Sum of local mass = 0
+Sum of local mass loss = 1.84056e-10
+global_total_error = 0.116487
+mesh ne: mesh ne: 267
+marked elements: 
+
+mesh ne: mesh ne: 661
+marked elements: 
+
+319
+marked elements: 
+(142, 7) (143, 7) (149, 7) (150, 7) (156, 7) (157, 7) (163, 7) 
+391
+marked elements: 
+
+Marked elements percentage = 1.79028 % 
+nmarked_el = 7, nel_before = 391
+nel_after = 448
+number of elements introduced = 57
+percentage (w.r.t to # before) of elements introduced = 14.578% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 5
+Number of unknowns: 35661
+
+Solving the saddle point system 
+Iterative solver converged in 477 iterations with a residual norm of 1.57866e-11.
+Iterative solver took 3.97491s. 
+component No. 0: || error || / || exact_sol || = 0.0238332
+component No. 0: || exact - proj || / || exact || = 0.0260324
+component No. 1: || error || / || exact_sol || = 0.00158712
+component No. 1: || exact - proj || / || exact || = 0.00102431
+|| div (sigma_h) || = 2.41277e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 250.601
+Sum of local mass = 0
+Sum of local mass loss = 2.37919e-10
+component No. 0: || error || / || exact_sol || = 0.0238332
+component No. 0: || exact - proj || / || exact || = 0.0260324
+component No. 1: || error || / || exact_sol || = 0.00158712
+component No. 1: || exact - proj || / || exact || = 0.00102431
+|| div (sigma_h) || = 2.41277e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 250.601
+Sum of local mass = 0
+Sum of local mass loss = 2.37919e-10
+global_total_error = 0.0978658
+mesh ne: 448
+marked elements: 
+(37, 7) (98, 7) (152, 7) (227mesh ne: 809
+marked elements: 
+
+mesh ne: , 7) (234, 7) (241, 7) 
+468
+marked elements: 
+
+mesh ne: 680
+marked elements: 
+(243, 7) (244, 7) (250, 7) (251, 7) (271, 7) (272, 7) 
+Marked elements percentage = 2.67857 % 
+nmarked_el = 12, nel_before = 448
+nel_after = 746
+number of elements introduced = 298
+percentage (w.r.t to # before) of elements introduced = 66.5179% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 6
+Number of unknowns: 51035
+
+Solving the saddle point system 
+Iterative solver converged in 491 iterations with a residual norm of 1.52813e-11.
+Iterative solver took 8.26391s. 
+component No. 
+0: || error || / || exact_sol || = 0.0200126
+component No. 
+0: || exact - proj || / || exact || = 0.0212597
+component No. 1: || error || / || exact_sol || = 0.00104378
+component No. 1: || exact - proj || / || exact || = 0.000719968
+|| div (sigma_h) || = 2.06004e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 261.705
+Sum of local mass = 0
+Sum of local mass loss = 2.10077e-10
+component No. 0: || error || / || exact_sol || = 0.0200126
+component No. 0: || exact - proj || / || exact || = 0.0212597
+component No. 1: || error || / || exact_sol || = 0.00104378
+component No. 1: || exact - proj || / || exact || = 0.000719968
+|| div (sigma_h) || = 2.06004e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 261.705
+Sum of local mass = 0
+Sum of local mass loss = 2.10077e-10
+global_total_error = 0.0822005
+mesh ne: 746
+marked elements: 
+(332, 7) 
+mesh ne: 809
+marked elements: 
+(450, 7) 
+mesh ne: 577
+marked elements: 
+
+mesh ne: 1331
+marked elements: 
+(19, 7) (258, 7) (265, 7) (387, 7) 
+Marked elements percentage = 0.80429 % 
+nmarked_el = 6, nel_before = 746
+nel_after = 782
+number of elements introduced = 36
+percentage (w.r.t to # before) of elements introduced = 4.82574% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 7
+Number of unknowns: 57767
+
+Solving the saddle point system 
+Iterative solver converged in 516 iterations with a residual norm of 1.66289e-11.
+Iterative solver took 8.30855s. 
+component No. 0: || error || / || exact_sol || = 0.017889
+component No. 0: || exact - proj || / || exact || = 0.0196418
+component No. 1: || error || / || exact_sol || = 0.000958837
+component No. 1: || exact - proj || / || exact || = 0.000630011
+|| div (sigma_h) || = 2.63726e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 268.554
+Sum of local mass = 0
+Sum of local mass loss = 2.35325e-10
+component No. 0: || error || / || exact_sol || = 0.017889
+component No. 0: || exact - proj || / || exact || = 0.0196418
+component No. 1: || error || / || exact_sol || = 0.000958837
+component No. 1: || exact - proj || / || exact || = 0.000630011
+|| div (sigma_h) || = 2.63726e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 268.554
+Sum of local mass = 0
+Sum of local mass loss = 2.35325e-10
+global_total_error = 0.0759177
+mesh ne: mesh ne: 619
+marked elements: 
+
+mesh ne: 1560
+marked elements: 
+
+782
+marked elements: 
+
+mesh ne: 957
+marked elements: 
+(320, 7) (321, 7) (327, 7) (328, 7) (334, 7) (335, 7) (341, 7) (342, 7) (348, 7) (349, 7) (355, 7) (356, 7) (362, 7) (363, 7) 
+Marked elements percentage = 1.79028 % 
+nmarked_el = 14, nel_before = 782
+nel_after = 840
+number of elements introduced = 58
+percentage (w.r.t to # before) of elements introduced = 7.41688% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 8
+Number of unknowns: 74547
+
+Solving the saddle point system 
+Iterative solver converged in 522 iterations with a residual norm of 1.631e-11.
+Iterative solver took 9.77272s. 
+component No. 0: || error || / || exact_sol || = 0.0155265
+component No. 0: || exact - proj || / || exact || = 0.0177875
+component No. 1: || error || / || exact_sol || = 0.000823592
+component No. 1: || exact - proj || / || exact || = 0.000576367
+|| div (sigma_h) || = 2.78185e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 273.118
+Sum of local mass = 0
+Sum of local mass loss = 2.1216e-10
+component No. 0: || error || / || exact_sol || = 0.0155265
+component No. 0: || exact - proj || / || exact || = 0.0177875
+component No. 1: || error || / || exact_sol || = 0.000823592
+component No. 1: || exact - proj || / || exact || = 0.000576367
+|| div (sigma_h) || = 2.78185e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 273.118
+Sum of local mass = 0
+Sum of local mass loss = 2.1216e-10
+global_total_error = 0.0658926
+mesh ne: mesh ne: 840
+marked elements: 
+(98, 7) (152, 7) (227, 7) (234, 7) (241mesh ne: 1581
+marked elements: 
+(681, 7) (682, 7) (688, 7, 7) (332, 7) (454, 7) (461, 7) () (689, 7) (695, 7) (696, 7) (468, 7) (475, 7) (482, 7) 702, 7) (709, 7) (710, 7) (716(489, 7) (752, 7) 
+, 7) (717, 7) (1353, 7) (1354, 7) 
+998
+marked elements: 
+
+mesh ne: 1642
+marked elements: 
+(814, 7) 
+Marked elements percentage = 3.21429 % 
+nmarked_el = 27, nel_before = 840
+nel_after = 1401
+number of elements introduced = 561
+percentage (w.r.t to # before) of elements introduced = 66.7857% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 9
+Number of unknowns: 115569
+
+Solving the saddle point system 
+Iterative solver converged in 540 iterations with a residual norm of 1.69452e-11.
+Iterative solver took 27.5671s. 
+component No. 0: || error || / || exact_sol || = 0.0125004
+component No. 0: || exact - proj || / || exact || = 0.0142932
+component No. 1: || error || / || exact_sol || = 0.00062455
+component No. 1: || exact - proj || / || exact || = 0.00047663
+|| div (sigma_h) || = 4.83085e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 288.171
+Sum of local mass = 0
+Sum of local mass loss = 3.27981e-10
+component No. 0: || error || / || exact_sol || = 0.0125004
+component No. 0: || exact - proj || / || exact || = 0.0142932
+component No. 1: || error || / || exact_sol || = 0.00062455
+component No. 1: || exact - proj || / || exact || = 0.00047663
+|| div (sigma_h) || = 4.83085e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 288.171
+Sum of local mass = 0
+Sum of local mass loss = 3.27981e-10
+global_total_error = 0.0533059
+mesh ne: mesh ne: 1829
+marked elements: 
+(811, 7) 
+1401
+marked elements: 
+(781, 7) 
+mesh ne: 1178
+marked elements: 
+
+mesh ne: 3476
+marked elements: 
+(19, 7) (1340, 7) (1347, 7) (1428, 7) 
+Marked elements percentage = 0.428266 % 
+nmarked_el = 6, nel_before = 1401
+nel_after = 1437
+number of elements introduced = 36
+percentage (w.r.t to # before) of elements introduced = 2.56959% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 10
+Number of unknowns: 121419
+
+Solving the saddle point system 
+Iterative solver converged in 542 iterations with a residual norm of 1.65228e-11.
+Iterative solver took 21.5453s. 
+component No. 
+0: || error || / || exact_sol || = 0.0119026
+component No. 
+0: || exact - proj || / || exact || = 0.0138814
+component No. 
+1: || error || / || exact_sol || = 0.00061873
+component No. 
+1: || exact - proj || / || exact || = 0.000470875
+|| div (sigma_h) || = 
+3.79786e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 290.843
+Sum of local mass = 0
+Sum of local mass loss = 2.48878e-10
+component No. 0: || error || / || exact_sol || = 0.0119026
+component No. 
+0: || exact - proj || / || exact || = 0.0138814
+component No. 1: || error || / || exact_sol || = 0.00061873
+component No. 1: || exact - proj || / || exact || = 0.000470875
+|| div (sigma_h) || = 
+3.79786e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 290.843
+Sum of local mass = 0
+Sum of local mass loss = 2.48878e-10
+global_total_error = 0.0517001
+mesh ne: mesh ne: 1942
+marked elements: 
+
+1437
+marked elements: 
+(37, 7) 
+mesh ne: 1196
+marked elements: 
+(28, 7) (42, 7) 
+mesh ne: 3703
+marked elements: 
+(1910, 7) (3153, 7) 
+Marked elements percentage = 0.347947 % 
+nmarked_el = 5, nel_before = 1437
+nel_after = 1527
+number of elements introduced = 90
+percentage (w.r.t to # before) of elements introduced = 6.26305% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 11
+Number of unknowns: 126099
+
+Solving the saddle point system 
+Iterative solver converged in 543 iterations with a residual norm of 1.75736e-11.
+Iterative solver took 25.8997s. 
+component No. 0: || error || / || exact_sol || = 0.0116454
+component No. 0: || exact - proj || / || exact || = 0.0135905
+component No. 1: || error || / || exact_sol || = 0.000591194
+component No. 
+1: || exact - proj || / || exact || = 0.000432503
+|| div (sigma_h) || = 5.14604e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 312.184
+Sum of local mass = 0
+Sum of local mass loss = 3.36268e-10
+component No. 0: || error || / || exact_sol || = 0.0116454
+component No. 0: || exact - proj || / || exact || = 0.0135905
+component No. 1: || error || / || exact_sol || = 0.000591194
+component No. 1: || exact - proj || / || exact || = 0.000432503
+|| div (sigma_h) || = 5.14604e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 312.184
+Sum of local mass = 0
+Sum of local mass loss = 3.36268e-10
+global_total_error = 0.0504382
+mesh ne: mesh ne: 1275
+marked elements: 
+
+mesh ne: 1947
+marked elements: 
+(958, 7) (959, 7) (965, 7) (966, 7) (972, 7) (973, 7) (979, 7) (980, 7) (986, 7) (987, 7) (993, 7) (994, 7) (1000, 7) (1001, 7) (1007, 7) (1014, 7) (1015, 7) (1021, 7) (1022, 7) (1028, 7) (1029, 7) (1035, 7) (1036, 7) (1042, 7) (1043, 7) (1049, 7) (1050, 7) 
+1527
+marked elements: 
+
+mesh ne: 3850
+marked elements: 
+
+Marked elements percentage = 1.76817 % 
+nmarked_el = 27, nel_before = 1527
+nel_after = 1572
+number of elements introduced = 45
+percentage (w.r.t to # before) of elements introduced = 2.94695% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 12
+Number of unknowns: 159531
+
+Solving the saddle point system 
+Iterative solver converged in 551 iterations with a residual norm of 1.69914e-11.
+Iterative solver took 23.592s. 
+component No. 0: || error || / || exact_sol || = 0.0102175
+component No. 0: || exact - proj || / || exact || = 0.0124805
+component No. 1: || error || / || exact_sol || = 0.000550565
+component No. 1: || exact - proj || / || exact || = 0.000421281
+|| div (sigma_h) || = 4.57595e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 318.035
+Sum of local mass = 0
+Sum of local mass loss = 2.74516e-10
+component No. 
+0
+: || error || / || exact_sol || = 0.0102175
+component No. 
+0: || exact - proj || / || exact || = 0.0124805
+component No. 
+1: || error || / || exact_sol || = 0.000550565
+component No. 
+1: || exact - proj || / || exact || = 0.000421281
+|| div (sigma_h) || = 
+4.57595e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 318.035
+Sum of local mass = 0
+Sum of local mass loss = 2.74516e-10
+global_total_error = 0.0446681
+mesh ne: 1572
+marked elements: 
+(98, 7) (152, 7) (227, 7) (234, 7) (241, 7) (332, 7) (461, 7) (468, mesh ne: 7) (475, 7) (482, 7) (489, 7) (752, 7) (781, 7) 
+mesh ne: 3895
+marked elements: 
+(1583, 7) (1590, 7) (1597, 7) (1604, 7) (1611, 7) (1618, 7) (1632, 7) (1639, 7) (1646, 7) (1653, 7) (1667, 7) 
+2032
+marked elements: 
+(6, 7) (58, 7) 
+mesh ne: 3382
+marked elements: 
+(41, 7) (1834, 7) 
+Marked elements percentage = 1.78117 % 
+nmarked_el = 28, nel_before = 1572
+nel_after = 2592
+number of elements introduced = 1020
+percentage (w.r.t to # before) of elements introduced = 64.8855% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 
+13
+Number of unknowns: 234779
+
+Solving the saddle point system 
+Iterative solver converged in 582 iterations with a residual norm of 1.85012e-11.
+Iterative solver took 49.4821s. 
+component No. 0: || error || / || exact_sol || = 0.0084006
+component No. 0: || exact - proj || / || exact || = 0.0101988
+component No. 1: || error || / || exact_sol || = 0.000390554
+component No. 
+1: || exact - proj || / || exact || = 0.000323789
+|| div (sigma_h) || = 
+5.93627e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 347.799
+Sum of local mass = 0
+Sum of local mass loss = 3.01683e-10
+component No. 
+0: || error || / || exact_sol || = 0.0084006
+component No. 
+0: || exact - proj || / || exact || = 0.0101988
+component No. 
+1: || error || / || exact_sol || = 0.000390554
+component No. 
+1: || exact - proj || / || exact || = 0.000323789
+|| div (sigma_h) || = 5.93627e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 347.799
+Sum of local mass = 0
+Sum of local mass loss = 3.01683e-10
+global_total_error = 0.0369909
+mesh ne: 2592
+marked elements: 
+(888, 7) 
+mesh ne: mesh ne: 3833
+marked elements: 
+(1644, 7) (1831, 7) (2396, 7) 
+2411
+marked elements: 
+
+mesh ne: 7229
+marked elements: 
+(19, 7) (1624, 7) (3492, 7) 
+Marked elements percentage = 0.270062 % 
+nmarked_el = 7, nel_before = 2592
+nel_after = 2718
+number of elements introduced = 126
+percentage (w.r.t to # before) of elements introduced = 4.86111% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 14
+Number of unknowns: 246619
+
+Solving the saddle point system 
+Iterative solver converged in 579 iterations with a residual norm of 1.87513e-11.
+Iterative solver took 53.2639s. 
+component No. 0: || error || / || exact_sol || = 0.00814565
+component No. 0: || exact - proj || / || exact || = 0.0100168
+component No. 1: || error || / || exact_sol || = 0.000388574
+component No. 1: || exact - proj || / || exact || = 0.000323131
+|| div (sigma_h) || = 6.05052e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 348.616
+Sum of local mass = 0
+Sum of local mass loss = 2.88393e-10
+component No. 0: || error || / || exact_sol || = 0.00814565
+component No. 0: || exact - proj || / || exact || = 0.0100168
+component No. 1: || error || / || exact_sol || = 0.000388574
+component No. 1: || exact - proj || / || exact || = 0.000323131
+|| div (sigma_h) || = 6.05052e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 348.616
+Sum of local mass = 0
+Sum of local mass loss = 2.88393e-10
+global_total_error = 0.0361778
+mesh ne: mesh ne: 4119
+marked elements: 
+(1647, 7) 
+2718
+marked elements: 
+(1436, 7) 
+mesh ne: 2517
+marked elements: 
+
+mesh ne: 7522
+marked elements: 
+(1659, 7) (3484, 7) (3485, 7) (3498, 7) (3570, 7) 
+Marked elements percentage = 0.257542 % 
+nmarked_el = 7, nel_before = 2718
+nel_after = 2756
+number of elements introduced = 38
+percentage (w.r.t to # before) of elements introduced = 1.39809% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 15
+Number of unknowns: 254799
+
+Solving the saddle point system 
+Iterative solver converged in 579 iterations with a residual norm of 1.88096e-11.
+Iterative solver took 53.3859s. 
+component No. 0: || error || / || exact_sol || = 0.00794562
+component No. 0: || exact - proj || / || exact || = 0.00982728
+component No. 1: || error || / || exact_sol || = 0.000387756
+component No. 1: || exact - proj || / || exact || = 0.00032272
+|| div (sigma_h) || = 5.93262e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 349.546
+Sum of local mass = 0
+Sum of local mass loss = 3.04655e-10
+component No. 0: || error || / || exact_sol || = 0.00794562
+component No. 0: || exact - proj || / || exact || = 0.00982728
+component No. 1: || error || / || exact_sol || = 0.000387756
+component No. 
+1: || exact - proj || / || exact || = 0.00032272
+|| div (sigma_h) || = 5.93262e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 349.546
+Sum of local mass = 0
+Sum of local mass loss = 3.04655e-10
+global_total_error = 0.0356315
+mesh ne: 2756
+marked elements: 
+
+mesh ne: 2528
+marked elements: 
+
+mesh ne: 4169
+marked elements: 
+(64, 7) 
+mesh ne: 7980
+marked elements: 
+(3710, 7) (6242, 7) (6244, 7) (6246, 7) (6248, 7) (6250, 7) 
+Marked elements percentage = 0.253991 % 
+nmarked_el = 7, nel_before = 2756
+nel_after = 2955
+number of elements introduced = 199
+percentage (w.r.t to # before) of elements introduced = 7.22061% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+
+AMR iteration 16
+Number of unknowns: 267503
+
+Solving the saddle point system 
+Iterative solver converged in 579 iterations with a residual norm of 1.86132e-11.
+Iterative solver took 69.8358s. 
+component No. 
+0
+: || error || / || exact_sol || = 0.00785041
+component No. 0: || exact - proj || / || exact || = 0.00972789
+component No. 1: || error || / || exact_sol || = 0.000379581
+component No. 
+1: || exact - proj || / || exact || = 0.000315853
+|| div (sigma_h) || = 
+6.7689e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 358.467
+Sum of local mass = 
+0
+Sum of local mass loss = 2.89508e-10
+component No. 
+0: || error || / || exact_sol || = 0.00785041
+component No. 
+0
+: || exact - proj || / || exact || = 0.00972789
+component No. 
+1: || error || / || exact_sol || = 0.000379581
+component No. 1: || exact - proj || / || exact || = 0.000315853
+|| div (sigma_h) || = 
+6.7689e-10 (norm_div = 0) 
+|| sigma_h - L(S_h) ||^2 = 358.467
+Sum of local mass = 
+0
+Sum of local mass loss = 2.89508e-10
+global_total_error = 0.0347924
+mesh ne: mesh ne: 2955
+marked elements: 
+(37, 7) (454, 7) (853, 7) (867, 7) (881, 7) (895, 7) (909, 7) (923, 7) 
+2528
+marked elements: 
+(82, 7) 
+mesh ne: 8628
+marked elements: 
+(3705, 7) (4252, 7) (4255, 7) (4261, 7) (4267, 7) (4276, 7) (4279, 7) (7307, 7) 
+mesh ne: 4201
+marked elements: 
+(1956, 7) (1963, 7) (1977, 7) (1998, 7) (2005, 7) (2026, 7) (2040, 7) (2047, 7) (2054, 7) (2075, 7) (2089, 7) (2096, 7) (2124, 7) 
+Marked elements percentage = 1.01523 % 
+nmarked_el = 30, nel_before = 2955
+nel_after = 3598
+number of elements introduced = 643
+percentage (w.r.t to # before) of elements introduced = 21.7597% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Reached the maximum number of dofs. Stop. 
+/usr/bin/mpirun exited with code 0

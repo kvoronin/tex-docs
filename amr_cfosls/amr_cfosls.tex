@@ -178,9 +178,9 @@
 \begin{document}
  
 \begin{abstract}
-Adaptive mesh refinement is studied for constrained first-order system least-squares (CFOSLS) formulations for three-dimensional space-time problems. While considering the problem at hand as a minimization problem, we use local functional values as a natural measure of the local error. For solving the arising linear systems, an efficient multilevel algorithm is proposed which minimizes the energy functional over a dynamically constructed hierarchy of mesh levels.
+Adaptive mesh refinement is studied for constrained first-order system least-squares (CFOSLS) formulations of linear transport (in space-time setting) and Laplace equations in 3D. The problems are considered as minimization problems, for which we use local functional values as a natural measure of the local error. For solving the arising linear systems, an efficient multilevel algorithm is proposed which minimizes the energy functional over a dynamically constructed hierarchy of mesh levels.
 
-Two test problems are considered, the Laplace equation in an L-shaped domain and the transport equation in $H(\div)-L^2$ formulation.
+Two specific test problems are considered, the Laplace equation in an L-shaped domain and the transport equation in $H(\div)-L^2$ formulation.
 
 Efficiency of the proposed refinement strategy is compared numerically to the uniform refinement. In addition to the traditional refinement strategy based on local element errors, a modified strategy which noticeably smoothes out the error distribution is implemented by exploiting supplementary face error indicators.
 
@@ -190,7 +190,7 @@ The results obtained show that ... (about refinement results). Furthermore, the 
 
 \section{Introduction}
 
-Adaptive mesh refinement is studied for constrained first-order system least-squares (CFOSLS) formulations for three-dimensional space-time problems. The central idea of the considered framework is to minimize the least-squares functional under the divergence constraint which makes the method conservative. Following this idea, we use local functional values as a natural measure of the local errors.
+Adaptive mesh refinement is studied for constrained first-order system least-squares (CFOSLS) formulations for three-dimensional space-time problems. The central idea of the considered framework is to minimize the least-squares functional under the divergence constraint which makes the method conservative. Following this idea we use local functional values as a natural measure of the local errors.
 
 Two test problems are considered, one is the Laplace equation in an L-shaped domain and the second is the transport equation in $H(\div)-L^2$ formulation.
 
@@ -229,10 +229,10 @@ $$
 \div \mathbf{g} = \partial_t g^t + \sum_{i = 1}^{n} \partial_{\Xx_i} \mathbf{g}^{\Xx}_i = \partial_t g^t + \div_\Xx \mathbf{g}^{\Xx}.
 $$
 
-Different PDEs can be written in this general form but in this paper we will consider only two particular examples: the Laplace equation in $\mathbb{R}^{n+1}$ and the transport equation. The corresponding definiton of $\L_\Xx(u)$ and $\L_t(u)$ can be found  in Table~\ref{tab:PDE_operators}.
+Different PDEs can be written in this general form but in this paper we will consider only two particular examples: the Laplace equation in $\mathbb{R}^{n+1}$ and the transport equation. The corresponding definitons of $\L_\Xx(u)$ and $\L_t(u)$ can be found  in Table~\ref{tab:PDE_operators}.
 
 \begin{remark}
-Certainly, the Laplace equation is time-independent in the usual sense. However, one might consider the Laplace equation in $\mathbb{R}^{n+1}$ as a time-dependent equation by referring one of the coordinates as ``time''. In order to give a unified presentation of the problems we study it is more convenient for us to take this point of view. In the current paper the Laplace equation plays a role of a ``nice'' problem for which we expect corresponding solvers (preconditioners) to work well.
+Certainly, the Laplace equation is time-independent in the usual sense. However, one might consider the Laplace equation in $\mathbb{R}^{n+1}$ as a time-dependent equation by referring to one of the coordinates as ``time''. In order to give a unified presentation of the problems is more convenient for us to take this point of view. In the current paper the Laplace equation plays a role of a ``nice'' problem for which we expect corresponding solvers (preconditioners) to work well.
 \end{remark}
 
 As usual, in order to have a well-posed problem for equation \eqref{Problem} we impose boundary conditions on $\Gamma = \partial \Omega_T$ specified in Table~\ref{tab:PDE_operators}. We will consider additional notations for specific parts of the space-time boundary of $\Omega_T$, namely 
@@ -249,7 +249,7 @@ tr (u) = 0,
 \]
 where the actual definitions of the trace operator $tr$ for the different PDEs are listed in Table~\ref{tab:PDE_operators}. For simplicity, we restrict ourselves to homogeneous boundary conditions since the treatment of inhomogeneous boundary conditions is straightforward. 
 \begin{table}[h]
-\caption{Definitions of $\L_\Xx(u)$, $\L_t(u)$, and $tr(u)$ for different PDEs.}
+\caption{Definitions of $\L_\Xx(u)$, $\L_t(u)$, and $tr(u)$.}
 \label{tab:PDE_operators}
 \begin{tabular}{ |c||c|c|c|} \hline
 PDEs & $\quad \L_\Xx(u) \quad$ & $\quad \L_t(u) \quad$ & $\quad tr(u) \quad$  \\ \hline
@@ -269,10 +269,11 @@ obtaining
 \label{eq:fos} 
 \end{equation}
 
-For the transport equation we are going to use an alternative (not fully equivalent) formulation. To this aim, first notice that the scalar unknown $u$ can be rewritten  for each $(\Xx,t)$ in terms of $\bsigma$ as
-$$
+For the transport equation we are going to use an alternative (not fully equivalent) formulation. To this aim, first notice that the scalar unknown $u$ can be expressed in terms of $\bsigma$ for each $(\Xx,t)$ as
+\begin{equation}
+\label{eq:S}
 u = \frac{1}{\| \bb \|^2 } \, \bsigma \cdot \bb
-$$
+\end{equation}
 since
 $$
 \bsigma = \L(u) = \left[ \begin{array}{c} \bu \\ 1 \end{array} \right] u \equiv \bb u
@@ -283,7 +284,7 @@ where we introduced the space-time vector function
 \]
 Notice that $\bb^T\bb \equiv \bu^T\bu+1 \ge 1$, thus $\bb^T\bb$ is a strictly positive function.
 
-Now, for the transport equation we can get rid of $u$ in the first equation of (\eqref{eq:fos}) and arrive at
+Now, for the transport equation we can get rid of $u$ in the first equation of \eqref{eq:fos} and arrive at
 \begin{equation}
 \begin{array}{c}
 K \bsigma = 0,  \\ 
@@ -295,7 +296,8 @@ which we will refer to as ``alternative'' formulation for the transport equation
 
 We will also make use of the following well-known functional spaces: $L^2(\Omega_T)$, the space of square-integrable functions in $\Omega_T$; $H^1(\Omega_T) = \{ u \in L^2(\Omega_T) : \, \nabla u \in L^2(\Omega_T)^{n+1} \} $; $H(\div; \Omega_T) = \{ \bsigma \in L^2(\Omega_T)^{n+1} : \, \div \bsigma \in L^2(\Omega_T) \}$ and omit $\Omega_T$ for the sake of brevity. Also, we denote by  $(\cdot,\cdot)$ the inner product with respect to scalar and vector $L^2$, and by $\|\cdot \|$ the corresponding norm. From now on we will understand all differential operators in the weak sense. %, and $\|\cdot\|_K$ will denote a $K$-weighted $L^2(\Omega_T)$ norm, where $K$ is a symmetric positive definite matrix.
 
-To formulate the least squares problem  we  consider the following spaces with weakly imposed boundary conditions:
+To formulate the least squares problems which correspond to \eqref{eq:fos} and \eqref{eq:alt_fos} we first need to define the functional spaces for the solutions.
+Consider the following spaces with weakly imposed boundary conditions:
 \begin{equation}
 \begin{split}
 R & := \{\,\btheta \in H(\div) \;|\; tr^\sigma(\btheta) = 0\,\};\\
@@ -306,7 +308,7 @@ V & := \{\,v \in H^1 \;|\; tr^u(v) = 0\,\},\\
 where the definitions of the trace operators $tr^{\sigma}$ and $tr^u$ are given in Table~\ref{tab:FOSLS_operators}. These trace operators are well defined, see \cite{gatica}. 
 
 \begin{table}[h]
-\caption{Definitions of $tr^{\sigma}(\bsigma)$, and $tr^u(u)$ for the different PDEs.}
+\caption{Definitions of $tr^{\sigma}(\bsigma)$, and $tr^u(u)$.}
 \label{tab:FOSLS_operators}
 \begin{tabular}{ |c||c|c|} \hline
 PDEs & $\quad tr^{\sigma}(\bsigma) \quad$ & $\quad tr^u(u) \quad$  \\ \hline
@@ -315,19 +317,26 @@ Transport equation & N/A & $u|_{\Gamma_0\,\cup\,\Gamma_-}$ \\ \hline
 \end{tabular}
 \end{table}
 
-Then, for any given $f\in L^2$ the FOSLS functional for problem \eqref{eq:fos} 
+Then, for any given $f\in L^2$ we define the FOSLS functional as
 \begin{align}
 J(\bsigma, u) = \left\| \bsigma - \L(u) \right\|^2 + \| f-\div \bsigma \| ^2 \label{pfunctional}
 \end{align} 
-is well defined in $R \times V$.
+for problem \eqref{eq:fos}, well defined in $R \times V$, and as
+\begin{align}
+J(\bsigma, u) = \left( K \bsigma, \bsigma \right) \label{pfunctional}
+\end{align} 
+for problem \eqref{eq:alt_fos}, well defined in $R$.
+
 Now, the constrained space-time first-order system least squares (CFOSLS) problem is to find the minimizer of the functional \eqref{pfunctional} 
 under the constraint given by the conservation equation:
 \begin{equation}
 (\bsigma, u) = \argmin_{(\btheta, v)\in R\times V} J(\btheta, v) \;\text{ subject to } \, \div \bsigma = f. 
 \label{eq:minimization}
 \end{equation}
+
 The constraint is imposed in a weak sense by introducing a Lagrange multiplier from $L_2$. Notice that because the constraint enforces $f-\div \bsigma = 0$, we can omit the second term $\| f-\div \bsigma \| ^2$ in the functional \eqref{pfunctional} in our CFOSLS formulation.
 
+For the sake of brevity, we will continue below theoretical considerations for \eqref{eq:fos} only. The only substantial difference in the layout for the formulation \eqref{eq:alt_fos} would be that the second unknown $u$ is absent.
 
 \subsection{Variational CFOSLS formulation} 
 For the system \eqref{eq:fos} we define the operator
@@ -361,106 +370,297 @@ Find $(\bsigma, u) \in R\times V$ such that
 \]
 \end{remark}
 
-\begin{remark}\label{rmk:complicate}
-Notice that, since $u$ belongs to $H^1$, for the scalar conservation law we can consider a different second term $\| \div (\bu u) - f \|^2$ in the FOSLS functional \eqref{pfunctional}. Then we will have an extra weighted diffusion term $(\bu  \, \nabla_x u, \bu \, \nabla_x u)$ for $u$ (which already exists for heat and wave equations due to the definition of $\bsigma$ for these problems).
-
-Then, instead of \eqref{eq:kkt_system}, we will have the following
- system:
-\begin{equation}
-\begin{array}{lll}
-\big(\A_+(\bsigma, u), \A_+(\btheta, v) \big) + (\lambda, \mathrm{div}\,  \btheta) & = \big( f, \div (\bu v) \big)  & \;\forall\; (\btheta, v) \in R\times V,     \\
-( \div  \bsigma,\mu )  &= (f, \mu) &  \;\forall\;  \mu\in L^2.
-\end{array}
-\label{eq:kkt_system_compl}
-\end{equation} 
-with
-\begin{equation}
-\A_+(\bsigma, u) = \begin{bmatrix} \A(\bsigma, u) \\ \div (\bu u) \end{bmatrix}.
-\label{eq:Adefine}
-\end{equation}
-We use this modified formulation when we consider scalar conservation law with $u\in~H^1$.
-\end{remark}
-
-As one can notice, in equation \eqref{eq:kkt_system}  we seek for $u$ in $V \subset H^1$. However, in case of the scalar conservation law we can also allow $u$ to  have less regularity. This is due to the fact that unlike the other example problems,  the definition of $\mathcal{L}(u)$ does not involve any derivatives of $u$.  
-%
-%First we consider space \textcolor{blue}{ (why $\tilde V $, if it is not defined later maybe we can erase it)}  $\tilde{V} = L^2(\Omega_T)$ instead of $V$ for $u$ and impose the boundary conditions on $\bsigma$: $(\bsigma\cdot\bn)|_{\Gamma_0\,\cup\,\Gamma_-}$ instead of those for $u$ in $H^1$ case.
-Hence, we can obtain a new formulation by seeking $u  \in L^2(\om)$ instead of $V$ and imposing the boundary conditions on $\bsigma$ instead of $u$, i.e. replacing $u|_{\Gamma_0\,\cup\,\Gamma_-}$ with $(\bsigma\cdot\bn)|_{\Gamma_0\,\cup\,\Gamma_-}$. 
-
-Next, as it follows from the first equation of \eqref{eq:fos},  the scalar unknown $u$ can be expressed in terms of $\bsigma$:
-\begin{equation}
-u = \frac1{\bb^T \bb }\bb^T \bsigma,
-\label{eq:S}
-\end{equation}
-where we introduced the space-time vector function
-\[
-\bb = \bb(\Xx,t) := \begin{bmatrix} \bu(\Xx,t) \\ 1 \end{bmatrix}.
-\]
-Notice that $\bb^T\bb \equiv \bu^T\bu+1 \ge 1$, thus $\bb^T\bb$ is a strictly positive function.
-
-Now we substitute \eqref{eq:S} for $u$ in \eqref{eq:kkt_system} and redefine $\A(\bsigma,u)$ in \eqref{eq:kkt_system} to depend on $\bsigma$ only. The final variational problem then reads as:
-
-Find $\bsigma \in R$ and $\lambda \in L^2$ such that 
-\begin{equation}
-\begin{array}{lll}
-\big( K \bsigma, \btheta \big) + (\lambda, \mathrm{div}\,  \btheta) & = 0  & \;\forall\; \btheta \in R,     \\
-( \div  \bsigma,\mu )  &= (f, \mu) &  \;\forall\;  \mu\in L^2.
-\end{array}
-\label{eq:altkkt_system}
-\end{equation}
-where we have introduced a symmetric positive semi-definite matrix coefficient $K(x,t)$ defined as 
-\begin{equation}
-K :=  I - \frac{1}{\bb^T\bb} \bb \bb^T.
-\end{equation}
-Notice that \eqref{eq:altkkt_system} can be obtained as a variational formulation of the minimization problem for the following modified functional:
-$$
-\tilde{J}(\bsigma) = \left\| \bsigma \right\|_K^2 + \| f- \div \bsigma \| ^2, \label{modfunctional}
-$$
-where $\|\bsigma\|_K$ represents the $K$-weighted $L^2$ seminorm for $\bsigma$. 
-
 \begin{remark}
-One should be careful when considering the alternative formulation \eqref{eq:altkkt_system}. Although it looks similar to a standard mixed formulation for a Laplace equation, the presense of the matrix weight $K$ makes it very different. $K(x,t)$ is rank-deficient (since $K \cdot \bb \equiv 0$) at any point $(\Xx,t)$ but the corresponding global operator is non-singular at the kernel of the divergence operator due to the underlying assumption that the original differential problem is well-posed, which implies, in particular, that the global matrix corresponding to $(K\cdot,\cdot)$ should  be positive definite in the subspace $\{\bsigma \in R : \div \, \bsigma = 0\}$. Local rank deficiency certainly affects the conditioning number of the resulting linear system and makes the problem of finding optimal iterative solvers much more complicated.
+One should be careful when considering the alternative formulation \eqref{eq:alt_fos}. Although it looks similar to a standard mixed formulation for a Laplace equation, the presense of the matrix weight $K$ makes it very different. $K(x,t)$ is rank-deficient (since $K \cdot \bb \equiv 0$) at any point $(\Xx,t)$ but the corresponding global operator is non-singular at the kernel of the divergence operator due to the underlying assumption that the original differential problem is well-posed, which implies, in particular, that the global matrix corresponding to $(K\cdot,\cdot)$ should  be positive definite in the subspace $\{\bsigma \in R : \div \, \bsigma = 0\}$. Local rank deficiency certainly affects the conditioning number of the resulting linear system and makes the problem of finding optimal iterative solvers much more complicated.
 \end{remark}
 
 \begin{remark}
-Once $\bsigma$ is found as a solution to \eqref{eq:altkkt_system}, $u$ can be recovered from the weak form of \eqref{eq:S} if needed.
+Once $\bsigma$ is found as a solution to \eqref{eq:alt_fos}, $u$ can be recovered from the weak form of \eqref{eq:S} if needed.
 \end{remark}
 
+\section{Finite element discretization}
+
+As in the paper \cite{our_cfosls_paper}, we use standard finite element spaces defined on simplicial (tetrahedral) meshes. Namely, we use Raviart-Thomas finite elements for $H(\div)$, Nedelec finite elements for $H(\curl)$ (used for smoothers), Lagrange finite elements for $H^1$ and discontinuous piece-wise polynomials for $L^2$. All these are natural choices for the functional spaces involved.
+
+After discretization, we arrive at the following linear systems:
+\begin{equation}
+\begin{bmatrix}
+\M & \G^T & \D^T \\
+\G & \X & 0 \\
+\D & 0 & 0 
+\end{bmatrix}
+\begin{bmatrix}
+\bsigma_h \\
+\bs_h \\
+\blambda_h
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+\bg \\
+\bff
+\end{bmatrix}
+\label{eq:discrete_problem}
+\end{equation}
+coming from \eqref{eq:fos} formulation and
+\begin{equation}
+\begin{bmatrix}
+\M & \D^T \\
+\D & 0 
+\end{bmatrix}
+\begin{bmatrix}
+\bsigma_h \\
+\blambda_h
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+\bff
+\end{bmatrix}
+\label{eq:alt_discrete_problem}
+\end{equation}
+for \eqref{eq:alt_fos}. Here the matrices $\M, \G$ and $\X$ come from the discretizations of the bilinear form $\A(\bsigma,u)$, and $\D$ is the discrete divergence operator.
 
 \section{Refinement strategy}
-Description of the element error indicators, and a modification with the face error indicators.
+The fundamental ingredient for the adaptive mesh refinement is definition of the local error estimators. As in the works related to AMR in FOSLS, \cite{fosls_adapt} and \cite{fosls_adapt2}, we use the local functional value as a measure of local errors. 
 
-Definition of threshold in MFEM:
+We define the local error indicator $\eta_{T}$ for each element $T$ in the mesh as
 $$
-\mbox{threshold} = \max \left\lbrace \mbox{total error} \cdot \mbox{total error fraction} \cdot n_{el}^{-\frac{1}{p}}, \, \mbox{local error goal} \right\rbrace.
+\eta_{T} := \sqrt{J_{T}(\bsigma_h, u_h)}
 $$
-
-Total error is defined by
+where $(\bsigma_h, u_h)$ is the computed solution of the problem and $J_{T}$ is the local functional value, i.e., the functional value over an element $T$:
 $$
-\mbox{total error}  = 
-\left\{ 
-\begin{array}{lc}
-\left( \sum_i \left(\mbox{local error i}\right)^p \right)^{1/p}, & p < \infty \\
-\max_i \mbox{local error i}, & p = \infty \\
-\end{array}
-\right.
+J_{T}(\bsigma,u) = \left\| \bsigma - \L(u) \right\|_{T}^2
+$$
+In another words, $J_{T}$ is the local contribution of element restrictions of $\bsigma$ and $u$ to the global functional
+$$
+J(\bsigma,u) = \sum_{T} J_{T}(\bsigma,u)
 $$
 
-Default parameter values are:
-\begin{itemize}
-	\item $\mbox{total error fraction} = 0.5$;
-	\item $p = \infty$;
-	\item $\mbox{local error goal} = 0.0$.
-\end{itemize}
+\begin{remark}
+Notice that unlike the cited works \cite{fosls_adapt} and \cite{fosls_adapt2}, in our case the functional is not coercive, thus theory developed in these papers does not apply to the setting considered here.
+\end{remark}
+
+Having the local error indicators defined, the standard AMR  scheme continues with identifying elements to be refined by one or the other marking strategy. 
+
+The strategies typically differ in how one defines a threshold $\varepsilon$ for the element errors and inequality is then used to make a decision to refine or not to refine. Popular choices include using
+$$
+\eta_{T} \geq \varepsilon \max_{T'} \eta_{T'}
+$$
+for individual elements, or
+$$
+\sum_{T \in S} \eta_{T} \geq \varepsilon \sum_{T} \eta_{T}
+$$
+to identify at once a group of elements to be refined (somewhat referred to as Doerfler marking strategy). Certainly there exists a large variety of different options and we don't intend here to give a survey about them.
+
+In our experiments we used a slightly different approach designed to produce a smoother refinement patterns. This could be useful when the solution is supposed to have localized singularities which is a common case for AMR. The idea is to use additional face error indicators to control the jumps of local error across elements.
+To this aim, we define face error indicator $\delta_{\F}$ for each face $\F$ between elements $T$ and $T'$ as
+$$
+\delta_{\F}^2 = \frac{1}{\beta_h} (\eta_{T} - \eta_{T'})^2 + \frac{1}{2} (\eta_{T}^2 + \eta_{T'}^2).
+$$
+Parameter $\beta_h$ defines the coupling of the two terms, average of the neighboring local errors and difference betweeb them. It can be chosen to be constant though in principle it may depend on the mesh size $h$ and be fine-tuned for a particular application problem.
+
+Then we define which faces are to be refined using the marking strategy for individual elements and for each refined face we refine both of the elements which have it.
+
+%Definition of threshold in MFEM:
+%$$
+%\mbox{threshold} = \max \left\lbrace \mbox{total error} \cdot \mbox{total error fraction} \cdot n_{el}^{-\frac{1}{p}}, \, \mbox{local error goal} \right\rbrace.
+%$$
+%
+%Total error is defined by
+%$$
+%\mbox{total error}  = 
+%\left\{ 
+%\begin{array}{lc}
+%\left( \sum_i \left(\mbox{local error i}\right)^p \right)^{1/p}, & p < \infty \\
+%\max_i \mbox{local error i}, & p = \infty \\
+%\end{array}
+%\right.
+%$$
+%
+%Default parameter values are:
+%\begin{itemize}
+%	\item $\mbox{total error fraction} = 0.5$;
+%	\item $p = \infty$;
+%	\item $\mbox{local error goal} = 0.0$.
+%\end{itemize}
 
 \section{Linear solvers}
 
-\subsection{Block-diagonal preconditioners}
+To solve discretized systems \eqref{eq:discrete_problem} and \eqref{eq:alt_discrete_problem} we use either algebraic block-diagonal preconditioners or a minimization solver based on successive minimization of the target CFOSLS functional.
+
+\subsection{Block-diagonal preconditioners} 
+\label{sec:blkdiag}
+
+Since linear systems \eqref{eq:discrete_problem} and \eqref{eq:alt_discrete_problem} are symmetric but indefinite, it seems natural to solve it with a preconditioned minimal residual method. The simplest and most natural preconditioner is the following block-diagonal preconditioner. Let $\B_\M$ be the Jacobi smoother for $\M$ and let $\calS = \D\B_\M^{-1}\D^T$, then the block-diagonal preconditioner for \eqref{eq:discrete_problem} is defined as
+\begin{equation*}
+\B = \begin{bmatrix}
+\B_\M & 0 & 0 \\
+0 & \B_\X & 0 \\
+0 & 0 & \B_\calS \\
+\end{bmatrix},
+\end{equation*}
+where $\B_\X$ and $\B_\calS$ are some algebraic multigrid (AMG) preconditioners for $\X$ and $\calS$ respectively. Similarly, for \eqref{eq:alt_discrete_problem} we can write a block-diagonal preconditioner in the form
+\begin{equation*}
+\B = \begin{bmatrix}
+\B_\M & 0 \\
+0 & \B_\calS \\
+\end{bmatrix}.
+\end{equation*}
+
+In our experiments, we used the algebraic multigrid preconditioner (BoomerAMG) from \emph{hypre}, a library of scalable linear solvers developed at Lawrence Livermore National Laboratory, cf. \cite{boomerAMG, hypre}.
 
 \subsection{Multilevel minimization solver}
 
-\section{Results}
+The second idea for a linear solver comes from the following two observations. First, during the process of AMR, a hierarchy of meshes arise naturally, dynamically extended at each iteration. Then, it makes sense to try to re-use all the available levels by using a multilevel method. Second, we are solving a minimization problem and our ultimate goal is to minimize the functional, so why not develop a method which will minimize the functional at each step.
+
+The visible weak point is the constraint, which exist thanks to CFOSLS. However, there is a multilevel algorithm which can construct a particular solution to the constraint simultaneously minimizing the functional. Then, after we find a particular solution, the rest of the process will be performed in the subspace of div-free functions.
+
+The construction of the solver is very close to the idea for local non-overlapping Schwarz smoothers from \cite{our_cfosls_paper}.
+
+Assume that for $\ell=\{0, \dots, L\}$ we have a sequence of nested meshes $\mathcal{T}_{\ell}$
+$$
+\T_L \subset \T_{L-1} \subset \hdots \subset \T_0.
+$$
+For each $l$ let $R_{l}$, $H_l$ and $W_{l}$ be the finite element spaces for $\bsigma$, $u$ and Lagrange multiplier $\lambda$ at the level $l$ mesh $\mathcal{T}_l$. 
+
+Also, for $\ell=\{0, \dots, L-1\}$ we denote by $R_{\ell,T}$, $H_{\ell,T}$ and $W_{\ell,T}$ the local Raviart-Thomas and discontinuous constant spaces defined at the restriction of level $l$ mesh to an element $T$ in $\mathcal{T}_{\ell + 1}$. That is, these new spaces are restrictions of f.e. spaces at level $\ell$ to the coarser level elements. At the boundary $\partial T$ of each coarse element $T$ we impose homogeneous boundary conditions.
+
+
+Finally, let us define $R_{l}^{loc}$, $H_{l}^{loc}$ and $W_{l}^{loc}$ as
+$$
+R_{l}^{loc} := \left\{ \bsigma_l \in R_l \,\, s.t. \,\, \bsigma_l|_T \in R_{l,T} \, \, \forall T \, \in \T_{l+1} \right\}
+$$
+$$
+H_{l}^{loc} := \left\{ u_l \in H_l \,\, s.t. \,\, u_l|_T \in H_{l,T} \, \, \forall T \, \in \T_{l+1} \right\}
+$$
+and
+$$
+W_{l}^{loc} := \left\{ \lambda_l \in W_l \,\, s.t. \,\, \lambda_l|_T \in W_{l,T} \, \, \forall T \, \in \T_{l+1} \right\}
+$$
+These are the subspaces of full level $l$ spaces $R_{l}$, $H_{l}$ and $W_{l}$ with homogeneous boundary conditions at the interfaces between coarser level elements. 
+
+We distinguish between the first and consective iterations. Each iteration corresponds to a sweep over all available levels.
+
+\begin{itemize}
+	\item First iteration. 
+	The purpose of the first iteration is to minimize the functional AND get into the subspace which satisfies the constraint. Starting with initial guess $(\bsigma,u)$, where for simplicity we assume $\bsigma \equiv 0 $, we update for each $l = 0, 1, ..., L - 1$ the current iterate $(\bsigma, u)$ with local solutions of the following minimization problems associated with the CFOSLS functional (\ref{pfunctional}) for each coarser level element $T$:
+$$
+J(\bsigma + \bsigma_l, u + u_l) \rightarrow \min_{R_l^{loc} \times H_l^{loc}}
+$$
+under the constraints 
+$$
+(\mathrm{div} \bsigma_\ell, w )  = (Q_\ell f -Q_{\ell+1}f, w)  \text{ for all } w \in W_{\ell,T}
+$$
+imposed within each coarser level element.  
+Here $Q_\ell$ are orthogonal $L^2$-projections $Q_\ell: L^2 \mapsto W_\ell$. \newline
+	Due to the homogeneous boundary conditions imposed on the interfaces between coarse elements, the local problems for each $T$ are actually decoupled from each other.
+	Notice that $\bsigma_l$ will always be zero at the interfaces between coarser level elements. Hence we need additional smoothing which will update the values at the interfaces but will provide a divergence-free update (since we don't want to violate the imposed divergence constraint).	To this end we use Gauss-Seidel smoothing in discrete $H(curl)$. 
+	\begin{remark}
+	In general, we only need to update the interface values which can be done by means of Hiptmair smoother but a Gauss-Seidel sweep over all dofs in $H(\curl)$ will do as well (a little overkill though).
+	\end{remark}
+	More precise, we cast the problem into discrete $H(\curl)$ and perform several Gauss-Seidel sweeps for the following system on $(\bpsi_l, v_l)$
+$$
+\begin{bmatrix}
+\C^T \M \C & \C^T \G^T  \\
+\G \C & \X \\
+\end{bmatrix}
+\begin{bmatrix}
+\bpsi_l \\
+v_l \\
+\end{bmatrix}
+=
+-
+\begin{bmatrix}
+\C^T \M & \C^T \G^T  \\
+\G & \X \\
+\end{bmatrix}
+\begin{bmatrix}
+\bsigma_l \\
+u_l \\
+\end{bmatrix}
+$$
+where $\bpsi_l$ is from Nedelec space at level $l$, $v_l$ is another update in $H_l$ and $\C$ is the discrete curl operator at level $l$.
+	Then we set
+$$
+ \bsigma := \bsigma + \bsigma_l + \C \bpsi_l, \quad u := u + u_l + v_l
+$$	
+	and proceed to the next level.
+
+	When we reach the coarsest level, we solve the global problem
+of small size:
+$$
+J(\bsigma + \bsigma_L, u + u_L) \rightarrow \min_{R_l^{loc} \times H_l^{loc}}
+$$
+	under the constraint
+$$
+(\mathrm{div}\, \bsigma_L, w ) = (Q_L f, w), \text{ for all } w \in W_{L}. 
+$$
+    To solve the system, we use MINRES preconditioned by a block-diagonal preconditioner.
+	Finally, after solving the global coarse problem we make the last update
+$$
+ \bsigma := \bsigma + \bsigma_L, \quad u := u + u_L
+$$	
+	
+	Notice that, the final $\bsigma$ will satisfy exactly the desired divergence constraint
+	$$
+	(\div \bsigma, v) = (Q_0 f, v) = (f, v) , \text{ for all } v \in W_0. 
+	$$
+	
+	\item Other iterations. Unlike the first iteration, we are already in the subspace and if we solve for the correction, this correction will reside in the subspace of div-free functions. So, as long as we keep the solution in the subspace, we can use a geometric multigrid preconditioner with a special choice of the smoother.
+	To this end, we use the same smoother as at the first iteration but set the righthand side in the divergence constraints to zero.
+	In contrast to the first iteration, at the coarsest level we need to solve a global system in the divergence-free system. This allows us to cast the problem into discrete $H(\curl)$ and use conjugate gradients for the positive semi-definite system there (much alike we did for Gauss-Seidel smoothing above) instead of MINRES.
+	
+\end{itemize}
+
+%\begin{remark}
+%From a different perspective, the presented minimization solver, except for the first iteration, is a specific multigrid method with a combination of the local Schwarz smoothers and Gauss-Seidel smoother in discrete $H(curl)$ as a smoother, standard conforming finite element interpolation between levels and the coarsest level solver acting through $H(\curl)$. The first V-cycle is used to get into the subspace which satisfies the divergence constraint, while the consecutive iterations minimize the CFOSLS functional in the required subspace until the desired tolerance is reached.
+%\end{remark}
+
+
+\section{Numerical results}
+
+In this section we present numerical results for the application of the proposed AMR setup to the following two problems:
+
+\begin{itemize}
+	\item Laplace equation. \newline
+	Domain: L-shape in $\mathbb{R}^3$
+	$$
+	\Omega = \left\{ (x,y,z), (x,y) \in L, z\in [0,2] \right\}
+	$$
+	where
+	$$
+	L = \left\{ (x,y), -1 \leq x \leq 0, -1 \leq y \leq 1 \right\} \cup
+	\left\{ (x,y), 0 \leq x \leq 1, -1 \leq y \leq 0 \right\}
+	$$
+	Exact solution in polar coordinates in the $(x,y)$ plane:
+	$$
+	u(r,\varphi,z) = r^{2/3} sin ( \frac{\pi}{3} + \frac{2\varphi}{3} )
+	$$
+	As mentioned earlier, we call $z$ the (non-physical) time variable $t$ to apply the developed space-time CFOSLS setting.
+	\item Transport equation \newline
+	Domain: Cube $[-1,1]^2 \times [0,2] \subset \mathbb{R}^3$ \newline
+	Velocity: 
+	$$
+	\bu(x,y,t) = 
+	\left(
+	\begin{array}{c}
+	-y \\
+    x
+	\end{array}
+	\right)
+	$$
+	Exact solution aka rotating Gaussian hill:
+	$$
+	u(x,y,t) = exp^{-100 \left( (x-0.5)^2 + y^2 \right) }
+	$$
+\end{itemize}
+
+In the tables below one can find statistics of the refinement process, achieved rates of convergence as well as iteration counts for the two solvers.
 
 \subsection{Refinement stats?}
+
+As one might notice, looking at Figure \ref{fig:amr_lapl_beta3D}, for the standard marking strategy ($\beta = \infty$), the refinement goes far away from the incoming corner where the solution singularity resides. The effect of introducing $\beta$, as expected, produces a refinement picture which is more localized around the singularity.
 
 \subsection{Comparison to the uniform refinement}
 
@@ -468,7 +668,7 @@ Default parameter values are:
 
 \begin{table}[h!]
 \caption{Uniform refinement, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
-\label{tab:ur_conv_lshape3D_HdivH1lapl}
+\label{tab:ur_lapl_lshape3D_HdivH1lapl}
 \scalebox{.85}{
 \begin{tabular}{|c||c|c|c|c|c|} \hline
 \#dofs & \#iter 1 & \#iter 2 & $\varepsilon_{\bsigma}$ & $\varepsilon_u$ & FOSLS func value \\ \hline
@@ -478,12 +678,12 @@ Default parameter values are:
 \end{tabular}}
 % minsolver tolerance 1.0e-6
 \end{table}
-In table \ref{tab:ur_conv_lshape3D_HdivH1lapl} convergence in case of uniform refinement is given for the Laplace equation. Each row of the table corresponds to a refinement level. The second and third columns give the number of iterations of the proposed multilevel solver (using all levels which are available at the current iteration) and the block-diagonal preconditioner for the saddle-point system. The third and fourth column show the relative errors in $L^2$ for $\bsigma$ and $u$.
+In table \ref{tab:ur_lapl_lshape3D_HdivH1lapl} convergence in case of uniform refinement is given for the Laplace equation. Each row of the table corresponds to a refinement level. The second and third columns give the number of iterations of the proposed multilevel solver (using all levels which are available at the current iteration) and the block-diagonal preconditioner for the saddle-point system. The third and fourth column show the relative errors in $L^2$ for $\bsigma$ and $u$.
 The last column gives the FOSLS functional value for the computed solution and for the projection of the exact analytical solution (in parentheses).
 
 \begin{table}[h!]
 \caption{AMR, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
-\label{tab:amr_conv_lshape3D_HdivH1lapl}
+\label{tab:amr_lapl_lshape3D_HdivH1lapl}
 \scalebox{.85}{
 \begin{tabular}{|c||c|c|c|c|c|} \hline
 \#dofs & \#iter 1 & \#iter 2 & $\varepsilon_{\bsigma}$ & $\varepsilon_u$ & FOSLS func value \\ \hline
@@ -513,7 +713,54 @@ The last column gives the FOSLS functional value for the computed solution and f
 % conservative strategy, 0.95
 % beta = infty
 \end{table}
-In table \ref{tab:amr_conv_lshape3D_HdivH1lapl} (cf. with \ref{tab:ur_conv_lshape3D_HdivH1lapl}) convergence in case of adaptive mesh refinement refinement is given for the Laplace equation.
+In table \ref{tab:amr_lapl_lshape3D_HdivH1lapl} (cf. with \ref{tab:ur_lapl_lshape3D_HdivH1lapl}) convergence in case of adaptive mesh refinement refinement is given for the Laplace equation.
+
+In Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl_feorder1} we provide results for higher-order elements, cf. with Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl}.
+
+\begin{table}[h!]
+\caption{Uniform refinement, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation, higher order}
+\label{tab:ur_lapl_lshape3D_HdivH1lapl_feorder1}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ & $\varepsilon_u$  \\ \hline
+4803   & 278 & 0.064 & 0.013  \\ \hline
+36589  & 476 & 0.041 & 0.0041  \\ \hline 
+285689 & 606 & 0.026 & 0.0014 \\ \hline 
+\end{tabular}}
+\end{table}
+
+As one might notice, the observed order of convergence for $\bsigma$ reimains roughly the same while for $u$ it increases for higher-order elements.
+For higher-order elements we neither compute functional value nor were able to run the minimization solver. The latter is due to the known limitations on usage higher-order Nedelec elements in MFEM.
+
+\begin{table}[h!]
+\caption{AMR, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation, higher order}
+\label{tab:amr_lapl_lshape3D_HdivH1lapl}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ & $\varepsilon_u$ \\ \hline
+4803   & 278 & 0.064 & 0.013  \\ \hline
+6821   & 335 & 0.056 & 0.0075  \\ \hline 
+10311  & 355 & 0.045 & 0.005    \\ \hline 
+15371  & 394 & 0.037 & 0.0034   \\ \hline 
+24419  & 410 & 0.028 & 0.0021   \\ \hline 
+35661  & 477 & 0.024 & 0.0016   \\ \hline 
+51035  & 491 & 0.02  & 0.001    \\ \hline 
+57767  & 516 & 0.018 & 0.00096  \\ \hline 
+74547  & 522 & 0.016 & 0.00082  \\ \hline 
+115569 & 540 & 0.013 & 0.00062  \\ \hline 
+
+121419 & 542 & 0.012 & 0.00062  \\ \hline 
+126099 & 543 & 0.012 & 0.00059  \\ \hline 
+159531 & 551 & 0.01  & 0.00055  \\ \hline 
+234779 & 582 & 0.0084 & 0.00039 \\ \hline 
+246619 & 579 & 0.0081 & 0.00039 \\ \hline 
+254799 & 579 & 0.0079 & 0.00039 \\ \hline 
+267503 & 579 & 0.0079 & 0.00038 \\ \hline 
+\end{tabular}}
+% minsolver tolerance 1.0e-6
+% conservative strategy, 0.95
+% beta = infty
+\end{table}
 
 \subsubsection{Transport}
 
@@ -569,7 +816,7 @@ Second, one should not forget the hyperbolic nature of the problem at hand. It m
 % conservative strategy, 0.95
 % beta = infty
 \end{table}
-In table \ref{tab:amr_conv_3D_HdivL2tran} (cf. with \ref{tab:ur_conv_3D_HdivL2tra}) convergence in case of adaptive mesh refinement refinement is given for the transport equation.
+In table \ref{tab:amr_conv_3D_HdivL2tran} (cf. with Table \ref{tab:ur_conv_3D_HdivL2tran}) convergence in case of adaptive mesh refinement refinement is given for the transport equation.
 
 \begin{table}[h!]
 \caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, coarser starting mesh}
@@ -607,135 +854,157 @@ In table \ref{tab:amr_conv_3D_HdivL2tran} (cf. with \ref{tab:ur_conv_3D_HdivL2tr
 % beta = infty
 \end{table}
 
-\textbf{Pictures}
-
-\subsection{Solver comparison} ~\\
-
-\textbf{Block-diagonal preconditioner}
-
-\textbf{Multilevel solver}
+Corresponding to the results in Table \ref{tab:amr2_conv_3D_HdivL2tran} numerical solution for certain iterations is shown in Figure \ref{fig:amr_transp_feorder0}.
 
 
-%For example, for the first two tables, total error fraction for the adaptive mesh refinement was 0.95.
-%This means, that with default values for the rest of parameters,
-%a refinement criteria was
-%$$
-%\mbox{local error i} \geq 0.95 \max_j \mbox{local error j}
-%$$
-%
-%For the L-shaped domain, this strategy leads to the following refinement statistics:
-%
-%\begin{table}[h!]
-%\caption{AMR stats, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
-%\label{tab:amr_stats_lshape3D_HdivH1lapl}
-%\scalebox{.85}{
-%\begin{tabular}{|c||c|c|c|c|} \hline
-%\#dofs & $n_{\mbox{el, marked}}$ & $\mbox{marked el,} \%$ & $n_{\mbox{el, new}}$ & $\mbox{new el,} \%$ \\ \hline
-%63677  & 6    & 0.03  & 362  & 1.86 \\ \hline 
-%64861  & 1    & 0.005 & 85   & 0.43 \\ \hline
-%65139  & 6    & 0.03  & 694  & 3.49 \\ \hline
-%67381  & 2    & 0.01  & 88   & 0.43 \\ \hline
-%67678  & 2    & 0.01  & 114  & 0.55 \\ \hline
-%68053  & 2    & 0.01  & 174  & 0.84 \\ \hline
-%68626  & -    & -     & -    & -    \\ \hline
-%\end{tabular}}
-%%checked
-%\end{table}
-%
-%\begin{table}[h!]
-%\caption{AMR stats, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
-%\label{tab:amr_stats_lshape3D_HdivH1lapl}
-%\scalebox{.85}{
-%\begin{tabular}{|c||c|c|c|c|c|c|} \hline
-%\#dofs & \#iter1 & \#iter2 & $\varepsilon_{\bsigma}$ & $\varepsilon_u$ & funct & funct for $\pi exsol$ \\ \hline
-%63677  & 1           & 1 & 0.073 & 0.008  & 0.00029 & 0.00034 \\ \hline 
-%64861  & 1+5         & 2 & 0.068 & 0.0069 & 0.00025 & 0.00028 \\ \hline 
-%65139  & 1+5+4       & 2 & 0.067 & 0.0068 & 0.00024 & 0.00027 \\ \hline
-%67381  & 1+5+4+7     & 3 & 0.062 & 0.0056 & 0.0002  & 0.00023 \\ \hline
-%67678  & 1+5+4+7+3   & 2 & 0.061 & 0.0054 & 0.00019 & 0.00022 \\ \hline
-%68053  & 1+5+4+7+3+5 & 2 & 0.060 & 0.0053 & 0.00019 & 0.00022 \\ \hline
-%
-%\end{tabular}}
-%\end{table}
-%
-%Notations: \#iter1 is for the setup with re-solving from coarsest to finest level each time, \#iter2 is for simple minimization solver at the finest level. The numbers are the numbers of V-cycles so that the first number (1) in column 2 (\#iter1) corresponds to the single iteration (solution of the global system for a correction) at the coarsest level.
-%
-%Next, the same test but with total error fraction equal to 0.8.
-%
-%\begin{table}[h!]
-%\caption{AMR stats, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
-%\label{tab:amr_stats_lshape3D_HdivH1lapl}
-%\scalebox{.85}{
-%\begin{tabular}{|c||c|c|c|c|} \hline
-%\#dofs & $n_{\mbox{el, marked}}$ & $\mbox{marked el,} \%$ & $n_{\mbox{el, new}}$ & $\mbox{new el,} \%$ \\ \hline
-%63677  & 9    & 0.05  & 623  & 3.2 \\ \hline 
-%65709  & 15   & 0.07  & 859  & 4.2 \\ \hline
-%68501  & 50   & 0.24  & 3290 & 15.7 \\ \hline
-%79092  & 42   & 0.17  & 2272 & 9.4 \\ \hline
-%86468  & 10   & 0.04  & 949  & 3.6  \\ \hline
-%89541  & 111  & 0.4   & 6584 & 23.9 \\ \hline
-%110743 & -    & -     & -    & -    \\ \hline
-%\end{tabular}}
-%%checked
-%\end{table}
-%
-%\begin{table}[h!]
-%\caption{AMR stats, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
-%\label{tab:amr_stats_lshape3D_HdivH1lapl}
-%\scalebox{.85}{
-%\begin{tabular}{|c||c|c|c|c|c|} \hline
-%\#dofs & \#iter & $\varepsilon_{\bsigma}$ & $\varepsilon_u$ & funct & funct for $\pi exsol$ \\ \hline
-%63677  & 1           & 0.073 & 0.008  & 0.00029 & 0.00034 \\ \hline 
-%65709  & 1+6         & 0.066 & 0.0065 & 0.00023 & 0.00026 \\ \hline 
-%68501  & 1+6+7       & 0.059 & 0.0052 & 0.00019 & 0.00022 \\ \hline
-%79092  & 1+6+7+5     & 0.052 & 0.0036 & 0.00013 & 0.00015 \\ \hline
-%86468  & 1+6+7+5+8   & 0.048 & 0.0031 & 0.00010 & 0.00013 \\ \hline
-%89541  & 1+6+7+5+8+4 & 0.047 & 0.0031 & 0.00009 & 0.00012 \\ \hline
-%\end{tabular}}
-%\end{table}
-%
-%\begin{table}[h!]
-%\caption{Uniform refinement, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
-%\label{tab:ur_stats_lshape3D_HdivH1lapl}
-%\scalebox{.85}{
-%\begin{tabular}{|c||c|c|c|} \hline
-%\#dofs & \#iter & $\varepsilon_{\bsigma}$ & $\varepsilon_u$  \\ \hline
-%63677  & 9  & 0.073 & 0.008  \\ \hline 
-%501049 & 11 & 0.047 & 0.0032 \\ \hline 
-%\end{tabular}}
-%\end{table}
-%Here a MG preconditioner was used, \#levels = 2 and 3.
+Next, in Table \ref{tab:ur_conv_3D_HdivL2tran_feorder1} we study convergence for uniformly refined mesh in case when we use higher-order elements (elements one order higher than before). For higher-order elements we neither compute functional value nor were able to run the minimization solver.
+The latter is due to the known limitations on usage higher-order Nedelec elements in MFEM.
 
-\section{Figures}
+\begin{table}[h!]
+\caption{Uniform refinement, rotating Gaussian hill, $H(\div)-L^2$ formulation for the transport equation, higher order elements}
+\label{tab:ur_conv_3D_HdivL2tran_feorder1}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
+5280   & 1901  & 0.84 \\ \hline
+41088  & 5424  & 0.67 \\ \hline
+324096 & 19533 & 0.38 \\ \hline 
+\end{tabular}}
+\end{table}
+
+Now we show the results of adaptive mesh refinement for higher-order elements.
+
+\begin{table}[h!]
+\caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, higher order}
+\label{tab:amr2_conv_3D_HdivL2tran_feorder1}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$  \\ \hline
+41088  & 5424 & 0.67 \\ \hline
+43376  & 5499 & 0.63 \\ \hline
+45404  & 5548 & 0.6  \\ \hline
+48472  & 5598 & 0.55 \\ \hline
+52459  & 5786 & 0.51  \\ \hline
+61451  & 6222 & 0.42  \\ \hline
+64051  & 6191 & 0.41  \\ \hline
+68081  & 6262 & 0.36  \\ \hline
+81123  & 6397 & 0.28  \\ \hline
+91007  & 6535 & 0.26  \\ \hline
+
+98107  & 6642 & 0.26  \\ \hline
+117308 & 6975 & 0.22  \\ \hline
+130091 & 7105 & 0.19  \\ \hline
+151513 & 7257 & 0.17  \\ \hline
+175670 & 7574 & 0.13   \\ \hline
+
+187058 & 7585 & 0.12  \\ \hline
+209330 & 7799 & 0.11   \\ \hline
+222115 & 7652 & 0.11   \\ \hline
+262318 & 8066 & 0.1   \\ \hline
+\end{tabular}}
+% conservative strategy, 0.9
+% beta = infty
+\end{table}
+
+For Table \ref{tab:amr2_conv_3D_HdivL2tran_feorder1} one can find in Figure \ref{fig:amr_transp_feorder1} numerical solution for certain iterations.
+
 \begin{figure}[h!]
 \centering
 \begin{subfigure}[t]{0.49\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/beta_infinity.png}}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/comparison_laplace_feorder0.png}}
+	\caption{Laplace, 0th order, $\varepsilon_{\bsigma}$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/comparison_transport_feorder0.png}}
+	\caption{Transport, 0th order, $\varepsilon_{\bsigma}$}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.3\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/comparison_laplace_feorder1.png}}
+	\caption{Laplace, 1st order, $\varepsilon_{\bsigma}$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.3\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/comparison_laplace_feorder1_u.png}}
+	\caption{Laplace, 1st order, $\varepsilon_{u}$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.3\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/comparison_transport_feorder1.png}}
+	\caption{Laplace, 1st order, $\varepsilon_{\bsigma}$}
+\end{subfigure}
+
+\caption{Comparison of convergence rates for uniform and adaptive mesh refinement for the two test problems, different orders of f.e.}
+% For these pictures, threshold was 0.9
+\label{fig:comparison_ur_amr}
+\end{figure}
+
+%\begin{figure}[h!]
+%\centering
+%\begin{subfigure}[t]{0.49\textwidth}
+%	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/beta_infinity.png}}
+%	\caption{$\beta = \infty$}
+%\end{subfigure}
+%	\hfill
+%\begin{subfigure}[t]{0.49\textwidth}
+%	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_1.0}.png}}
+%	\caption{$\beta = 1.0$}
+%\end{subfigure}
+%
+%\begin{subfigure}[t]{0.49\textwidth}
+%	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_0.01}.png}}
+%	\caption{$\beta = 0.01$}
+%\end{subfigure}
+%	\hfill
+%\begin{subfigure}[t]{0.49\textwidth}
+%	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_0.01}.png}}
+%	\caption{$\beta = 0.01$}
+%\end{subfigure}
+%
+%\begin{subfigure}[t]{0.49\textwidth}
+%	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_0.001}.png}}
+%	\caption{$\beta = 0.001$}
+%\end{subfigure}
+%	\hfill
+%\begin{subfigure}[t]{0.49\textwidth}
+%	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_0.0001}.png}}
+%    \caption{$\beta = 0.0001$}
+%\end{subfigure}
+%
+%\caption{AMR, iteration \# ?, different values of the smoothing parameter $\beta$.}
+%\label{fig:para_3d_aniso}
+%\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/1000000.png}}
 	\caption{$\beta = \infty$}
 \end{subfigure}
 	\hfill
 \begin{subfigure}[t]{0.49\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_1.0}.png}}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{1.0}.png}}
 	\caption{$\beta = 1.0$}
 \end{subfigure}
 
 \begin{subfigure}[t]{0.49\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_0.01}.png}}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{0.1}.png}}
 	\caption{$\beta = 0.01$}
 \end{subfigure}
 	\hfill
 \begin{subfigure}[t]{0.49\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_0.01}.png}}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{0.01}.png}}
 	\caption{$\beta = 0.01$}
 \end{subfigure}
 
 \begin{subfigure}[t]{0.49\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_0.001}.png}}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{0.001}.png}}
 	\caption{$\beta = 0.001$}
 \end{subfigure}
 	\hfill
 \begin{subfigure}[t]{0.49\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_0.0001}.png}}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{0.0001}.png}}
     \caption{$\beta = 0.0001$}
 \end{subfigure}
 
@@ -750,9 +1019,107 @@ In table \ref{tab:amr_conv_3D_HdivL2tran} (cf. with \ref{tab:ur_conv_3D_HdivL2tr
 %\subfigure[$\beta = 0.001$]{\includegraphics[scale=.6]{plots/{beta_0.001}.png}}
 %
 %\subfigure[$\beta = 0.0001$]{\includegraphics[scale=.6]{plots/{beta_0.0001}.png}}
-\caption{AMR, iteration \# ?, different values of the smoothing parameter $\beta$.}
-\label{fig:para_3d_aniso}
+\caption{AMR, iteration \# 20, different values of the smoothing parameter $\beta$.}
+\label{fig:amr_lapl_beta3D}
 \end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_u_it_0.png}}
+	\caption{It. 0, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_sigma_it_0.png}}
+	\caption{It. 0, $\bsigma_h$}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_u_it_5.png}}
+	\caption{It. 5, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_sigma_it_5.png}}
+	\caption{It. 5, $\bsigma_h$}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_u_it_10.png}}
+	\caption{It. 10, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_sigma_it_10.png}}
+	\caption{It. 10, $\bsigma_h$}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_u_it_15.png}}
+	\caption{It. 15, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_sigma_it_15.png}}
+	\caption{It. 15, $\bsigma_h$}
+\end{subfigure}
+
+\caption{AMR, transport test, f.e. spaces of order 0.}
+% For these pictures, threshold was 0.9
+\label{fig:amr_transp_feorder0}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_u_it_0.png}}
+	\caption{It. 0, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_sigma_it_0.png}}
+	\caption{It. 0, $\bsigma_h$}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_u_it_5.png}}
+	\caption{It. 5, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_sigma_it_5.png}}
+	\caption{It. 5, $\bsigma_h$}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_u_it_10.png}}
+	\caption{It. 10, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_sigma_it_10.png}}
+	\caption{It. 10, $\bsigma_h$}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_u_it_15.png}}
+	\caption{It. 15, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_sigma_it_15.png}}
+	\caption{It. 15, $\bsigma_h$}
+\end{subfigure}
+
+\caption{AMR, transport test, f.e. spaces of order 1.}
+% For these pictures, threshold was 0.9
+\label{fig:amr_transp_feorder1}
+\end{figure}
+
+Comparing Figures \ref{fig:amr_transp_feorder0} and \ref{fig:amr_transp_feorder1} it's easy to notice that for the lowest order elements the quality of the results is much poorer. Although the mesh still gets refined around the volume where the solution is concentrated, the solution is dissipating strongly as the time goes. Hence, for the final time the magnitude has already decreased below 30\% of the magnitude at the bottom. Notice that for the exact solution magnitude remains constant in time since the solution is only rotating in space and no dissipation mechanism is present in the problem.
+The higher-order elements (see Fig. \ref{fig:amr_transp_feorder1}) provide much higher accuracy.
 
 \section{Conclusion}
 
@@ -780,13 +1147,6 @@ I'd like to say that we can efficiently reuse the previous iterations in terms o
 	\item Introduction
 \end{itemize}
 
-\section{Questions:}
-
-\begin{itemize}
-	\item How to include results by Paulina?
-\end{itemize}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{thebibliography}{99}
@@ -803,17 +1163,37 @@ Local error estimates and adaptive refinement for first-order system least squar
 \bibitem[AMMJT]{fosls_adapt2}
 Efficiency-based adaptive local refinement for first-order system least-squares formulations, J. Adler, T. Manteuffel, S. McCormick, J. Nolting, J. Ruge, and L. Tang, SIAM J. Sci. Comp. 33 (2011), pp. 1-24. 
 
+\bibitem[AV14]{AdlerVassilevski}
+{\sc J.~H. Adler, P.~S. Vassilevski,}
+``{\em Error Analysis for Constrained First-Order System Least-Squares Finite-Element Methods,}''
+SIAM J. Sci. Comput., 36(3), A1071-A1088, 2014.
+
 \bibitem[NVV]{neumueller_vassilevski_villa}
 Martin Neumueller, Panayot S. Vassilevski, and Umberto Villa,
 ``{\em Space-time CFOSLS methods with AMGe upscaling,}''
 Available as Lawrence Livermore National Laboratory Technical Report LLNL-CONF-683318, February 18, 2016.
-
 
 \bibitem[V08]{MLBFP}
 {\sc P.~S. Vassilevski,}
 ``{\em Multilevel Block--Factorization Preconditioners.} 
 Matrix-based Analysis and Algorithms for Solving Finite Element Equations'',
 Springer, New York, 2008.
+
+\bibitem[EV98]{evans}
+{\sc L.C. Evans,}
+ ``{\em Partial Differential Equations,}" Providence: American Mathematical Society, ISBN 0-8218-0772-2. 
+
+\bibitem[GT14]{gatica}
+{\sc  G. N. Gatica,} ``{\em A simple introduction to the mixed finite element method: Theory and applications,}'' Springer Briefs in Mathematics. Cham: Springer. MR3157367, 2014.
+
+\bibitem[BFKY12]{hypre}
+{\sc A.~Baker, R.~Falgout, T.~Kolev, and U.~Yang,} 
+``{\em Scaling hypre's Multigrid Solvers to 100,000 Cores}'',
+High Performance Scientific Computing: Algorithms and Applications, Springer,  261-279, 2012.
+
+\bibitem[HY02]{boomerAMG}
+{\sc V.~E.~Henson and U. M.~ Yang,} ``{\em Boomer{AMG}: A parallel algebraic multigrid solver and preconditioner}'',
+Applied Numerical Mathematics 2002; 41(1):155-177.
 
 \end{thebibliography}
 
