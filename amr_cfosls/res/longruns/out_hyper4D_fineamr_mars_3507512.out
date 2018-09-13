@@ -1,0 +1,529 @@
+06: compute064.cluster
+19: compute064.cluster
+03: compute064.cluster
+04: compute064.cluster
+16: compute064.cluster
+01: compute064.cluster
+09: compute064.cluster
+12: compute064.cluster
+05: compute064.cluster
+11: compute064.cluster
+13: compute064.cluster
+00: compute064.cluster
+17: compute064.cluster
+02: compute064.cluster
+07: compute064.cluster
+18: compute064.cluster
+08: compute064.cluster
+10: compute064.cluster
+14: compute064.cluster
+15: compute064.cluster
+00: /home/kvoronin/soft/experiments
+01: /home/kvoronin/soft/experiments
+09: /home/kvoronin/soft/experiments
+06: /home/kvoronin/soft/experiments
+12: /home/kvoronin/soft/experiments
+04: /home/kvoronin/soft/experiments
+14: /home/kvoronin/soft/experiments
+15: /home/kvoronin/soft/experiments
+16: /home/kvoronin/soft/experiments
+02: /home/kvoronin/soft/experiments
+05: /home/kvoronin/soft/experiments
+10: /home/kvoronin/soft/experiments
+08: /home/kvoronin/soft/experiments
+07: /home/kvoronin/soft/experiments
+11: /home/kvoronin/soft/experiments
+17: /home/kvoronin/soft/experiments
+19: /home/kvoronin/soft/experiments
+18: /home/kvoronin/soft/experiments
+13: /home/kvoronin/soft/experiments
+03: /home/kvoronin/soft/experiments
+Options used:
+   --mesh ../data/cube4d_24.MFEM
+   --spaceS L2
+   --order 0
+   --visualization
+   --refinementstrategy 1
+   --errorfraction 0.95
+   --beta 1e+06
+error_frac: 0.95
+betavalue: 1e+06
+strat: 1
+Space for S: L2 
+numsol = 88
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices            81          81          81          81
+ edges              544         544         544         544
+ planars           1232        1232        1232        1232
+ faces             1152        1152        1152        1152
+ elements           384         384         384         384
+ neighbors            0           0           0
+
+            minimum     maximum
+ h                1           1
+ kappa            1     2.44949
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+fosls_func_version = 1
+#dofs for the first solve: 1536
+Iterative solver converged in 96 iterations with a residual norm of 9.99007e-15.
+Iterative solver took 0.0142602s. 
+component No. 0: || error || / || exact_sol || = 1
+component No. 0: || exact - proj || / || exact || = 1.75951
+|| div (sigma_h) || = 2.50927e-14 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 1
+|| S_ex - Pi_h S_ex || / || S_ex || = 1.00048
+|| sigma_h ||_M^2 = 6.51497e-18
+|| sigma_h ||_M = 2.55244e-09
+Energy Error = 2.55244e-09
+Sum of local mass = 1.5406e-17
+Sum of local mass loss = 7.321e-14
+
+AMR iteration 0
+Refining the mesh ... 
+global_total_error = 2.39741e-09
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices            92          92          92          92
+ edges              639         639         639         639
+ planars           1495        1495        1495        1495
+ faces             1443        1443        1443        1443
+ elements           496         496         496         496
+ neighbors            0           0           0
+
+            minimum     maximum
+ h         0.594604           1
+ kappa            1     2.44949
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 0
+Number of unknowns: 1939
+Iterative solver converged in 162 iterations with a residual norm of 9.74741e-15.
+Iterative solver took 0.0300741s. 
+component No. 0: || error || / || exact_sol || = 1
+component No. 0: || exact - proj || / || exact || = 1.9952
+|| div (sigma_h) || = 2.84834e-14 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 1
+|| S_ex - Pi_h S_ex || / || S_ex || = 1.02386
+|| sigma_h ||_M^2 = 7.31449e-14
+|| sigma_h ||_M = 2.70453e-07
+Energy Error = 2.70453e-07
+Sum of local mass = 3.51315e-17
+Sum of local mass loss = 6.79719e-14
+
+AMR iteration 1
+Refining the mesh ... 
+global_total_error = 3.32727e-07
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices           180         180         180         180
+ edges             1582        1582        1582        1582
+ planars           4304        4304        4304        4304
+ faces             4633        4633        4633        4633
+ elements          1732        1732        1732        1732
+ neighbors            0           0           0
+
+            minimum     maximum
+ h         0.353553           1
+ kappa            1     2.44949
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 1
+Number of unknowns: 6365
+Iterative solver converged in 361 iterations with a residual norm of 1.44967e-14.
+Iterative solver took 0.180267s. 
+component No. 0: || error || / || exact_sol || = 1.07008
+component No. 0: || exact - proj || / || exact || = 9.26709
+|| div (sigma_h) || = 8.71457e-14 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 1.03217
+|| S_ex - Pi_h S_ex || / || S_ex || = 3.29412
+|| sigma_h ||_M^2 = 0.000161345
+|| sigma_h ||_M = 0.0127021
+Energy Error = 0.0127021
+Sum of local mass = 1.71497e-16
+Sum of local mass loss = 2.05001e-13
+
+AMR iteration 2
+Refining the mesh ... 
+global_total_error = 0.0209081
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices           414         414         414         414
+ edges             4102        4102        4102        4102
+ planars          11833       11833       11833       11833
+ faces            13211       13211       13211       13211
+ elements          5067        5067        5067        5067
+ neighbors            0           0           0
+
+            minimum     maximum
+ h             0.25           1
+ kappa            1     2.48421
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 2
+Number of unknowns: 18278
+Iterative solver converged in 572 iterations with a residual norm of 9.81426e-15.
+Iterative solver took 0.550402s. 
+component No. 0: || error || / || exact_sol || = 0.966234
+component No. 0: || exact - proj || / || exact || = 1.27014
+|| div (sigma_h) || = 4.78513e-14 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.96326
+|| S_ex - Pi_h S_ex || / || S_ex || = 1.19414
+|| sigma_h ||_M^2 = 7.30589e-05
+|| sigma_h ||_M = 0.00854745
+Energy Error = 0.00854745
+Sum of local mass = 8.31347e-17
+Sum of local mass loss = 9.92614e-14
+
+AMR iteration 3
+Refining the mesh ... 
+global_total_error = 0.0124067
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices          1055        1055        1055        1055
+ edges            11413       11413       11413       11413
+ planars          34271       34271       34271       34271
+ faces            39200       39200       39200       39200
+ elements         15288       15288       15288       15288
+ neighbors            0           0           0
+
+            minimum     maximum
+ h            0.125    0.840896
+ kappa            1     2.48421
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 3
+Number of unknowns: 54488
+Iterative solver converged in 755 iterations with a residual norm of 9.56921e-15.
+Iterative solver took 1.83237s. 
+component No. 0: || error || / || exact_sol || = 0.987129
+component No. 0: || exact - proj || / || exact || = 1.12606
+|| div (sigma_h) || = 7.03126e-14 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.987286
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.820184
+|| sigma_h ||_M^2 = 1.44363e-06
+|| sigma_h ||_M = 0.00120151
+Energy Error = 0.00120151
+Sum of local mass = 6.08427e-17
+Sum of local mass loss = 1.2628e-13
+
+AMR iteration 4
+Refining the mesh ... 
+global_total_error = 0.00294977
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices          2849        2849        2849        2849
+ edges            32085       32085       32085       32085
+ planars          98099       98099       98099       98099
+ faces           113440      113440      113440      113440
+ elements         44578       44578       44578       44578
+ neighbors            0           0           0
+
+            minimum     maximum
+ h        0.0883883    0.840896
+ kappa            1     2.48493
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 4
+Number of unknowns: 158018
+Iterative solver converged in 1098 iterations with a residual norm of 9.8047e-15.
+Iterative solver took 8.8317s. 
+component No. 0: || error || / || exact_sol || = 0.951832
+component No. 0: || exact - proj || / || exact || = 0.789171
+|| div (sigma_h) || = 6.12647e-14 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.951418
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.671925
+|| sigma_h ||_M^2 = 1.48613e-05
+|| sigma_h ||_M = 0.00385503
+Energy Error = 0.00385503
+Sum of local mass = 5.20699e-17
+Sum of local mass loss = 9.35702e-14
+
+AMR iteration 5
+Refining the mesh ... 
+global_total_error = 0.0116336
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices          6716        6716        6716        6716
+ edges            78390       78390       78390       78390
+ planars         243493      243493      243493      243493
+ faces           284183      284183      284183      284183
+ elements        112365      112365      112365      112365
+ neighbors            0           0           0
+
+            minimum     maximum
+ h           0.0625    0.707107
+ kappa            1     2.48493
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 5
+Number of unknowns: 396548
+Iterative solver converged in 1230 iterations with a residual norm of 9.79017e-15.
+Iterative solver took 28.1968s. 
+component No. 0: || error || / || exact_sol || = 0.907392
+component No. 0: || exact - proj || / || exact || = 0.637873
+|| div (sigma_h) || = 9.19436e-14 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.906583
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.510032
+|| sigma_h ||_M^2 = 1.36491e-05
+|| sigma_h ||_M = 0.00369447
+Energy Error = 0.00369447
+Sum of local mass = 4.98831e-17
+Sum of local mass loss = 1.2094e-13
+
+AMR iteration 6
+Refining the mesh ... 
+global_total_error = 0.0164857
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices         17029       17029       17029       17029
+ edges           203071      203071      203071      203071
+ planars         637407      637407      637407      637407
+ faces           748865      748865      748865      748865
+ elements        297501      297501      297501      297501
+ neighbors            0           0           0
+
+            minimum     maximum
+ h        0.0441942    0.707107
+ kappa            1     2.48974
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 6
+Number of unknowns: 1046366
+Iterative solver converged in 1434 iterations with a residual norm of 9.97756e-15.
+Iterative solver took 125.562s. 
+component No. 0: || error || / || exact_sol || = 0.804111
+component No. 0: || exact - proj || / || exact || = 0.460598
+|| div (sigma_h) || = 1.12394e-13 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.802288
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.361706
+|| sigma_h ||_M^2 = 2.65795e-05
+|| sigma_h ||_M = 0.00515553
+Energy Error = 0.00515553
+Sum of local mass = 5.1303e-17
+Sum of local mass loss = 1.1906e-13
+
+AMR iteration 7
+Refining the mesh ... 
+global_total_error = 0.0287619
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices         38315       38315       38315       38315
+ edges           464860      464860      464860      464860
+ planars        1470030     1470030     1470030     1470030
+ faces          1734485     1734485     1734485     1734485
+ elements        691001      691001      691001      691001
+ neighbors            0           0           0
+
+            minimum     maximum
+ h        0.0220971    0.707107
+ kappa            1     2.48974
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 7
+Number of unknowns: 2425486
+Iterative solver converged in 1633 iterations with a residual norm of 9.74027e-15.
+Iterative solver took 354.944s. 
+component No. 0: || error || / || exact_sol || = 0.689202
+component No. 0: || exact - proj || / || exact || = 0.319541
+|| div (sigma_h) || = 1.45112e-13 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.686925
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.247986
+|| sigma_h ||_M^2 = 2.84309e-05
+|| sigma_h ||_M = 0.00533206
+Energy Error = 0.00533206
+Sum of local mass = 5.2771e-17
+Sum of local mass loss = 1.11264e-13
+
+AMR iteration 8
+Refining the mesh ... 
+global_total_error = 0.0384702
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices         85477       85477       85477       85477
+ edges          1047994     1047994     1047994     1047994
+ planars        3328623     3328623     3328623     3328623
+ faces          3937172     3937172     3937172     3937172
+ elements       1571067     1571067     1571067     1571067
+ neighbors            0           0           0
+
+            minimum     maximum
+ h         0.015625    0.707107
+ kappa            1     2.48974
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 8
+Number of unknowns: 5508239
+Iterative solver converged in 1750 iterations with a residual norm of 9.93259e-15.
+Iterative solver took 900.104s. 
+component No. 0: || error || / || exact_sol || = 0.590002
+component No. 0: || exact - proj || / || exact || = 0.22613
+|| div (sigma_h) || = 2.81799e-13 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.588338
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.173537
+|| sigma_h ||_M^2 = 1.99276e-05
+|| sigma_h ||_M = 0.00446403
+Energy Error = 0.00446403
+Sum of local mass = 5.25309e-17
+Sum of local mass loss = 1.40899e-13
+
+AMR iteration 9
+Refining the mesh ... 
+global_total_error = 0.0441249
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices        217611      217611      217611      217611
+ edges          2677313     2677313     2677313     2677313
+ planars        8520647     8520647     8520647     8520647
+ faces         10092347    10092347    10092347    10092347
+ elements       4031403     4031403     4031403     4031403
+ neighbors            0           0           0
+
+            minimum     maximum
+ h       0.00929068    0.707107
+ kappa            1     2.49209
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 9
+Number of unknowns: 14123750
+Iterative solver converged in 1869 iterations with a residual norm of 9.90704e-15.
+Iterative solver took 3045.14s. 
+component No. 0: || error || / || exact_sol || = 0.493928
+component No. 0: || exact - proj || / || exact || = 0.157779
+|| div (sigma_h) || = 3.35979e-13 (norm_div = 0) 
+   Iteration :   0  (B r, r) = 3.00556e-10 ...
+   Iteration : 5000  (B r, r) = 7.45615e-14
+PCG: No convergence!
+Average reduction factor = 0.99917
+|| S_h - S_ex || / || S_ex || = 0.49261
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.122616
+|| sigma_h ||_M^2 = 1.39366e-05
+|| sigma_h ||_M = 0.00373318
+Energy Error = 0.00373318
+Sum of local mass = 5.27934e-17
+Sum of local mass loss = 1.28651e-13
+
+AMR iteration 10
+Refining the mesh ... 
+global_total_error = 0.0490751
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices        589776      589776      589776      589776
+ edges          7305393     7305393     7305393     7305393
+ planars       23305150    23305150    23305150    23305150
+ faces         27635516    27635516    27635516    27635516
+ elements      11045984    11045984    11045984    11045984
+ neighbors            0           0           0
+
+            minimum     maximum
+ h       0.00552427    0.594604
+ kappa            1      2.4932
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 10
+Number of unknowns: 38681500
+Iterative solver converged in 2074 iterations with a residual norm of 9.93281e-15.
+Iterative solver took 10196.9s. 
+component No. 0: || error || / || exact_sol || = 0.395385
+component No. 0: || exact - proj || / || exact || = 0.113525
+|| div (sigma_h) || = 4.4356e-13 (norm_div = 0) 
+   Iteration :   0  (B r, r) = 1.11624e-10 ...
+   Iteration : 5000  (B r, r) = 3.95237e-12
+PCG: No convergence!
+Average reduction factor = 0.999666
+|| S_h - S_ex || / || S_ex || = 0.395521
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0883417
+|| sigma_h ||_M^2 = 9.56819e-06
+|| sigma_h ||_M = 0.00309325
+Energy Error = 0.00309325
+Sum of local mass = 5.2725e-17
+Sum of local mass loss = 1.11557e-13
+
+AMR iteration 11
+Refining the mesh ... 
+global_total_error = 0.0539205
+Parallel Mesh Stats:
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 131573 RUNNING AT compute064
+=   EXIT CODE: 7
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Bus error (signal 7)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+End

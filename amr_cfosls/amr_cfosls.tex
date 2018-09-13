@@ -190,14 +190,6 @@ The results obtained show that ... (about refinement results). Furthermore, the 
 
 \section{Introduction}
 
-Adaptive mesh refinement is studied for constrained first-order system least-squares (CFOSLS) formulations for three-dimensional space-time problems. The central idea of the considered framework is to minimize the least-squares functional under the divergence constraint which makes the method conservative. Following this idea we use local functional values as a natural measure of the local errors.
-
-Two test problems are considered, one is the Laplace equation in an L-shaped domain and the second is the transport equation in $H(\div)-L^2$ formulation.
-
-Efficiency of the proposed refinement strategy is compared numerically to the uniform refinement. In addition to the traditional refinement strategy based on local element errors, a modified strategy which noticeably smoothes out the error distribution is implemented by exploiting supplementary face error indicators.
-
-For solving the arising linear systems, an efficient multilevel algorithm is proposed which minimizes the energy functional over a hierarchy of mesh levels. The multilevel algorithm outperforms the simpler block-diagonal preconditioners in terms of iteration count significantly.
-
 The results obtained show that ...
 
 \section{Problem statement}
@@ -856,6 +848,718 @@ In table \ref{tab:amr_conv_3D_HdivL2tran} (cf. with Table \ref{tab:ur_conv_3D_Hd
 
 Corresponding to the results in Table \ref{tab:amr2_conv_3D_HdivL2tran} numerical solution for certain iterations is shown in Figure \ref{fig:amr_transp_feorder0}.
 
+Taking advantage of MARS refinement becoming available to test, in the next table we compare AMR performance using MFEM's refinement implementation in 3D vs. refinement from MARS.
+
+\begin{table}[h!]
+\caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, MARS, coarser starting mesh}
+\label{tab:amr2_conv_3D_HdivL2tran_mars}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
+1248  & 294 & 0.99   \\ \hline
+1788  & 329 & 0.99   \\ \hline
+2954  & 487 & 0.99   \\ \hline
+5258  & 663 & 0.96   \\ \hline
+8115  & 692 & 0.96   \\ \hline
+12852 & 779 & 0.85   \\ \hline
+19103 & 828 & 0.75   \\ \hline
+26599 & 864 & 0.72   \\ \hline
+39153 & 908 & 0.62   \\ \hline
+
+58346  & 931  & 0.56   \\ \hline
+87268  & 1011 & 0.53   \\ \hline
+136649 & 1053 & 0.42   \\ \hline
+211483 & 1161 & 0.37   \\ \hline
+337306 & 1277 & 0.34   \\ \hline
+553158 & 1364 & 0.24   \\ \hline
+\end{tabular}}
+% conservative strategy, 0.95
+% beta = infty
+\end{table}
+
+Comparing Tables \ref{tab:amr2_conv_3D_HdivL2tran} and \ref{tab:amr2_conv_3D_HdivL2tran_mars} one can see that the last AMR iteration in the first table with about 55k of dofs gives about the same accuracy as the closest  (in terms of dof number) AMR iteration with 58k of dofs reported for MARS, 0.59 vs. 0.56. So, results are comparable.
+
+Below, in Figures \ref{fig:amr_trans3D_mars} and \ref{fig:amr_trans3D_paraview_mars} we provide examples of how the solution and the mesh for the MARS-based AMR for the transport equation behaves.
+
+We suppose that for deeper AMR process, the solution and its noticeable dissipation at the top boundary will decrease (for a simple reason of getting the overall error smaller). 
+% It would be good to carry out corresponding experiments. For any refinement method.
+
+\begin{table}[h!]
+\caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, MFEM ref-t, coarser starting mesh, longrun}
+\label{tab:amr2_conv_3D_HdivL2tran_mfem_longrun}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|} \hline
+\#dofs & AMR It. \# & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
+1248   & 0   & 294  & 0.99   \\ \hline
+6745   & 10  & 520  & 0.81   \\ \hline
+17980  & 20  & 714  & 0.72   \\ \hline
+48498  & 30  & 904  & 0.61   \\ \hline
+87641  & 40  & 983  & 0.54   \\ \hline
+169597 & 50  & 1151 & 0.47   \\ \hline
+315414 & 60  & 1388 & 0.40   \\ \hline
+598217 & 70  & 1644 & 0.34   \\ \hline
+948328 & 80  & 1883 & 0.30   \\ \hline
+
+1658921  & 90  & 2206 & 0.25   \\ \hline
+2776857  & 100 & 2540 & 0.21   \\ \hline
+4412060  & 110 & 2909 & 0.18   \\ \hline
+7740510  & 120 & 3395 & 0.16   \\ \hline
+11646333 & 128 & 3773 & 0.14   \\ \hline %1750.95s for nprocs = 100
+\end{tabular}}
+% conservative strategy, 0.95
+% beta = infty
+\end{table}
+
+Results presented in Table \ref{tab:amr2_conv_3D_HdivL2tran_mfem_longrun} are illustrated in Figures \ref{fig:amr_trans3D_paraview_mfem_longrun_part1} - \ref{fig:amr_trans3D_paraview_mfem_longrun_part3}.
+
+\begin{table}[h!]
+\caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, MARS ref-t, coarser starting mesh, longrun}
+\label{tab:amr2_conv_3D_HdivL2tran_mars_longrun}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|} \hline
+\#dofs & AMR It. \# & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
+1248    & 0   & 293  & 0.99   \\ \hline
+2954    & 2   & 487  & 0.99   \\ \hline
+8115    & 4   & 691  & 0.96   \\ \hline
+19103   & 6   & 828  & 0.75   \\ \hline
+39153   & 8   & 908  & 0.62   \\ \hline
+87628   & 10  & 1009 & 0.53   \\ \hline
+211483  & 12  & 1161 & 0.37   \\ \hline
+553158  & 14  & 1362 & 0.24   \\ \hline
+1549124 & 16  & 1835 & 0.17   \\ \hline
+
+4826658  & 18 & 2438 & 0.088  \\ \hline
+16846524 & 20 & 2850 & 0.060  \\ \hline
+32097906 & 21 & 3512 & 0.052  \\ \hline %9921s in serial
+\end{tabular}}
+% conservative strategy, 0.95
+% beta = infty
+\end{table}
+
+Results presented in Table \ref{tab:amr2_conv_3D_HdivL2tran_mars_longrun} are illustrated in Figures \ref{fig:amr_trans3D_paraview_mars_longrun_part1} - \ref{fig:amr_trans3D_paraview_mars_longrun_part2}. The smearing of the solution with time is illustrated by comparison between slices at the top and bottom of the domain in Figures \ref{fig:amr_trans3D_pv_mars_topbot_part1} and \ref{fig:amr_trans3D_pv_mars_topbot_part2}.
+
+
+\begin{table}[h!]
+\caption{AMR, rotating Gaussian hill $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation, MARS ref-t, coarser starting mesh, longrun}
+\label{tab:amr2_conv_4D_HdivL2tran_mars_longrun}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|} \hline
+\#dofs & AMR It. \# & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
+1939     & 0   & 162  & 1.0   \\ \hline
+6365     & 2   & 361  & 1.07   \\ \hline
+54488    & 4   & 755  & 0.99   \\ \hline
+396548   & 6   & 1230 & 0.91   \\ \hline
+2425486  & 8   & 1663 & 0.69   \\ \hline
+14123750 & 10  & 1869 & 0.49   \\ \hline
+38681500 & 11  & 2074 & 0.40   \\ \hline %10196s in serial
+\end{tabular}}
+% conservative strategy, 0.95
+% beta = infty
+\end{table}
+
+Results presented in Table \ref{tab:amr2_conv_4D_HdivL2tran_mars_longrun} are illustrated in Figures \ref{fig:amr_trans4D_paraview_mfem_longrun_part1} - \ref{fig:amr_trans4D_paraview_mfem_longrun_part2}.
+
+
+In Table \ref{tab:amr2_conv_4D_HdivL2tran_mars_mfem_longrun_cont} we continue AMR with MFEM refinement, in parallel, based on the last mesh obtained using MARS refinement (from Table \ref{tab:amr2_conv_4D_HdivL2tran_mars_longrun}. Although the error for $\bsigma$ slightly increases at the beginning, the energy error is actually decreasing.
+
+\begin{table}[h!]
+\caption{AMR, rotating Gaussian hill $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation, MFEM ref-t, after MARS refinement, longrun}
+\label{tab:amr2_conv_4D_HdivL2tran_mars_mfem_longrun_cont}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|} \hline
+\#dofs & AMR It. \# & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
+62532088  & 0  & 4323 & 0.045  \\ \hline % time 3366.29s
+67485271  & 1  & 4302 & 0.045  \\ \hline
+79056120  & 2  & 4662 & 0.045  \\ \hline
+86577740  & 3  & 4874 & 0.046  \\ \hline
+93640631  & 4  & 4947 & 0.047  \\ \hline
+96755600  & 5  & 5105 & 0.047  \\ \hline
+107819557 & 6  & 5113 & 0.047  \\ \hline 
+112315805 & 7  & 5143 & 0.046  \\ \hline
+120842189 & 8  & 5305 & 0.046  \\ \hline
+124490318 & 9  & 5258 & 0.045  \\ \hline
+133652532 & 10 & 5295 & 0.044  \\ \hline
+136972988 & 11 & 5451 & 0.0435 \\ \hline
+147175902 & 12 & 5520 & 0.042  \\ \hline
+149765079 & 13 & 5533 & 0.042  \\ \hline
+160518380 & 14 & 5614 & 0.040  \\ \hline %time 5968.65s
+\end{tabular}}
+% conservative strategy, 0.95
+% nprocs 200
+% ppn 10
+% job No. 3657734
+\end{table}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/sigma_it_0_mars.png}}
+    \caption{Iter. No. 0.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/sigma_it_4_mars.png}}
+    \caption{Iter. No. 4.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/sigma_it_6_mars.png}}
+    \caption{Iter. No. 6.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/sigma_it_8_mars.png}}
+    \caption{Iter. No. 8.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/sigma_it_10_mars.png}}
+    \caption{Iter. No. 10.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/sigma_it_12_mars.png}}
+    \caption{Iter. No. 12.}
+\end{subfigure}
+
+\caption{AMR, using MARS refinement in 3D, $\beta = \infty$.}
+\label{fig:amr_trans3D_mars}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/sigma_mars_pv_it_0.png}}
+    \caption{Iter. No. 0.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/sigma_mars_pv_it_4.png}}
+    \caption{Iter. No. 4.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/sigma_mars_pv_it_6.png}}
+    \caption{Iter. No. 6.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/sigma_mars_pv_it_8.png}}
+    \caption{Iter. No. 8.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/sigma_mars_pv_it_10.png}}
+    \caption{Iter. No. 10.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/sigma_mars_pv_it_12.png}}
+    \caption{Iter. No. 12.}
+\end{subfigure}
+
+\caption{AMR, using MARS refinement in 3D, $\beta = \infty$.}
+%pictures generated by ParaView scripts
+\label{fig:amr_trans3D_paraview_mars}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_0.png}}
+    \caption{Iter. No. 0.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_10.png}}
+    \caption{Iter. No. 10.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_20.png}}
+    \caption{Iter. No. 20.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_30.png}}
+    \caption{Iter. No. 30.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_40.png}}
+    \caption{Iter. No. 40.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_50.png}}
+    \caption{Iter. No. 50.}
+\end{subfigure}
+
+\caption{AMR, using MFEM refinement in 3D, $\beta = \infty$, long, part 1.}
+%pictures generated by ParaView scripts
+%nprocs = 100
+\label{fig:amr_trans3D_paraview_mfem_longrun_part1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_60.png}}
+    \caption{Iter. No. 60.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_70.png}}
+    \caption{Iter. No. 70.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_80.png}}
+    \caption{Iter. No. 80.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_90.png}}
+    \caption{Iter. No. 90.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_100.png}}
+    \caption{Iter. No. 100.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_110.png}}
+    \caption{Iter. No. 110.}
+\end{subfigure}
+
+\caption{AMR, using MFEM refinement in 3D, $\beta = \infty$, long, part 2.}
+%pictures generated by ParaView scripts
+%nprocs = 100
+\label{fig:amr_trans3D_paraview_mfem_longrun_part2}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_120.png}}
+    \caption{Iter. No. 120.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/u_mfem_it_128.png}}
+    \caption{Iter. No. 128.}
+\end{subfigure}
+
+\caption{AMR, using MFEM refinement in 3D, $\beta = \infty$, long, part 3.}
+%pictures generated by ParaView scripts
+%./pvpython /home/kvoronin/Documents/PSU\ project/adaptive\ refinement/paraview_draw.py /home/kvoronin/Downloads/temp/u_mfem_it_ --type 0 --step 10 --stcnt 128 --iso-bot 0.4 --iso-top 1.0 --iso-relative --nsteps 65 --parallel --nprocs 100
+%nprocs = 100
+\label{fig:amr_trans3D_paraview_mfem_longrun_part3}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_it_0.png}}
+    \caption{Iter. No. 0.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_it_2.png}}
+    \caption{Iter. No. 2.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_it_4.png}}
+    \caption{Iter. No. 4.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_it_6.png}}
+    \caption{Iter. No. 6.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_it_8.png}}
+    \caption{Iter. No. 8.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_it_10.png}}
+    \caption{Iter. No. 10.}
+\end{subfigure}
+
+\caption{AMR, using MARS refinement in 3D, $\beta = \infty$, long, part 1.}
+%pictures generated by ParaView scripts
+%./pvpython /home/kvoronin/Documents/PSU\ project/adaptive\ refinement/paraview_draw.py /home/kvoronin/Downloads/temp/sigma_mars_it_ --type 1 --step 2 --start-count 0 --iso-bot 0.4 --iso-top 1.0 --iso-relative --nsteps 10
+\label{fig:amr_trans3D_paraview_mars_longrun_part1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_it_12.png}}
+    \caption{Iter. No. 12.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_it_14.png}}
+    \caption{Iter. No. 14.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_it_16.png}}
+    \caption{Iter. No. 16.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_it_18.png}}
+    \caption{Iter. No. 18.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_it_20.png}}
+    \caption{Iter. No. 20.}
+\end{subfigure}
+
+\caption{AMR, using MARS refinement in 3D, $\beta = \infty$, long, part 2.}
+%pictures generated by ParaView scripts
+%./pvpython /home/kvoronin/Documents/PSU\ project/adaptive\ refinement/paraview_draw.py /home/kvoronin/Downloads/temp/sigma_mars_it_ --type 1 --step 2 --start-count 0 --iso-bot 0.4 --iso-top 1.0 --iso-relative --nsteps 10
+\label{fig:amr_trans3D_paraview_mars_longrun_part2}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_bot_it_0.png}}
+    \caption{Iter. No. 0, bot.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_top_it_0.png}}
+    \caption{Iter. No. 0, top.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_bot_it_4.png}}
+    \caption{Iter. No. 4, bot.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_top_it_4.png}}
+    \caption{Iter. No. 4, top.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_bot_it_8.png}}
+    \caption{Iter. No. 8, bot.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_top_it_8.png}}
+    \caption{Iter. No. 8, top.}
+\end{subfigure}
+
+\caption{AMR, smearing, using MARS refinement in 3D, part 1.}
+%pictures generated by ParaView scripts
+\label{fig:amr_trans3D_pv_mars_topbot_part1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_bot_it_12.png}}
+    \caption{Iter. No. 12, bot.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_top_it_12.png}}
+    \caption{Iter. No. 12, top.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_bot_it_16.png}}
+    \caption{Iter. No. 16, bot.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_top_it_16.png}}
+    \caption{Iter. No. 16, top.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_bot_it_18.png}}
+    \caption{Iter. No. 18, bot.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_mars_top_it_18.png}}
+    \caption{Iter. No. 18, top.}
+\end{subfigure}
+
+\caption{AMR, smearing, using MARS refinement in 3D, part 2.}
+%pictures generated by ParaView scripts
+\label{fig:amr_trans3D_pv_mars_topbot_part2}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_0_slices_3d_moment_0.png}}
+    \caption{Iter. No. 0, $t_0$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_0_slices_3d_moment_1.png}}
+    \caption{Iter. No. 0, $t_1$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_0_slices_3d_moment_2.png}}
+    \caption{Iter. No. 0, $t_2$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_0_slices_3d_moment_3.png}}
+    \caption{Iter. No. 0, $t_3$.}
+\end{subfigure}
+	
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_2_slices_3d_moment_0.png}}
+    \caption{Iter. No. 2, $t_0$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_2_slices_3d_moment_1.png}}
+    \caption{Iter. No. 2, $t_1$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_2_slices_3d_moment_2.png}}
+    \caption{Iter. No. 2, $t_2$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_2_slices_3d_moment_3.png}}
+    \caption{Iter. No. 2, $t_3$.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_4_slices_3d_moment_0.png}}
+    \caption{Iter. No. 4, $t_0$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_4_slices_3d_moment_1.png}}
+    \caption{Iter. No. 4, $t_1$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_4_slices_3d_moment_2.png}}
+    \caption{Iter. No. 4, $t_2$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_4_slices_3d_moment_3.png}}
+    \caption{Iter. No. 4, $t_3$.}
+\end{subfigure}
+	
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_6_slices_3d_moment_0.png}}
+    \caption{Iter. No. 6, $t_0$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_6_slices_3d_moment_1.png}}
+    \caption{Iter. No. 6, $t_1$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_6_slices_3d_moment_2.png}}
+    \caption{Iter. No. 6, $t_2$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_6_slices_3d_moment_3.png}}
+    \caption{Iter. No. 6, $t_3$.}
+\end{subfigure}
+	
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_8_slices_3d_moment_0.png}}
+    \caption{Iter. No. 8, $t_0$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_8_slices_3d_moment_1.png}}
+    \caption{Iter. No. 8, $t_1$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_8_slices_3d_moment_2.png}}
+    \caption{Iter. No. 8, $t_2$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_8_slices_3d_moment_3.png}}
+    \caption{Iter. No. 8, $t_3$.}
+\end{subfigure}	
+
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_10_slices_3d_moment_0.png}}
+    \caption{Iter. No. 10, $t_0$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_10_slices_3d_moment_1.png}}
+    \caption{Iter. No. 10, $t_1$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_10_slices_3d_moment_2.png}}
+    \caption{Iter. No. 10, $t_2$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_10_slices_3d_moment_3.png}}
+    \caption{Iter. No. 10, $t_3$.}
+\end{subfigure}
+
+
+\caption{AMR, using MFEM refinement in 4D, $\beta = \infty$.}
+%pictures generated by ParaView scripts
+% ./pvpython ~/Documents/PSU\ project/adaptive\ refinement/paraview_draw_sliceprint.py /home/kvoronin/Downloads/temp/sigma_it_10_slices_3d_moment_ --nsteps 4 --type 1 --iso-bot 0.4 --iso-top 1.0 --iso-relative --step 1 
+\label{fig:amr_trans4D_paraview_mfem_longrun_part1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_0_slices_withslices_3d_moment_0.png}}
+    \caption{Iter. No. 0, $t_0$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_0_slices_withslices_3d_moment_1.png}}
+    \caption{Iter. No. 0, $t_1$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_0_slices_withslices_3d_moment_2.png}}
+    \caption{Iter. No. 0, $t_2$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_0_slices_withslices_3d_moment_3.png}}
+    \caption{Iter. No. 0, $t_3$.}
+\end{subfigure}
+	
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_2_slices_withslices_3d_moment_0.png}}
+    \caption{Iter. No. 2, $t_0$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_2_slices_withslices_3d_moment_1.png}}
+    \caption{Iter. No. 2, $t_1$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_2_slices_withslices_3d_moment_2.png}}
+    \caption{Iter. No. 2, $t_2$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_2_slices_withslices_3d_moment_3.png}}
+    \caption{Iter. No. 2, $t_3$.}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_4_slices_withslices_3d_moment_0.png}}
+    \caption{Iter. No. 4, $t_0$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_4_slices_withslices_3d_moment_1.png}}
+    \caption{Iter. No. 4, $t_1$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_4_slices_withslices_3d_moment_2.png}}
+    \caption{Iter. No. 4, $t_2$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_4_slices_withslices_3d_moment_3.png}}
+    \caption{Iter. No. 4, $t_3$.}
+\end{subfigure}
+	
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_6_slices_withslices_3d_moment_0.png}}
+    \caption{Iter. No. 6, $t_0$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_6_slices_withslices_3d_moment_1.png}}
+    \caption{Iter. No. 6, $t_1$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_6_slices_withslices_3d_moment_2.png}}
+    \caption{Iter. No. 6, $t_2$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_6_slices_withslices_3d_moment_3.png}}
+    \caption{Iter. No. 6, $t_3$.}
+\end{subfigure}
+	
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_8_slices_withslices_3d_moment_0.png}}
+    \caption{Iter. No. 8, $t_0$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_8_slices_withslices_3d_moment_1.png}}
+    \caption{Iter. No. 8, $t_1$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_8_slices_withslices_3d_moment_2.png}}
+    \caption{Iter. No. 8, $t_2$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_8_slices_withslices_3d_moment_3.png}}
+    \caption{Iter. No. 8, $t_3$.}
+\end{subfigure}	
+
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_10_slices_withslices_3d_moment_0.png}}
+    \caption{Iter. No. 10, $t_0$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_10_slices_withslices_3d_moment_1.png}}
+    \caption{Iter. No. 10, $t_1$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_10_slices_withslices_3d_moment_2.png}}
+    \caption{Iter. No. 10, $t_2$.}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.23\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/longruns/sigma_it_10_slices_withslices_3d_moment_3.png}}
+    \caption{Iter. No. 10, $t_3$.}
+\end{subfigure}
+
+\caption{AMR, using MFEM refinement in 4D, $\beta = \infty$, with slices.}
+%pictures generated by ParaView scripts
+% ./pvpython ~/Documents/PSU\ project/adaptive\ refinement/paraview_draw_sliceprint.py /home/kvoronin/Downloads/temp/sigma_it_10_slices_3d_moment_ --nsteps 4 --type 1 --iso-bot 0.4 --iso-top 1.0 --iso-relative --step 1 
+\label{fig:amr_trans4D_paraview_mfem_longrun_part2}
+\end{figure}
 
 Next, in Table \ref{tab:ur_conv_3D_HdivL2tran_feorder1} we study convergence for uniformly refined mesh in case when we use higher-order elements (elements one order higher than before). For higher-order elements we neither compute functional value nor were able to run the minimization solver.
 The latter is due to the known limitations on usage higher-order Nedelec elements in MFEM.
@@ -932,49 +1636,14 @@ For Table \ref{tab:amr2_conv_3D_HdivL2tran_feorder1} one can find in Figure \ref
 	\hfill
 \begin{subfigure}[t]{0.3\textwidth}
 	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/comparison_transport_feorder1.png}}
-	\caption{Laplace, 1st order, $\varepsilon_{\bsigma}$}
+	\caption{Transp., 1st order, $\varepsilon_{\bsigma}$.}
+	
 \end{subfigure}
 
 \caption{Comparison of convergence rates for uniform and adaptive mesh refinement for the two test problems, different orders of f.e.}
 % For these pictures, threshold was 0.9
 \label{fig:comparison_ur_amr}
 \end{figure}
-
-%\begin{figure}[h!]
-%\centering
-%\begin{subfigure}[t]{0.49\textwidth}
-%	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/beta_infinity.png}}
-%	\caption{$\beta = \infty$}
-%\end{subfigure}
-%	\hfill
-%\begin{subfigure}[t]{0.49\textwidth}
-%	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_1.0}.png}}
-%	\caption{$\beta = 1.0$}
-%\end{subfigure}
-%
-%\begin{subfigure}[t]{0.49\textwidth}
-%	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_0.01}.png}}
-%	\caption{$\beta = 0.01$}
-%\end{subfigure}
-%	\hfill
-%\begin{subfigure}[t]{0.49\textwidth}
-%	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_0.01}.png}}
-%	\caption{$\beta = 0.01$}
-%\end{subfigure}
-%
-%\begin{subfigure}[t]{0.49\textwidth}
-%	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_0.001}.png}}
-%	\caption{$\beta = 0.001$}
-%\end{subfigure}
-%	\hfill
-%\begin{subfigure}[t]{0.49\textwidth}
-%	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{beta_0.0001}.png}}
-%    \caption{$\beta = 0.0001$}
-%\end{subfigure}
-%
-%\caption{AMR, iteration \# ?, different values of the smoothing parameter $\beta$.}
-%\label{fig:para_3d_aniso}
-%\end{figure}
 
 \begin{figure}[h!]
 \centering
@@ -1120,6 +1789,140 @@ For Table \ref{tab:amr2_conv_3D_HdivL2tran_feorder1} one can find in Figure \ref
 
 Comparing Figures \ref{fig:amr_transp_feorder0} and \ref{fig:amr_transp_feorder1} it's easy to notice that for the lowest order elements the quality of the results is much poorer. Although the mesh still gets refined around the volume where the solution is concentrated, the solution is dissipating strongly as the time goes. Hence, for the final time the magnitude has already decreased below 30\% of the magnitude at the bottom. Notice that for the exact solution magnitude remains constant in time since the solution is only rotating in space and no dissipation mechanism is present in the problem.
 The higher-order elements (see Fig. \ref{fig:amr_transp_feorder1}) provide much higher accuracy.
+
+\section{Numerical results, 4D}
+
+\begin{itemize}
+	\item Laplace test. \newline
+	Domain: Fichera corner $[-1,1]^3 \times [0,1] \ [0,1]^3 \times [0,1]$ \newline
+	Solution: $u = r_\Xx^q$, where $r_\Xx = \sqrt{x^2 + y^2 + z^2}$ with Sobolev regularity $1.5 + q$.
+	
+	\item Transport test. \newline
+	Domain: \newline
+	Solution: \newline
+\end{itemize}
+
+In Table \eqref{tab:ur_lapl_fichera4D_HdivH1lapl_smooth} one can find convergence results for the smooth solution ($u \in H^2$) of the Fichera corner problem in 4D.
+
+\begin{table}[h!]
+\caption{Uniform refinement, Fichera corner in $\mathbb{R}^4$, $H(\div)-H^1$ formulation for the Laplace equation, $q = 1.0$}
+\label{tab:ur_lapl_fichera4D_HdivH1lapl_smooth}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ & $\varepsilon_u$  \\ \hline
+20889   & 106 & 0.161 & 0.055  \\ \hline
+318945  & 115 & 0.077 & 0.015  \\ \hline 
+4986945 & 118 & 0.038 & 0.004 \\ \hline 
+\end{tabular}}
+\end{table}
+
+Next, we take a less regular solution ($u \in H^{1.6}$).
+\begin{table}[h!]
+\caption{Uniform refinement, Fichera corner in $\mathbb{R}^4$, $H(\div)-H^1$ formulation for the Laplace equation, $q = 0.1$}
+\label{tab:ur_lapl_fichera4D_HdivH1lapl_rougher}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ & $\varepsilon_u$  \\ \hline
+20889   & 106 & 1.692 & 0.062  \\ \hline
+318945  & 115 & 1.024 & 0.023  \\ \hline 
+4986945 & 117 & 0.642 & 0.009  \\ \hline 
+\end{tabular}}
+\end{table}
+
+Now, we consider AMR for the less regular solution:
+\begin{table}[h!]
+\caption{AMR, Fichera corner in $\mathbb{R}^4$, $H(\div)-H^1$ formulation for the Laplace equation, $q = 0.1$}
+\label{tab:amr_lapl_fichera4D_HdivH1lapl_rougher}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ & $\varepsilon_u$ \\ \hline
+20889  & 106 & 1.692 & 0.062  \\ \hline
+26329  & 118 & 1.767 & 0.062  \\ \hline 
+35622  & 122 & 1.519 & 0.055  \\ \hline 
+56220  & 118 & 1.236 & 0.044   \\ \hline 
+90640  & 113 & 1.109 & 0.033   \\ \hline 
+117596 & 121 & 1.013 & 0.023   \\ \hline 
+217764 & 120 & 0.751 & 0.014    \\ \hline 
+275936 & 118 & 0.594 & 0.0086  \\ \hline 
+409927 & 119 & 0.501 & 0.0058  \\ \hline 
+758146 & 122 & 0.418 & 0.0038  \\ \hline 
+\end{tabular}}
+%error_frac = .90;
+%betavalue = 0.1;
+%strat = 1;
+\end{table}
+
+\begin{table}[h!]
+\caption{Uniform refinement, Cylinder over a cube in $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation}
+\label{tab:ur_trans_cyl4D}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
+23040    & 522  & 1.02  \\ \hline
+318945   & 1183 & 0.95 \\ \hline 
+5603328  & 2518 & 0.84 \\ \hline 
+88866816 & 3293 & 0.69 \\ \hline %lower tolerance, reltol 1.0e-9, time 20813s, 400 mpi processes
+%vim *_3161341.out
+\end{tabular}}
+\end{table}
+
+\begin{table}[h!]
+\caption{AMR, Cylinder over a cube in $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation}
+\label{tab:amr_trans_cyl4D}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
+23040  & 522  & 1.02  \\ \hline
+33150  & 555  & 0.99  \\ \hline 
+73930  & 911  & 0.97  \\ \hline 
+167844 & 1190 & 0.93  \\ \hline 
+441831 & 1415 & 0.89  \\ \hline 
+\end{tabular}}
+%error_frac = .95;
+%betavalue = 0.1;
+%strat = 1;
+\end{table}
+
+\begin{table}[h!]
+\caption{AMR, Cylinder over a cube in $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation}
+\label{tab:amr_trans_mars_longrun_cyl4D}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
+1536   & 96   & 1.00  \\ \hline
+1939   & 162  & 1.00  \\ \hline 
+6365   & 361  & 1.07  \\ \hline 
+18278  & 572  & 0.97  \\ \hline 
+54488  & 755  & 0.99  \\ \hline 
+158018 & 1098 & 0.95  \\ \hline 
+396548 & 1230 & 0.91  \\ \hline 
+
+1046366  & 1434 & 0.80  \\ \hline 
+2425486  & 1644 & 0.69  \\ \hline 
+5508239  & 1750 & 0.59  \\ \hline 
+14123750 & 1869 & 0.49  \\ \hline 
+38681500 & 2074 & 0.40  \\ \hline %time 10196.9s
+\end{tabular}}
+%error_frac = .95;
+%betavalue = 0.1;
+%strat = 1;
+%serial run
+\end{table}
+
+
+In Table \ref{tab:ur_trans_cyl4D_mfem_longrun_cont} results are given for parallel uniform refinement in 4D which followed the last mesh produced by serial AMR (cf. Table \ref{tab:amr_trans_mars_longrun_cyl4D}).
+\begin{table}[h!]
+\caption{AMR, Cylinder over a cube in $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation}
+\label{tab:ur_trans_cyl4D_mfem_longrun_cont}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
+38681500  & 2183  & 0.40  \\ \hline %time 7540.98s
+618739552 & 5577  & 0.27  \\ \hline %time 39791.3s
+\end{tabular}}
+%error_frac = .95;
+%-np 200 -ppn 10
+\end{table}
 
 \section{Conclusion}
 

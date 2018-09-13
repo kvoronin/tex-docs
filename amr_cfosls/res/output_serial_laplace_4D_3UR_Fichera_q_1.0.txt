@@ -1,0 +1,268 @@
+Starting /home/kvoronin/Documents/mfem/examples/cfosls_laplace...
+Solving CFOSLS Poisson equation 
+Options used:
+   --mesh ../data/cube_3d_moderate.mesh
+   --feorder 0
+   --sref 0
+   --pref 1
+   --whichD 4
+   --visualization
+   --prec-option 1
+   --iso-refine
+For the records: numsol = 1111, mesh_file = ../data/fichera_4d_cylinder.mesh
+Number of mpi processes: 1
+with_prec = 1
+Reading a 4d mesh from the file ../data/fichera_4d_cylinder.mesh
+Creating parmesh(4d) from the serial mesh (4d)
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices           585         585         585         585
+ edges             5400        5400        5400        5400
+ planars          14368       14368       14368       14368
+ faces            14928       14928       14928       14928
+ elements          5376        5376        5376        5376
+ neighbors            0           0           0
+
+            minimum     maximum
+ h         0.420448    0.420448
+ kappa            1     2.41421
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Solving the problem using the new interfaces 
+Iterative solver converged in 106 iterations with a residual norm of 2.60195e-11.
+Iterative solver took 0.473755s. 
+component No. 0: || error || / || exact_sol || = 0.160876
+component No. 0: || exact - proj || / || exact || = 0.149283
+component No. 1: || error || / || exact_sol || = 0.0549693
+component No. 1: || exact - proj || / || exact || = 0.0547936
+|| div (sigma_h - sigma_ex) || / ||div (sigma_ex)|| = 0.225081
+|| sigma_h - L(S_h) ||^2 = 867.107
+Sum of local mass = 16.6038
+Sum of local mass loss = 3.15425e-10
+Now proceeding with the older way which involves more explicit problem construction
+***********************************************************
+dim(R) = 14928, dim(S) = 585, dim(W) = 5376
+neqns in the funct = 15513
+neqns in the constr = 5376
+***********************************************************
+Boundary conditions: 
+all bdr Sigma: 
+1 1 1
+ess bdr Sigma: 
+0 0 0
+ess bdr S: 
+1 1 1
+Small things were done in 0.100967 seconds.
+res_funct_norm = 0.00779811
+res_Hdiv_norm = 0.0752592
+res_H1_norm = 1.20878
+res_Constr_norm = 0.000269082
+Discretized problem is assembled in 0.352659 seconds.
+Preconditioner was created in 0.00301137 seconds.
+Linear solver: MINRES 
+Linear solver converged in 106 iterations with a residual norm of 2.60195e-11.
+Linear solver took 0.486052s. 
+res_funct_norm for sol = 0.00526894
+res_Hdiv_norm for sol = 0.0732622
+res_H1_norm for sol = 1.20888
+true err sigma norm = 0.00215487
+true err sigma rel norm = 0.159345
+sigma_h = sigma_hat + div-free part, div-free part = curl u_h 
+|| sigma_h - sigma_ex || / || sigma_ex || = 0.160876
+|| div (sigma_h - sigma_ex) || / ||div (sigma_ex)|| = 0.225081
+|| sigma_h - sigma_ex ||_Hdiv / || sigma_ex ||_Hdiv = 0.21835
+|| S_h - S_ex || / || S_ex || = 0.0549693
+For this norm we are grad S for S from _Lap solution 
+|| Grad_h (S_h - S_ex) || / || Grad S_ex || = 1.0226
+|| S_h - S_ex ||_H^1 / || S_ex ||_H^1 = 0.998874
+Computing projection errors 
+|| sigma_ex - Pi_h sigma_ex || / || sigma_ex || = 0.149283
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0547936
+Errors were computed in 0.650385 seconds.
+Total time consumed was 3.68957 seconds.
+/home/kvoronin/Documents/mfem/examples/cfosls_laplace exited with code 0
+
+Starting /home/kvoronin/Documents/mfem/examples/cfosls_laplace...
+Solving CFOSLS Poisson equation 
+Options used:
+   --mesh ../data/cube_3d_moderate.mesh
+   --feorder 0
+   --sref 1
+   --pref 1
+   --whichD 4
+   --visualization
+   --prec-option 1
+   --iso-refine
+For the records: numsol = 1111, mesh_file = ../data/fichera_4d_cylinder.mesh
+Number of mpi processes: 1
+with_prec = 1
+Reading a 4d mesh from the file ../data/fichera_4d_cylinder.mesh
+Creating parmesh(4d) from the serial mesh (4d)
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices          5985        5985        5985        5985
+ edges            68832       68832       68832       68832
+ planars         203776      203776      203776      203776
+ faces           226944      226944      226944      226944
+ elements         86016       86016       86016       86016
+ neighbors            0           0           0
+
+            minimum     maximum
+ h         0.210224    0.210224
+ kappa            1     2.41421
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Solving the problem using the new interfaces 
+Iterative solver converged in 115 iterations with a residual norm of 7.53142e-11.
+Iterative solver took 9.82535s. 
+component No. 0: || error || / || exact_sol || = 0.0771788
+component No. 0: || exact - proj || / || exact || = 0.0772744
+component No. 1: || error || / || exact_sol || = 0.0151404
+component No. 1: || exact - proj || / || exact || = 0.0147409
+|| div (sigma_h - sigma_ex) || / ||div (sigma_ex)|| = 0.161213
+|| sigma_h - L(S_h) ||^2 = 6026.18
+Sum of local mass = 16.6508
+Sum of local mass loss = 1.66692e-09
+Now proceeding with the older way which involves more explicit problem construction
+***********************************************************
+dim(R) = 226944, dim(S) = 5985, dim(W) = 86016
+neqns in the funct = 232929
+neqns in the constr = 86016
+***********************************************************
+Boundary conditions: 
+all bdr Sigma: 
+1 1 1
+ess bdr Sigma: 
+0 0 0
+ess bdr S: 
+1 1 1
+Small things were done in 1.62432 seconds.
+res_funct_norm = 0.0019165
+res_Hdiv_norm = 0.0754824
+res_H1_norm = 0.99298
+res_Constr_norm = 1.2187e-05
+Discretized problem is assembled in 5.99508 seconds.
+Preconditioner was created in 0.0493242 seconds.
+Linear solver: MINRES 
+Linear solver converged in 115 iterations with a residual norm of 7.53142e-11.
+Linear solver took 9.65823s. 
+res_funct_norm for sol = 0.0014633
+res_Hdiv_norm for sol = 0.0753139
+res_H1_norm for sol = 0.992981
+true err sigma norm = 9.48024e-05
+true err sigma rel norm = 0.0560971
+sigma_h = sigma_hat + div-free part, div-free part = curl u_h 
+|| sigma_h - sigma_ex || / || sigma_ex || = 0.0771788
+|| div (sigma_h - sigma_ex) || / ||div (sigma_ex)|| = 0.161213
+|| sigma_h - sigma_ex ||_Hdiv / || sigma_ex ||_Hdiv = 0.153719
+|| S_h - S_ex || / || S_ex || = 0.0151404
+For this norm we are grad S for S from _Lap solution 
+|| Grad_h (S_h - S_ex) || / || Grad S_ex || = 1.0221
+|| S_h - S_ex ||_H^1 / || S_ex ||_H^1 = 0.999395
+Computing projection errors 
+|| sigma_ex - Pi_h sigma_ex || / || sigma_ex || = 0.0772744
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0147409
+Errors were computed in 10.68 seconds.
+Total time consumed was 62.4701 seconds.
+/home/kvoronin/Documents/mfem/examples/cfosls_laplace exited with code 0
+
+Starting /home/kvoronin/Documents/mfem/examples/cfosls_laplace...
+Solving CFOSLS Poisson equation 
+Options used:
+   --mesh ../data/cube_3d_moderate.mesh
+   --feorder 0
+   --sref 2
+   --pref 1
+   --whichD 4
+   --visualization
+   --prec-option 1
+   --iso-refine
+For the records: numsol = 1111, mesh_file = ../data/fichera_4d_cylinder.mesh
+Number of mpi processes: 1
+with_prec = 1
+Reading a 4d mesh from the file ../data/fichera_4d_cylinder.mesh
+Creating parmesh(4d) from the serial mesh (4d)
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices         74817       74817       74817       74817
+ edges           975936      975936      975936      975936
+ planars        3060736     3060736     3060736     3060736
+ faces          3535872     3535872     3535872     3535872
+ elements       1376256     1376256     1376256     1376256
+ neighbors            0           0           0
+
+            minimum     maximum
+ h         0.105112    0.105112
+ kappa            1     2.41421
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) 
+BoomerAMG(C) for H1 
+BoomerAMG(D Diag^(-1)(A) D^t) for the Lagrange multiplier 
+Solving the problem using the new interfaces 
+Iterative solver converged in 118 iterations with a residual norm of 1.54033e-10.
+Iterative solver took 168.216s. 
+component No. 0: || error || / || exact_sol || = 0.0379111
+component No. 0: || exact - proj || / || exact || = 0.0393286
+component No. 1: || error || / || exact_sol || = 0.00400506
+component No. 1: || exact - proj || / || exact || = 0.00381363
+|| div (sigma_h - sigma_ex) || / ||div (sigma_ex)|| = 0.114718
+|| sigma_h - L(S_h) ||^2 = 45947.6
+Sum of local mass = 16.6592
+Sum of local mass loss = 7.97919e-09
+Now proceeding with the older way which involves more explicit problem construction
+***********************************************************
+dim(R) = 3535872, dim(S) = 74817, dim(W) = 1376256
+neqns in the funct = 3610689
+neqns in the constr = 1376256
+***********************************************************
+Boundary conditions: 
+all bdr Sigma: 
+1 1 1
+ess bdr Sigma: 
+0 0 0
+ess bdr S: 
+1 1 1
+Small things were done in 25.9243 seconds.
+res_funct_norm = 0.000460124
+res_Hdiv_norm = 0.0647825
+res_H1_norm = 0.780435
+res_Constr_norm = 5.45133e-07
+Discretized problem is assembled in 92.4473 seconds.
+Preconditioner was created in 0.803853 seconds.
+Linear solver: MINRES 
+Linear solver converged in 118 iterations with a residual norm of 1.54033e-10.
+Linear solver took 161.737s. 
+res_funct_norm for sol = 0.000373426
+res_Hdiv_norm for sol = 0.0647687
+res_H1_norm for sol = 0.780435
+true err sigma norm = 4.04183e-06
+true err sigma rel norm = 0.0191446
+sigma_h = sigma_hat + div-free part, div-free part = curl u_h 
+|| sigma_h - sigma_ex || / || sigma_ex || = 0.0379111
+|| div (sigma_h - sigma_ex) || / ||div (sigma_ex)|| = 0.114718
+|| sigma_h - sigma_ex ||_Hdiv / || sigma_ex ||_Hdiv = 0.108601
+|| S_h - S_ex || / || S_ex || = 0.00400506
+For this norm we are grad S for S from _Lap solution 
+|| Grad_h (S_h - S_ex) || / || Grad S_ex || = 1.02233
+|| S_h - S_ex ||_H^1 / || S_ex ||_H^1 = 0.999616
+Computing projection errors 
+|| sigma_ex - Pi_h sigma_ex || / || sigma_ex || = 0.0393286
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.00381363
+Errors were computed in 161.583 seconds.
+Total time consumed was 939.725 seconds.

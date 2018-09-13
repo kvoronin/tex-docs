@@ -1,0 +1,397 @@
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105611] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105610] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105612] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105613] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105614] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105615] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105616] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105617] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105618] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105619] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105620] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105621] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105622] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105623] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105624] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105625] to memory cg '(null)'
+80: slur
+80: mstepd: error: task/cgroup: unable to add task[pid=105626] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105627] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105628] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105629] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105638] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105639] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105640] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105641] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105642] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105643] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105644] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105645] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105646] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105647] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105648] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105649] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105650] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105651] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105652] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105653] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105654] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105655] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105656] to memory cg '(null)'
+80: slurmstepd: error: task/cgroup: unable to add task[pid=105657] to memory cg '(null)'
+which: no mpiicc in (/act/mpich/intel/bin:/opt/intel/compilers_and_libraries_2017.1.132/linux/bin/intel64:/opt/intel/debugger_2017/gdb/intel64_mic/bin:/usr/lib64/qt-3.3/bin:/home/kvoronin/perl5/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/act/bin:/act/bin:/home/kvoronin/.local/bin:/home/kvoronin/bin)
+Currently Loaded Modulefiles:
+  1) intel         2) mpich/intel
+slurmstepd: error: task/cgroup: unable to add task[pid=105668] to memory cg '(null)'
+Fatal error in PMPI_Waitall: See the MPI_ERROR field in MPI_Status for the error code
+Fatal error in PMPI_Waitall: See the MPI_ERROR field in MPI_Status for the error code
+Fatal error in PMPI_Waitall: See the MPI_ERROR field in MPI_Status for the error code
+Fatal error in PMPI_Waitall: See the MPI_ERROR field in MPI_Status for the error code
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7fffd05165e0, rbuf=0x7fffd05165e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Unknown error class, error stack:
+MPI_Allreduce(912)....................: MPI_Allreduce(sbuf=0x7ffd8d813060, rbuf=0x7ffd8d813064, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769)..............: 
+MPIR_Allreduce_intra(259).............: 
+allreduce_intra_or_coll_fn(163).......: 
+MPIR_Allreduce_intra(419).............: 
+MPIDU_Complete_posted_with_error(1096): Process failed
+MPIR_Allreduce_intra(419).............: 
+MPIC_Sendrecv(470)....................: 
+MPIDI_EagerContigIsend(563)...........: failure occurred while attempting to send an eager message
+MPIDI_CH3_iSendv(34)..................: Communication error with rank 60
+MPIR_Allreduce_intra(270).............: 
+MPIR_Bcast_impl(1462).................: 
+MPIR_Bcast(1486)......................: 
+MPIR_Bcast_intra(1295)................: 
+MPIR_Bcast_binomial(312)..............: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffe21a809e0, rbuf=0x7ffe21a809e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffdf808d060, rbuf=0x7ffdf808d064, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffe75f8a6e0, rbuf=0x7ffe75f8a6e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7fff00155f60, rbuf=0x7fff00155f64, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7fff60d3a9e0, rbuf=0x7fff60d3a9e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffe5954b9e0, rbuf=0x7ffe5954b9e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7fff0836ece0, rbuf=0x7fff0836ece4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffd5f7171e0, rbuf=0x7ffd5f7171e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffe363f0e60, rbuf=0x7ffe363f0e64, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7fffe7d0b1e0, rbuf=0x7fffe7d0b1e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffdf77c4ee0, rbuf=0x7ffdf77c4ee4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffccd97e9e0, rbuf=0x7ffccd97e9e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7fff244f7e60, rbuf=0x7fff244f7e64, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7fff471ab660, rbuf=0x7fff471ab664, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffc1c87a4e0, rbuf=0x7ffc1c87a4e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffd97baf9e0, rbuf=0x7ffd97baf9e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffc16dcc8e0, rbuf=0x7ffc16dcc8e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffef7c5c5e0, rbuf=0x7ffef7c5c5e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffeea354160, rbuf=0x7ffeea354164, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffc893a7460, rbuf=0x7ffc893a7464, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffd468fe560, rbuf=0x7ffd468fe564, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffe378696e0, rbuf=0x7ffe378696e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7fffb4e63360, rbuf=0x7fffb4e63364, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffc71d35ce0, rbuf=0x7ffc71d35ce4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7fffff180660, rbuf=0x7fffff180664, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffca2043460, rbuf=0x7ffca2043464, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffffa015060, rbuf=0x7ffffa015064, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffdbc84ade0, rbuf=0x7ffdbc84ade4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffe0dca7be0, rbuf=0x7ffe0dca7be4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffe8fed5460, rbuf=0x7ffe8fed5464, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffccd8de4e0, rbuf=0x7ffccd8de4e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7fff847a2ae0, rbuf=0x7fff847a2ae4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7fff6db838e0, rbuf=0x7fff6db838e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffdfec89060, rbuf=0x7ffdfec89064, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7fff9ad69460, rbuf=0x7fff9ad69464, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffcfcad32e0, rbuf=0x7ffcfcad32e4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffe0313cae0, rbuf=0x7ffe0313cae4, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+Fatal error in MPI_Allreduce: Other MPI error, error stack:
+MPI_Allreduce(912).......: MPI_Allreduce(sbuf=0x7ffc63a10a60, rbuf=0x7ffc63a10a64, count=1, MPI_INT, MPI_SUM, MPI_COMM_WORLD) failed
+MPIR_Allreduce_impl(769).: 
+MPIR_Allreduce_intra(270): 
+MPIR_Bcast_impl(1462)....: 
+MPIR_Bcast(1486).........: 
+MPIR_Bcast_intra(1295)...: 
+MPIR_Bcast_binomial(312).: Failure during collective
+[proxy:0:0@compute066.cluster] HYD_pmcd_pmip_control_cmd_cb (pm/pmiserv/pmip_cb.c:885): assert (!closed) failed
+[proxy:0:0@compute066.cluster] HYDT_dmxu_poll_wait_for_event (tools/demux/demux_poll.c:76): callback returned error status
+[proxy:0:0@compute066.cluster] main (pm/pmiserv/pmip.c:206): demux engine error waiting for event
+[proxy:0:2@compute068.cluster] HYD_pmcd_pmip_control_cmd_cb (pm/pmiserv/pmip_cb.c:885): assert (!closed) failed
+[proxy:0:2@compute068.cluster] HYDT_dmxu_poll_wait_for_event (tools/demux/demux_poll.c:76): callback returned error status
+[proxy:0:2@compute068.cluster] main (pm/pmiserv/pmip.c:206): demux engine error waiting for event
+[proxy:0:3@compute069.cluster] HYD_pmcd_pmip_control_cmd_cb (pm/pmiserv/pmip_cb.c:885): assert (!closed) failed
+[proxy:0:3@compute069.cluster] HYDT_dmxu_poll_wait_for_event (tools/demux/demux_poll.c:76): callback returned error status
+[proxy:0:3@compute069.cluster] main (pm/pmiserv/pmip.c:206): demux engine error waiting for event
+[proxy:0:4@compute090.cluster] HYD_pmcd_pmip_control_cmd_cb (pm/pmiserv/pmip_cb.c:885): assert (!closed) failed
+[proxy:0:4@compute090.cluster] HYDT_dmxu_poll_wait_for_event (tools/demux/demux_poll.c:76): callback returned error status
+[proxy:0:4@compute090.cluster] main (pm/pmiserv/pmip.c:206): demux engine error waiting for event
+srun: error: compute069: task 3: Exited with exit code 7
+srun: error: compute066: task 0: Exited with exit code 7
+srun: error: compute068: task 2: Exited with exit code 7
+srun: error: compute090: task 4: Exited with exit code 7
+[mpiexec@compute066.cluster] HYDT_bscu_wait_for_completion (tools/bootstrap/utils/bscu_wait.c:76): one of the processes terminated badly; aborting
+[mpiexec@compute066.cluster] HYDT_bsci_wait_for_completion (tools/bootstrap/src/bsci_wait.c:23): launcher returned error waiting for completion
+[mpiexec@compute066.cluster] HYD_pmci_wait_for_completion (pm/pmiserv/pmiserv_pmci.c:218): launcher returned error waiting for completion
+[mpiexec@compute066.cluster] main (ui/mpich/mpiexec.c:344): process manager error waiting for completion

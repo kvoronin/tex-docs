@@ -1,0 +1,515 @@
+180: compute090.cluster
+190: compute091.cluster
+121: compute029.cluster
+130: compute085.cluster
+067: compute018.cluster
+052: compute012.cluster
+008: compute002.cluster
+181: compute090.cluster
+191: compute091.cluster
+124: compute029.cluster
+134: compute085.cluster
+081: compute024.cluster
+069: compute018.cluster
+030: compute010.cluster
+058: compute012.cluster
+114: compute027.cluster
+070: compute023.cluster
+004: compute002.cluster
+192: compute091.cluster
+120: compute029.cluster
+131: compute085.cluster
+086: compute024.cluster
+064: compute018.cluster
+037: compute010.cluster
+051: compute012.cluster
+111: compute027.cluster
+074: compute023.cluster
+005: compute002.cluster
+184: compute090.cluster
+193: compute091.cluster
+123: compute029.cluster
+133: compute085.cluster
+080: compute024.cluster
+065: compute018.cluster
+057: compute012.cluster
+110: compute027.cluster
+073: compute023.cluster
+000: compute002.cluster
+185: compute090.cluster
+126: compute029.cluster
+138: compute085.cluster
+087: compute024.cluster
+060: compute018.cluster
+033: compute010.cluster
+053: compute012.cluster
+112: compute027.cluster
+077: compute023.cluster
+002: compute002.cluster
+195: compute091.cluster
+127: compute029.cluster
+137: compute085.cluster
+066: compute018.cluster
+050: compute012.cluster
+116: compute027.cluster
+079: compute023.cluster
+003: compute002.cluster
+198: compute091.cluster
+129: compute029.cluster
+135: compute085.cluster
+062: compute018.cluster
+054: compute012.cluster
+115: compute027.cluster
+075: compute023.cluster
+007: compute002.cluster
+136: compute085.cluster
+082: compute024.cluster
+063: compute018.cluster
+032: compute010.cluster
+059: compute012.cluster
+117: compute027.cluster
+009: compute002.cluster
+132: compute085.cluster
+084: compute024.cluster
+056: compute012.cluster
+113: compute027.cluster
+085: compute024.cluster
+182: compute090.cluster
+183: compute090.cluster
+035: compute010.cluster
+186: compute090.cluster
+034: compute010.cluster
+187: compute090.cluster
+036: compute010.cluster
+188: compute090.cluster
+031: compute010.cluster
+196: compute091.cluster
+194: compute091.cluster
+038: compute010.cluster
+122: compute029.cluster
+089: compute024.cluster
+197: compute091.cluster
+088: compute024.cluster
+061: compute018.cluster
+006: compute002.cluster
+199: compute091.cluster
+128: compute029.cluster
+119: compute027.cluster
+071: compute023.cluster
+189: compute090.cluster
+139: compute085.cluster
+001: compute002.cluster
+039: compute010.cluster
+055: compute012.cluster
+125: compute029.cluster
+068: compute018.cluster
+118: compute027.cluster
+076: compute023.cluster
+083: compute024.cluster
+072: compute023.cluster
+078: compute023.cluster
+026: compute009.cluster
+166: compute088.cluster
+042: compute011.cluster
+027: compute009.cluster
+165: compute088.cluster
+041: compute011.cluster
+023: compute009.cluster
+168: compute088.cluster
+046: compute011.cluster
+022: compute009.cluster
+163: compute088.cluster
+048: compute011.cluster
+021: compute009.cluster
+024: compute009.cluster
+020: compute009.cluster
+028: compute009.cluster
+025: compute009.cluster
+049: compute011.cluster
+161: compute088.cluster
+103: compute026.cluster
+094: compute025.cluster
+172: compute089.cluster
+158: compute087.cluster
+016: compute008.cluster
+029: compute009.cluster
+044: compute011.cluster
+167: compute088.cluster
+040: compute011.cluster
+162: compute088.cluster
+169: compute088.cluster
+164: compute088.cluster
+043: compute011.cluster
+045: compute011.cluster
+047: compute011.cluster
+160: compute088.cluster
+109: compute026.cluster
+104: compute026.cluster
+101: compute026.cluster
+106: compute026.cluster
+107: compute026.cluster
+102: compute026.cluster
+105: compute026.cluster
+108: compute026.cluster
+100: compute026.cluster
+099: compute025.cluster
+090: compute025.cluster
+091: compute025.cluster
+093: compute025.cluster
+097: compute025.cluster
+092: compute025.cluster
+095: compute025.cluster
+096: compute025.cluster
+098: compute025.cluster
+171: compute089.cluster
+175: compute089.cluster
+179: compute089.cluster
+178: compute089.cluster
+176: compute089.cluster
+177: compute089.cluster
+170: compute089.cluster
+174: compute089.cluster
+173: compute089.cluster
+152: compute087.cluster
+153: compute087.cluster
+151: compute087.cluster
+159: compute087.cluster
+156: compute087.cluster
+150: compute087.cluster
+154: compute087.cluster
+155: compute087.cluster
+157: compute087.cluster
+015: compute008.cluster
+013: compute008.cluster
+012: compute008.cluster
+014: compute008.cluster
+011: compute008.cluster
+018: compute008.cluster
+017: compute008.cluster
+010: compute008.cluster
+019: compute008.cluster
+145: compute086.cluster
+142: compute086.cluster
+143: compute086.cluster
+144: compute086.cluster
+148: compute086.cluster
+149: compute086.cluster
+146: compute086.cluster
+147: compute086.cluster
+141: compute086.cluster
+140: compute086.cluster
+085: /home/kvoronin/soft/experiments
+124: /home/kvoronin/soft/experiments
+050: /home/kvoronin/soft/experiments
+180: /home/kvoronin/soft/experiments
+031: /home/kvoronin/soft/experiments
+060: /home/kvoronin/soft/experiments
+190: /home/kvoronin/soft/experiments
+086: /home/kvoronin/soft/experiments
+054: /home/kvoronin/soft/experiments
+110: /home/kvoronin/soft/experiments
+181: /home/kvoronin/soft/experiments
+000: /home/kvoronin/soft/experiments
+136: /home/kvoronin/soft/experiments
+063: /home/kvoronin/soft/experiments
+070: /home/kvoronin/soft/experiments
+191: /home/kvoronin/soft/experiments
+082: /home/kvoronin/soft/experiments
+052: /home/kvoronin/soft/experiments
+111: /home/kvoronin/soft/experiments
+032: /home/kvoronin/soft/experiments
+002: /home/kvoronin/soft/experiments
+137: /home/kvoronin/soft/experiments
+071: /home/kvoronin/soft/experiments
+081: /home/kvoronin/soft/experiments
+121: /home/kvoronin/soft/experiments
+053: /home/kvoronin/soft/experiments
+112: /home/kvoronin/soft/experiments
+182: /home/kvoronin/soft/experiments
+005: /home/kvoronin/soft/experiments
+130: /home/kvoronin/soft/experiments
+065: /home/kvoronin/soft/experiments
+075: /home/kvoronin/soft/experiments
+192: /home/kvoronin/soft/experiments
+084: /home/kvoronin/soft/experiments
+055: /home/kvoronin/soft/experiments
+113: /home/kvoronin/soft/experiments
+033: /home/kvoronin/soft/experiments
+006: /home/kvoronin/soft/experiments
+135: /home/kvoronin/soft/experiments
+072: /home/kvoronin/soft/experiments
+087: /home/kvoronin/soft/experiments
+056: /home/kvoronin/soft/experiments
+116: /home/kvoronin/soft/experiments
+183: /home/kvoronin/soft/experiments
+008: /home/kvoronin/soft/experiments
+131: /home/kvoronin/soft/experiments
+067: /home/kvoronin/soft/experiments
+073: /home/kvoronin/soft/experiments
+193: /home/kvoronin/soft/experiments
+080: /home/kvoronin/soft/experiments
+122: /home/kvoronin/soft/experiments
+059: /home/kvoronin/soft/experiments
+115: /home/kvoronin/soft/experiments
+034: /home/kvoronin/soft/experiments
+003: /home/kvoronin/soft/experiments
+132: /home/kvoronin/soft/experiments
+074: /home/kvoronin/soft/experiments
+194: /home/kvoronin/soft/experiments
+089: /home/kvoronin/soft/experiments
+117: /home/kvoronin/soft/experiments
+184: /home/kvoronin/soft/experiments
+004: /home/kvoronin/soft/experiments
+133: /home/kvoronin/soft/experiments
+077: /home/kvoronin/soft/experiments
+119: /home/kvoronin/soft/experiments
+035: /home/kvoronin/soft/experiments
+007: /home/kvoronin/soft/experiments
+134: /home/kvoronin/soft/experiments
+061: /home/kvoronin/soft/experiments
+076: /home/kvoronin/soft/experiments
+195: /home/kvoronin/soft/experiments
+120: /home/kvoronin/soft/experiments
+118: /home/kvoronin/soft/experiments
+185: /home/kvoronin/soft/experiments
+036: /home/kvoronin/soft/experiments
+139: /home/kvoronin/soft/experiments
+079: /home/kvoronin/soft/experiments
+123: /home/kvoronin/soft/experiments
+062: /home/kvoronin/soft/experiments
+196: /home/kvoronin/soft/experiments
+186: /home/kvoronin/soft/experiments
+037: /home/kvoronin/soft/experiments
+197: /home/kvoronin/soft/experiments
+187: /home/kvoronin/soft/experiments
+038: /home/kvoronin/soft/experiments
+064: /home/kvoronin/soft/experiments
+126: /home/kvoronin/soft/experiments
+199: /home/kvoronin/soft/experiments
+188: /home/kvoronin/soft/experiments
+039: /home/kvoronin/soft/experiments
+066: /home/kvoronin/soft/experiments
+129: /home/kvoronin/soft/experiments
+030: /home/kvoronin/soft/experiments
+068: /home/kvoronin/soft/experiments
+125: /home/kvoronin/soft/experiments
+051: /home/kvoronin/soft/experiments
+128: /home/kvoronin/soft/experiments
+083: /home/kvoronin/soft/experiments
+057: /home/kvoronin/soft/experiments
+127: /home/kvoronin/soft/experiments
+001: /home/kvoronin/soft/experiments
+088: /home/kvoronin/soft/experiments
+189: /home/kvoronin/soft/experiments
+069: /home/kvoronin/soft/experiments
+198: /home/kvoronin/soft/experiments
+114: /home/kvoronin/soft/experiments
+009: /home/kvoronin/soft/experiments
+138: /home/kvoronin/soft/experiments
+078: /home/kvoronin/soft/experiments
+058: /home/kvoronin/soft/experiments
+023: /home/kvoronin/soft/experiments
+024: /home/kvoronin/soft/experiments
+021: /home/kvoronin/soft/experiments
+026: /home/kvoronin/soft/experiments
+020: /home/kvoronin/soft/experiments
+041: /home/kvoronin/soft/experiments
+040: /home/kvoronin/soft/experiments
+028: /home/kvoronin/soft/experiments
+101: /home/kvoronin/soft/experiments
+090: /home/kvoronin/soft/experiments
+029: /home/kvoronin/soft/experiments
+106: /home/kvoronin/soft/experiments
+094: /home/kvoronin/soft/experiments
+025: /home/kvoronin/soft/experiments
+100: /home/kvoronin/soft/experiments
+027: /home/kvoronin/soft/experiments
+104: /home/kvoronin/soft/experiments
+108: /home/kvoronin/soft/experiments
+165: /home/kvoronin/soft/experiments
+166: /home/kvoronin/soft/experiments
+168: /home/kvoronin/soft/experiments
+160: /home/kvoronin/soft/experiments
+095: /home/kvoronin/soft/experiments
+163: /home/kvoronin/soft/experiments
+047: /home/kvoronin/soft/experiments
+177: /home/kvoronin/soft/experiments
+158: /home/kvoronin/soft/experiments
+161: /home/kvoronin/soft/experiments
+169: /home/kvoronin/soft/experiments
+176: /home/kvoronin/soft/experiments
+152: /home/kvoronin/soft/experiments
+156: /home/kvoronin/soft/experiments
+167: /home/kvoronin/soft/experiments
+162: /home/kvoronin/soft/experiments
+091: /home/kvoronin/soft/experiments
+092: /home/kvoronin/soft/experiments
+096: /home/kvoronin/soft/experiments
+097: /home/kvoronin/soft/experiments
+142: /home/kvoronin/soft/experiments
+145: /home/kvoronin/soft/experiments
+141: /home/kvoronin/soft/experiments
+143: /home/kvoronin/soft/experiments
+144: /home/kvoronin/soft/experiments
+149: /home/kvoronin/soft/experiments
+140: /home/kvoronin/soft/experiments
+148: /home/kvoronin/soft/experiments
+146: /home/kvoronin/soft/experiments
+147: /home/kvoronin/soft/experiments
+173: /home/kvoronin/soft/experiments
+044: /home/kvoronin/soft/experiments
+045: /home/kvoronin/soft/experiments
+046: /home/kvoronin/soft/experiments
+043: /home/kvoronin/soft/experiments
+042: /home/kvoronin/soft/experiments
+048: /home/kvoronin/soft/experiments
+049: /home/kvoronin/soft/experiments
+171: /home/kvoronin/soft/experiments
+098: /home/kvoronin/soft/experiments
+164: /home/kvoronin/soft/experiments
+155: /home/kvoronin/soft/experiments
+093: /home/kvoronin/soft/experiments
+172: /home/kvoronin/soft/experiments
+174: /home/kvoronin/soft/experiments
+175: /home/kvoronin/soft/experiments
+179: /home/kvoronin/soft/experiments
+012: /home/kvoronin/soft/experiments
+099: /home/kvoronin/soft/experiments
+109: /home/kvoronin/soft/experiments
+105: /home/kvoronin/soft/experiments
+103: /home/kvoronin/soft/experiments
+102: /home/kvoronin/soft/experiments
+107: /home/kvoronin/soft/experiments
+178: /home/kvoronin/soft/experiments
+022: /home/kvoronin/soft/experiments
+010: /home/kvoronin/soft/experiments
+016: /home/kvoronin/soft/experiments
+017: /home/kvoronin/soft/experiments
+014: /home/kvoronin/soft/experiments
+015: /home/kvoronin/soft/experiments
+018: /home/kvoronin/soft/experiments
+019: /home/kvoronin/soft/experiments
+011: /home/kvoronin/soft/experiments
+013: /home/kvoronin/soft/experiments
+170: /home/kvoronin/soft/experiments
+151: /home/kvoronin/soft/experiments
+154: /home/kvoronin/soft/experiments
+157: /home/kvoronin/soft/experiments
+150: /home/kvoronin/soft/experiments
+153: /home/kvoronin/soft/experiments
+159: /home/kvoronin/soft/experiments
+Solving (С)FOSLS Transport equation 
+Options used:
+   --mesh ../data/cube_3d_moderate.mesh
+   --feorder 0
+   --sref 0
+   --pref 0
+   --whichD 4
+   --visualization
+   --prec-option 1
+   --formul cfosls
+   --spaceS L2
+   --spacesigma Hdiv
+   --eliminateS
+   --no-divdiv
+   --visualization
+formulation: CFOSLS 
+Space for sigma: Hdiv 
+Space for S: L2 
+S: is eliminated from the system 
+div-div term: is eliminated 
+For the records: numsol = 88, mesh_file = final_amr_mesh_4.mesh
+use_ADS = 0
+Number of mpi processes: 200
+Reading a 4d mesh from the file final_amr_mesh_4.mesh
+Creating parmesh(4d) from the serial mesh (4d)
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices          1911        2948        4302      589776
+ edges            29285       36526       45285     7305393
+ planars         103191      116525      132462    23305150
+ faces           129528      138177      148250    27635516
+ elements         53618       55229       56889    11045984
+ neighbors           15          31          68
+
+            minimum     maximum
+ h       0.00552427    0.594604
+ kappa            1      2.4932
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Size of the problem (global) = 38681500
+Iterative solver converged in 2183 iterations with a residual norm of 9.98122e-15.
+Iterative solver took 7540.98s. 
+component No. 0: || error || / || exact_sol || = 0.395385
+component No. 0: || exact - proj || / || exact || = 0.113525
+|| div (sigma_h) || = 3.92642e-13 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.398031
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0883417
+|| sigma_h ||_M^2 = 9.56819e-06
+|| sigma_h ||_M = 0.00309325
+Energy Error = 0.00309325
+Sum of local mass = 5.27263e-17
+Sum of local mass loss = 1.0517e-13
+Solving (С)FOSLS Transport equation 
+Options used:
+   --mesh ../data/cube_3d_moderate.mesh
+   --feorder 0
+   --sref 0
+   --pref 1
+   --whichD 4
+   --visualization
+   --prec-option 1
+   --formul cfosls
+   --spaceS L2
+   --spacesigma Hdiv
+   --eliminateS
+   --no-divdiv
+   --visualization
+formulation: CFOSLS 
+Space for sigma: Hdiv 
+Space for S: L2 
+S: is eliminated from the system 
+div-div term: is eliminated 
+For the records: numsol = 88, mesh_file = final_amr_mesh_4.mesh
+use_ADS = 0
+Number of mpi processes: 200
+Reading a 4d mesh from the file final_amr_mesh_4.mesh
+Creating parmesh(4d) from the serial mesh (4d)
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices         31196       39475       49587     7895169
+ edges           498455      560808      636206   112161752
+ planars        1718898     1847673     1999708   369534648
+ faces          2115864     2210019     2321440   442003808
+ elements        857888      883678      910224   176735744
+ neighbors           15          31          68
+
+            minimum     maximum
+ h       0.00276213    0.297302
+ kappa            1     2.49326
+
+ Euler number             1
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Size of the problem (global) = 618739552
+Iterative solver converged in 5577 iterations with a residual norm of 9.99922e-15.
+Iterative solver took 39791.3s. 
+component No. 0: || error || / || exact_sol || = 0.267593
+component No. 0: || exact - proj || / || exact || = 0.0648645
+|| div (sigma_h) || = 5.33895e-13 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.303054
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0466157
+|| sigma_h ||_M^2 = 6.1401e-06
+|| sigma_h ||_M = 0.00247792
+Energy Error = 0.00247792
+Sum of local mass = 5.26824e-17
+Sum of local mass loss = 1.19767e-13
+End
