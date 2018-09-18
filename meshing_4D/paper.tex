@@ -382,7 +382,7 @@ kirill.v.voronin@gmail.com}
 \date{}
 % Put text on the left-hand and right-hand side of the header
 \fancyhead{}
-\lhead{Tensor-product mesh construction}
+\lhead{Report on the parallel tensor-product mesh generator in 4D}
 \rhead{K. Voronin}
 \chead{}
 
@@ -391,13 +391,25 @@ kirill.v.voronin@gmail.com}
 \maketitle
 
 \begin{abstract}
-In the draft results obtained for the implemented parallel tensor-product mesh generator and 4d elements are presented.
+In this text a parallel tensor-mesh generator in 4d is presented. The mesh generator is capable of constructing a space-time cylinder for an arbitrary 3d space mesh in parallel.
+The parallel mesh generator was implemented in MFEM, available in CFOSLS repository.
 \end{abstract}
 
-\section*{Purpose of this document}
-In the document a simple algorithm is proposed to construct in parallel tensor-product simplicial meshes in 4D and analyzed later on. All in all, it is almost a complete paper (yet unpublished since the results are weak).
-If anyone find this text useful or interesting, one is free to contact the author for further discussion. The author might be wrong in some of his statements, and will be very grateful for pointing out his mistakes.
+\section*{Purpose of this text}
+In the text below a simple algorithm is proposed to construct in parallel tensor-product simplicial meshes in 4D and analyzed later on. All in all, it is almost a complete paper (yet unpublished since the results are considered to be weak).
+The code is available at the link \cite{cfosls_code}. If you have any questions, feel free to contact the author.
+If anyone find this text useful or interesting, one can contact the author for further discussion. The author might be wrong in some of his statements, and will be very grateful for pointing out his mistakes.
 
+Project collaborators:
+\begin{itemize}
+	\item Panayot Vassilevski (PSU, LLNL), \textbf{project supervisor};
+	\item Kirill Voronin, PSU, \textbf{author};
+	\item Paulina Sepulveda, (former) PSU;
+	\item Chak Shing Lee, LLNL;
+	\item Martin Neumueller (Linz University).
+	%\item Aidan Hamilton (PSU?)
+	%\item Dellyan Kalchev (LLNL?)
+\end{itemize}
 
 \section*{Introduction}
 
@@ -410,11 +422,14 @@ One of the alternative approaches which has gained much attention and developed 
 
 Certainly, for space-time methods appropriate space-time meshes are to be constructed. While a number of mesh generating software exist for two- and three-dimensional cases, almost none are known to the authors which consider four-dimensional case (three-dimensional space + time). Since space-time approaches introduce an additional dimension to the mesh, it is also important to be able to construct the space-time mesh in parallel. First, this will reduce memory requirements since the space-time mesh as a whole might not fit into the memory of a single computational node. Second, it will reduce the total time for mesh generation.
 
-This paper is focusing on the mesh generating algorithm which constructs tensor-product extension $(d+1)$-dimensional space-time meshes for given $d$-dimensional  (triangular or tetrahedral) space meshes in parallel. In section 1 space-time CFOSLS approach is outlined together with basic discretization details. The essence of the paper is mesh generating algorithm is presented in section 2. Apart from mesh generating it is visualization which might be important for space-time approaches. This question is addressed to in section 3. Finally, several numerical experiments in which we study the space-time approximation properties as well as the meshing algorithm performance are presented in section 4.
+This paper is focusing on the mesh generating algorithm which constructs tensor-product extension $(d+1)$-dimensional space-time meshes for given $d$-dimensional  (triangular or tetrahedral) space meshes in parallel. In section 1 space-time CFOSLS approach is outlined together with basic discretization details. Extended version of the theoretical background behind the considered formulation can be found in \cite{our_cfosls_paper}. The essence of the paper is mesh generating algorithm is presented in section 2. Apart from mesh generating it is visualization which might be important for space-time approaches. This question is addressed to in section 3. Finally, several numerical experiments in which we study the space-time approximation properties as well as the meshing algorithm performance are presented in section 4.
+
+More pictures and practical usage of the presented generator are available in the report on AMR in CFOSLS \cite{amr_cfosls_report}. 
+
 
 \section{Space-time CFOSLS}
 Consider the following problem in a space-time cylinder $\Omega_T = \Omega \times [0, T]$ where $
-\Omega$ is a regular(in the most usual sense) domain:
+\Omega$ is a regular (in the most usual sense) domain:
 $$
 \frac{\partial S}{\partial t} + \operatorname{div}_x \left( \mathcal{L}(S) \right) = q(\mathbf{x}, t), \quad (\mathbf{x},t) \in \Omega_T
 $$
@@ -1003,6 +1018,15 @@ The numerical solution on a coarse mesh is presented in Fig. 3. Here three slice
 
 
 \begin{thebibliography}{100}
+
+\bibitem{cfosls_code}
+CFOSLS, https://github.com/CFOSLS/mfem.
+
+\bibitem{our_cfosls_paper}
+K. Voronin, C.-S. Lee, M. Neumueller, P. Sepulveda, P.S. Vassilevski. Space-time discretizations using constrained first-order system least squares (CFOSLS), Journal of Comp. Physics, Volume 373, p. 863-876, https://doi.org/10.1016/j.jcp.2018.07.024
+
+\bibitem{amr_cfosls_report}
+K. Voronin. Report on the adaptive mesh refinement strategies for the constrained first-order system least-squares (CFOSLS).
 
 \bibitem{Behr}
 M. Behr. Simplex Space-Time Meshes in Finite Element Simulations,

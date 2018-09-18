@@ -201,13 +201,15 @@ Adaptive refinement strategies are discussed in Section 5. The main theme is usi
 Numerical results in 3D and 4D are presented in Sections 6 and 7 correspondingly.
 The text is concluded with the result summary and future directions.
 
-Collaborators:
+The code is available at the link \cite{cfosls_code}. If you have any questions, feel free to contact the author.
+
+Project collaborators:
 \begin{itemize}
 	\item Panayot Vassilevski (PSU, LLNL), \textbf{project supervisor};
 	\item Kirill Voronin, PSU;
 	\item Paulina Sepulveda, (former) PSU;
-	\item Chak Shing Lee, LLNL.
-	%\item Martin Neumueller (Linz University)
+	\item Chak Shing Lee, LLNL;
+	\item Martin Neumueller (Linz University).
 	%\item Aidan Hamilton (PSU?)
 	%\item Dellyan Kalchev (LLNL?)
 \end{itemize}
@@ -1825,7 +1827,7 @@ In Table \ref{tab:amr2_conv_3D_HdivL2tran_mars_mfem_longrun_cont} we continue AM
 \begin{itemize}
 	\item Laplace test. \newline
 	Domain: Fichera corner $[-1,1]^3 \times [0,1] \ [0,1]^3 \times [0,1]$ \newline
-	The mesh was constructed as a time cylinder with usual 3D Fichera corner in the base using the developed 4d mesh generator \cite{meshgen_text}.
+	The mesh was constructed as a time cylinder with usual 3D Fichera corner in the base using the developed 4d mesh generator \cite{meshgen_report}.
 	Solution: $u = r_\Xx^q$, where $r_\Xx = \sqrt{x^2 + y^2 + z^2}$ with Sobolev regularity $1.5 + q$.
 	
 	\item Transport test. \newline
@@ -2033,6 +2035,9 @@ Financial support by ...
 \bibitem[VLNSV]{our_cfosls_paper}
 K. Voronin, C.-S. Lee, M. Neumueller, P. Sepulveda, P.S. Vassilevski. Space-time discretizations using constrained first-order system least squares (CFOSLS), Journal of Comp. Physics, Volume 373, p. 863-876, https://doi.org/10.1016/j.jcp.2018.07.024
 
+\bibitem[CODE]{cfosls_code}
+CFOSLS, https://github.com/CFOSLS/mfem.
+
 \bibitem[WH]{mixedfem_adapt}
 B.I. Wohlmuth and R. H. W. Ronald H. W. Hoppe. A comparison of a posteriori error estimators for mixed finite element discretizations by Raviart-Thomas elements. MATH.COMP, 68:1347–1378, 1999.
 
@@ -2074,7 +2079,7 @@ High Performance Scientific Computing: Algorithms and Applications, Springer,  2
 {\sc V.~E.~Henson and U. M.~ Yang,} ``{\em Boomer{AMG}: A parallel algebraic multigrid solver and preconditioner}'',
 Applied Numerical Mathematics 2002; 41(1):155-177.
 
-\bibitem[KV]{meshgen_text}
+\bibitem[KV]{meshgen_report}
 K. Voronin. Text on the parallel mesh generator in 4D.
 
 \end{thebibliography}
