@@ -168,12 +168,15 @@
 \DeclareMathOperator*{\argmin}{argmin}
  
  
-\title[A minimization solver for AMR in CFOSLS, report] 
-{A minimization solver for AMR in constrained first-order system least-squares, report}
+\title[Report on adaptive mesh refinement in CFOSLS] 
+{Report on the adaptive mesh refinement strategies for the constrained first-order system least-squares (CFOSLS)}
 
 \address{Portland State University}
 
-\keywords{CFOSLS, space-time, adaptive mesh refinement, multilevel algorithms, multigrid}
+\author{Kirill Voronin}
+\email{kirill.v.voronin@gmail.com}
+
+\keywords{CFOSLS, space-time, 4D, adaptive mesh refinement, multilevel algorithms, multigrid}
 
 \begin{document}
  
@@ -184,24 +187,41 @@ Two specific test problems are considered, the Laplace equation in an L-shaped d
 
 Efficiency of the proposed refinement strategy is compared numerically to the uniform refinement. In addition to the traditional refinement strategy based on local element errors, a modified strategy which noticeably smoothes out the error distribution is implemented by exploiting supplementary face error indicators.
 
-The results obtained show that ... (about refinement results). Furthermore, the proposed multilevel algorithm outperforms the simpler block-diagonal preconditioners in terms of iteration count significantly.
+The results obtained show that despite the lack of theory, adaptive mesh refinement can significantly improve the accuracy of the numerical results and convergence rates in case when the solution has singularities or localized behavior. Furthermore, the proposed multilevel algorithm outperforms the simpler block-diagonal preconditioners in terms of iteration count significantly.
 \end{abstract}
 \maketitle
 
 \section{Introduction}
 
-The results obtained show that ...
+This text is a collection of all results related to the experiments with adaptive mesh refinement in CFOSLS setting which were carried out within a research project at PSU.
+Short description of the entire text is given in the abstract.
+
+Theoretical framework is outlined in Sections 2 -- 4. Mostly, it is a shorter version of the framework presented in \cite{our_cfosls_paper}. Except simplifications, it also contains a novel description of the minimization solver in the Subsection 4.2.
+Adaptive refinement strategies are discussed in Section 5. The main theme is using the element values of the FOSLS functional as local error indicators.
+Numerical results in 3D and 4D are presented in Sections 6 and 7 correspondingly.
+The text is concluded with the result summary and future directions.
+
+Collaborators:
+\begin{itemize}
+	\item Panayot Vassilevski (PSU, LLNL), \textbf{project supervisor};
+	\item Kirill Voronin, PSU;
+	\item Paulina Sepulveda, (former) PSU;
+	\item Chak Shing Lee, LLNL.
+	%\item Martin Neumueller (Linz University)
+	%\item Aidan Hamilton (PSU?)
+	%\item Dellyan Kalchev (LLNL?)
+\end{itemize}
 
 \section{Problem statement}
 
-\textbf{Description of the setup in general terms, applicable to both Laplace and transport.}
+%\textbf{Description of the setup in general terms, applicable to both Laplace and transport.}
 
 \bigskip
 
 Let $\Omega\subset \mathbb{R}^n$ be an open bounded spatial domain with Lipschitz boundary $\partial \Omega$ and let 
 $\Omega_{T} = \Omega\times (0,T)\subset \mathbb{R}^{n+1}$ be the corresponding space-time domain,  where $T>0$ represents the final time.  
 
-Following \cite{our_paper_cfosls} we start with a unified CFOSLS formulation for a partial differential equation:
+Following \cite{our_cfosls_paper} we start with a unified CFOSLS formulation for a partial differential equation:
 \begin{align} \label{Problem}
 \div \L(u) := \frac{\partial}{\partial_t} \big(\L_t(u) \big)+ \mathrm{div}_\Xx \big( \L_\Xx (u)\big)& = f(\Xx, t), \qquad \text{ for all } (\Xx,t) \in \Omega_T,
 \end{align}
@@ -413,70 +433,6 @@ coming from \eqref{eq:fos} formulation and
 \end{equation}
 for \eqref{eq:alt_fos}. Here the matrices $\M, \G$ and $\X$ come from the discretizations of the bilinear form $\A(\bsigma,u)$, and $\D$ is the discrete divergence operator.
 
-\section{Refinement strategy}
-The fundamental ingredient for the adaptive mesh refinement is definition of the local error estimators. As in the works related to AMR in FOSLS, \cite{fosls_adapt} and \cite{fosls_adapt2}, we use the local functional value as a measure of local errors. 
-
-We define the local error indicator $\eta_{T}$ for each element $T$ in the mesh as
-$$
-\eta_{T} := \sqrt{J_{T}(\bsigma_h, u_h)}
-$$
-where $(\bsigma_h, u_h)$ is the computed solution of the problem and $J_{T}$ is the local functional value, i.e., the functional value over an element $T$:
-$$
-J_{T}(\bsigma,u) = \left\| \bsigma - \L(u) \right\|_{T}^2
-$$
-In another words, $J_{T}$ is the local contribution of element restrictions of $\bsigma$ and $u$ to the global functional
-$$
-J(\bsigma,u) = \sum_{T} J_{T}(\bsigma,u)
-$$
-
-\begin{remark}
-Notice that unlike the cited works \cite{fosls_adapt} and \cite{fosls_adapt2}, in our case the functional is not coercive, thus theory developed in these papers does not apply to the setting considered here.
-\end{remark}
-
-Having the local error indicators defined, the standard AMR  scheme continues with identifying elements to be refined by one or the other marking strategy. 
-
-The strategies typically differ in how one defines a threshold $\varepsilon$ for the element errors and inequality is then used to make a decision to refine or not to refine. Popular choices include using
-$$
-\eta_{T} \geq \varepsilon \max_{T'} \eta_{T'}
-$$
-for individual elements, or
-$$
-\sum_{T \in S} \eta_{T} \geq \varepsilon \sum_{T} \eta_{T}
-$$
-to identify at once a group of elements to be refined (somewhat referred to as Doerfler marking strategy). Certainly there exists a large variety of different options and we don't intend here to give a survey about them.
-
-In our experiments we used a slightly different approach designed to produce a smoother refinement patterns. This could be useful when the solution is supposed to have localized singularities which is a common case for AMR. The idea is to use additional face error indicators to control the jumps of local error across elements.
-To this aim, we define face error indicator $\delta_{\F}$ for each face $\F$ between elements $T$ and $T'$ as
-$$
-\delta_{\F}^2 = \frac{1}{\beta_h} (\eta_{T} - \eta_{T'})^2 + \frac{1}{2} (\eta_{T}^2 + \eta_{T'}^2).
-$$
-Parameter $\beta_h$ defines the coupling of the two terms, average of the neighboring local errors and difference betweeb them. It can be chosen to be constant though in principle it may depend on the mesh size $h$ and be fine-tuned for a particular application problem.
-
-Then we define which faces are to be refined using the marking strategy for individual elements and for each refined face we refine both of the elements which have it.
-
-%Definition of threshold in MFEM:
-%$$
-%\mbox{threshold} = \max \left\lbrace \mbox{total error} \cdot \mbox{total error fraction} \cdot n_{el}^{-\frac{1}{p}}, \, \mbox{local error goal} \right\rbrace.
-%$$
-%
-%Total error is defined by
-%$$
-%\mbox{total error}  = 
-%\left\{ 
-%\begin{array}{lc}
-%\left( \sum_i \left(\mbox{local error i}\right)^p \right)^{1/p}, & p < \infty \\
-%\max_i \mbox{local error i}, & p = \infty \\
-%\end{array}
-%\right.
-%$$
-%
-%Default parameter values are:
-%\begin{itemize}
-%	\item $\mbox{total error fraction} = 0.5$;
-%	\item $p = \infty$;
-%	\item $\mbox{local error goal} = 0.0$.
-%\end{itemize}
-
 \section{Linear solvers}
 
 To solve discretized systems \eqref{eq:discrete_problem} and \eqref{eq:alt_discrete_problem} we use either algebraic block-diagonal preconditioners or a minimization solver based on successive minimization of the target CFOSLS functional.
@@ -610,7 +566,71 @@ $$
 %\end{remark}
 
 
-\section{Numerical results}
+\section{Refinement strategy}
+The fundamental ingredient for the adaptive mesh refinement is definition of the local error estimators. As in the works related to AMR in FOSLS, \cite{fosls_adapt} and \cite{fosls_adapt2}, we use the local functional value as a measure of local errors. 
+
+We define the local error indicator $\eta_{T}$ for each element $T$ in the mesh as
+$$
+\eta_{T} := \sqrt{J_{T}(\bsigma_h, u_h)}
+$$
+where $(\bsigma_h, u_h)$ is the computed solution of the problem and $J_{T}$ is the local functional value, i.e., the functional value over an element $T$:
+$$
+J_{T}(\bsigma,u) = \left\| \bsigma - \L(u) \right\|_{T}^2
+$$
+In another words, $J_{T}$ is the local contribution of element restrictions of $\bsigma$ and $u$ to the global functional
+$$
+J(\bsigma,u) = \sum_{T} J_{T}(\bsigma,u)
+$$
+
+\begin{remark}
+Notice that unlike the cited works \cite{fosls_adapt} and \cite{fosls_adapt2}, in our case the functional is not coercive, thus theory developed in these papers does not apply to the setting considered here.
+\end{remark}
+
+Having the local error indicators defined, the standard AMR  scheme continues with identifying elements to be refined by one or the other marking strategy. 
+
+The strategies typically differ in how one defines a threshold $\varepsilon$ for the element errors and inequality is then used to make a decision to refine or not to refine. Popular choices include using
+$$
+\eta_{T} \geq \varepsilon \max_{T'} \eta_{T'}
+$$
+for individual elements, or
+$$
+\sum_{T \in S} \eta_{T} \geq \varepsilon \sum_{T} \eta_{T}
+$$
+to identify at once a group of elements to be refined (somewhat referred to as Doerfler marking strategy). Certainly there exists a large variety of different options and we don't intend here to give a survey about them.
+
+In our experiments we used a slightly different approach designed to produce a smoother refinement patterns. This could be useful when the solution is supposed to have localized singularities which is a common case for AMR. The idea is to use additional face error indicators to control the jumps of local error across elements.
+To this aim, we define face error indicator $\delta_{\F}$ for each face $\F$ between elements $T$ and $T'$ as
+$$
+\delta_{\F}^2 = \frac{1}{\beta_h} (\eta_{T} - \eta_{T'})^2 + \frac{1}{2} (\eta_{T}^2 + \eta_{T'}^2).
+$$
+Parameter $\beta_h$ defines the coupling of the two terms, average of the neighboring local errors and difference betweeb them. It can be chosen to be constant though in principle it may depend on the mesh size $h$ and be fine-tuned for a particular application problem.
+
+Then we define which faces are to be refined using the marking strategy for individual elements and for each refined face we refine both of the elements which have it.
+
+%Definition of threshold in MFEM:
+%$$
+%\mbox{threshold} = \max \left\lbrace \mbox{total error} \cdot \mbox{total error fraction} \cdot n_{el}^{-\frac{1}{p}}, \, \mbox{local error goal} \right\rbrace.
+%$$
+%
+%Total error is defined by
+%$$
+%\mbox{total error}  = 
+%\left\{ 
+%\begin{array}{lc}
+%\left( \sum_i \left(\mbox{local error i}\right)^p \right)^{1/p}, & p < \infty \\
+%\max_i \mbox{local error i}, & p = \infty \\
+%\end{array}
+%\right.
+%$$
+%
+%Default parameter values are:
+%\begin{itemize}
+%	\item $\mbox{total error fraction} = 0.5$;
+%	\item $p = \infty$;
+%	\item $\mbox{local error goal} = 0.0$.
+%\end{itemize}
+
+\section{Numerical results, 3D}
 
 In this section we present numerical results for the application of the proposed AMR setup to the following two problems:
 
@@ -631,7 +651,7 @@ In this section we present numerical results for the application of the proposed
 	$$
 	As mentioned earlier, we call $z$ the (non-physical) time variable $t$ to apply the developed space-time CFOSLS setting.
 	\item Transport equation \newline
-	Domain: Cube $[-1,1]^2 \times [0,2] \subset \mathbb{R}^3$ \newline
+	Domain: $[-1,1]^2 \times [0,2] \subset \mathbb{R}^3$ \newline
 	Velocity: 
 	$$
 	\bu(x,y,t) = 
@@ -642,21 +662,65 @@ In this section we present numerical results for the application of the proposed
 	\end{array}
 	\right)
 	$$
-	Exact solution aka rotating Gaussian hill:
+	Exact solution is the Gaussian hill rotating with unit speed around the origin:
 	$$
-	u(x,y,t) = exp^{-100 \left( (x-0.5)^2 + y^2 \right) }
+	\mbox{Gaussian hill}(x,y,t) = exp^{-100 \left( (x-0.5)^2 + y^2 \right) }
 	$$
 \end{itemize}
 
-In the tables below one can find statistics of the refinement process, achieved rates of convergence as well as iteration counts for the two solvers.
-
-\subsection{Refinement stats?}
-
+%In the tables below one can find statistics of the refinement process, achieved rates of convergence as well as iteration counts for the two solvers.
+\begin{remark}(On the refinement strategy) \newline
 As one might notice, looking at Figure \ref{fig:amr_lapl_beta3D}, for the standard marking strategy ($\beta = \infty$), the refinement goes far away from the incoming corner where the solution singularity resides. The effect of introducing $\beta$, as expected, produces a refinement picture which is more localized around the singularity.
+\end{remark}
 
-\subsection{Comparison to the uniform refinement}
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/1000000.png}}
+	\caption{$\beta = \infty$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{1.0}.png}}
+	\caption{$\beta = 1.0$}
+\end{subfigure}
 
-\subsubsection{Laplace}
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{0.1}.png}}
+	\caption{$\beta = 0.01$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{0.01}.png}}
+	\caption{$\beta = 0.01$}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{0.001}.png}}
+	\caption{$\beta = 0.001$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{0.0001}.png}}
+    \caption{$\beta = 0.0001$}
+\end{subfigure}
+
+%\subfigure[$\beta = \infty$]{0.49\textwidth}{\includegraphics[scale=.6]{plots/beta_infinity.png}}
+%\hfill
+%%\subfigure[Solver time (log-log plot)]{\includegraphics[scale=.08,clip,trim=3.5cm 0 7cm 2cm]{plots/beta_infinity.png}}
+%\subfigure[$\beta = 1.0$]{\includegraphics[scale=.6]{plots/{beta_1.0}.png}}
+
+%%\subfigure[$\beta = 0.1$]{\includegraphics[scale=.6]{plots/{beta_0.1}.png}}
+%\subfigure[$\beta = 0.01$]{\includegraphics[scale=.6]{plots/{beta_0.01}.png}}
+%\hfill
+%\subfigure[$\beta = 0.001$]{\includegraphics[scale=.6]{plots/{beta_0.001}.png}}
+%
+%\subfigure[$\beta = 0.0001$]{\includegraphics[scale=.6]{plots/{beta_0.0001}.png}}
+\caption{AMR, iteration \# 20, different values of the smoothing parameter $\beta$.}
+\label{fig:amr_lapl_beta3D}
+\end{figure}
+
+\subsection{Laplace, 3D}
 
 \begin{table}[h!]
 \caption{Uniform refinement, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
@@ -670,7 +734,7 @@ As one might notice, looking at Figure \ref{fig:amr_lapl_beta3D}, for the standa
 \end{tabular}}
 % minsolver tolerance 1.0e-6
 \end{table}
-In table \ref{tab:ur_lapl_lshape3D_HdivH1lapl} convergence in case of uniform refinement is given for the Laplace equation. Each row of the table corresponds to a refinement level. The second and third columns give the number of iterations of the proposed multilevel solver (using all levels which are available at the current iteration) and the block-diagonal preconditioner for the saddle-point system. The third and fourth column show the relative errors in $L^2$ for $\bsigma$ and $u$.
+In Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl} convergence in case of uniform refinement is given for the Laplace equation. Each row of the table corresponds to a refinement level. The second and third columns give the number of iterations of the proposed multilevel solver (using all levels which are available at the current iteration) and the block-diagonal preconditioner for the saddle-point system. The third and fourth column show the relative errors in $L^2$ for $\bsigma$ and $u$.
 The last column gives the FOSLS functional value for the computed solution and for the projection of the exact analytical solution (in parentheses).
 
 \begin{table}[h!]
@@ -705,9 +769,9 @@ The last column gives the FOSLS functional value for the computed solution and f
 % conservative strategy, 0.95
 % beta = infty
 \end{table}
-In table \ref{tab:amr_lapl_lshape3D_HdivH1lapl} (cf. with \ref{tab:ur_lapl_lshape3D_HdivH1lapl}) convergence in case of adaptive mesh refinement refinement is given for the Laplace equation.
+In Table \ref{tab:amr_lapl_lshape3D_HdivH1lapl} (cf. with Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl}) results for the adaptive mesh refinement refinement is given for the Laplace problem. Notice that for approx. 60k uniform refinement gives errors 0.073 and 0.08 (for $\bsigma$ and $u$), while the AMR provides 0.053 and 0.0046 correspondingly for approx. the same number of dofs. The increased convergence rate for AMR is illustrated in Figure \ref{fig:comparison_ur_amr}, (A).
 
-In Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl_feorder1} we provide results for higher-order elements, cf. with Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl}.
+As it will be clear from the transport case, higher-order elements might provide a much better results, even for the solutions which are less regular. To check this statement for the Laplace problem, in Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl_feorder1} we provide results for higher-order elements, cf. with Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl}.
 
 \begin{table}[h!]
 \caption{Uniform refinement, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation, higher order}
@@ -722,11 +786,13 @@ In Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl_feorder1} we provide results for h
 \end{table}
 
 As one might notice, the observed order of convergence for $\bsigma$ reimains roughly the same while for $u$ it increases for higher-order elements.
-For higher-order elements we neither compute functional value nor were able to run the minimization solver. The latter is due to the known limitations on usage higher-order Nedelec elements in MFEM.
+For higher-order elements we neither compute functional value nor we were able to run the minimization solver. The latter is due to the known limitations on usage of higher-order Nedelec elements in MFEM.
 
+Similarly, we study convergence for higher-order elements in the AMR setting in Table \ref{tab:amr_lapl_lshape3D_HdivH1lapl_feorder1}. Comparing it with Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl_feorder1} we see that the adaptivity works even better for the higher-order elements.
+Convergence rates for the higher order elements are shown in Figure \ref{fig:comparison_ur_amr}, (C)-(D).
 \begin{table}[h!]
 \caption{AMR, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation, higher order}
-\label{tab:amr_lapl_lshape3D_HdivH1lapl}
+\label{tab:amr_lapl_lshape3D_HdivH1lapl_feorder1}
 \scalebox{.85}{
 \begin{tabular}{|c||c|c|c|} \hline
 \#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ & $\varepsilon_u$ \\ \hline
@@ -754,7 +820,7 @@ For higher-order elements we neither compute functional value nor were able to r
 % beta = infty
 \end{table}
 
-\subsubsection{Transport}
+\subsection{Transport, 3D}
 
 \begin{table}[h!]
 \caption{Uniform refinement, rotating Gaussian hill, $H(\div)-L^2$ formulation for the transport equation}
@@ -769,12 +835,12 @@ For higher-order elements we neither compute functional value nor were able to r
 \end{tabular}}
 % minsolver tolerance 1.0e-8
 \end{table}
-In table \ref{tab:ur_conv_3D_HdivL2tran} convergence in case of uniform refinement is given for the transport equation.
-The last column gives the FOSLS functional value for the computed solution and for the projection of the exact analytical solution (in parentheses). As one can notice, the results are significantly worse than in case of the Laplace equation. There are at least two reasons for that. First, the exact solution, as it is typical for hyperbolic problems, is essentially discontinuous, with very steep gradients and thus is less regular than the solution of the Laplace test.
-Second, one should not forget the hyperbolic nature of the problem at hand. It makes the functional converge much slower and thus worsens the behavior of the linear solvers, due to the presence of the semi-definite matrix weight in the mass matrix in \ref{eq:something}. 
+In Table \ref{tab:ur_conv_3D_HdivL2tran} convergence in case of uniform refinement is given for the transport equation.
+The last column gives the FOSLS functional value for the computed solution and for the projection of the exact analytical solution (in parentheses). As one can notice, the results are significantly worse than in case of the Laplace equation (cf. Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl}). There are at least two reasons for that. First, the exact solution, as it is typical for hyperbolic problems, is essentially discontinuous, with very steep gradients and thus is less regular than the solution of the Laplace test.
+Second, one should not forget the hyperbolic nature of the problem at hand. It makes the functional converge much slower and thus worsens the behavior of the linear solvers, due to the presence of the semi-definite matrix weight in the mass matrix in the first block of the matrix in  \eqref{eq:alt_discrete_problem}. 
 
 \begin{table}[h!]
-\caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation}
+\caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, MFEM refinement}
 \label{tab:amr_conv_3D_HdivL2tran}
 \scalebox{.85}{
 \begin{tabular}{|c||c|c|c|c|} \hline
@@ -808,10 +874,12 @@ Second, one should not forget the hyperbolic nature of the problem at hand. It m
 % conservative strategy, 0.95
 % beta = infty
 \end{table}
-In table \ref{tab:amr_conv_3D_HdivL2tran} (cf. with Table \ref{tab:ur_conv_3D_HdivL2tran}) convergence in case of adaptive mesh refinement refinement is given for the transport equation.
+In Table \ref{tab:amr_conv_3D_HdivL2tran} (cf. with Table \ref{tab:ur_conv_3D_HdivL2tran}) convergence in case of adaptive mesh refinement refinement is analyzed for the transport equation. In Table \ref{tab:amr2_conv_3D_HdivL2tran} we look at the AMR results in case when we start with a coarser starting mesh. Corresponding solution snapshots are shown in Figure \ref{fig:amr_transp_feorder0}. 
+
+Though the overall errors are large, the obvious improvement was obtained by the AMR. Convergence rates are compared in Figure \ref{fig:comparison_ur_amr}, (B).
 
 \begin{table}[h!]
-\caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, coarser starting mesh}
+\caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, MFEM refinement, coarser starting mesh}
 \label{tab:amr2_conv_3D_HdivL2tran}
 \scalebox{.85}{
 \begin{tabular}{|c||c|c|c|c|} \hline
@@ -846,9 +914,158 @@ In table \ref{tab:amr_conv_3D_HdivL2tran} (cf. with Table \ref{tab:ur_conv_3D_Hd
 % beta = infty
 \end{table}
 
-Corresponding to the results in Table \ref{tab:amr2_conv_3D_HdivL2tran} numerical solution for certain iterations is shown in Figure \ref{fig:amr_transp_feorder0}.
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_u_it_0.png}}
+	\caption{It. 0, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_sigma_it_0.png}}
+	\caption{It. 0, $\bsigma_h$}
+\end{subfigure}
 
-Taking advantage of MARS refinement becoming available to test, in the next table we compare AMR performance using MFEM's refinement implementation in 3D vs. refinement from MARS.
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_u_it_5.png}}
+	\caption{It. 5, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_sigma_it_5.png}}
+	\caption{It. 5, $\bsigma_h$}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_u_it_10.png}}
+	\caption{It. 10, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_sigma_it_10.png}}
+	\caption{It. 10, $\bsigma_h$}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_u_it_15.png}}
+	\caption{It. 15, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_sigma_it_15.png}}
+	\caption{It. 15, $\bsigma_h$}
+\end{subfigure}
+
+\caption{AMR, transport test, f.e. spaces of order 0.}
+% For these pictures, threshold was 0.9
+\label{fig:amr_transp_feorder0}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_u_it_0.png}}
+	\caption{It. 0, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_sigma_it_0.png}}
+	\caption{It. 0, $\bsigma_h$}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_u_it_5.png}}
+	\caption{It. 5, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_sigma_it_5.png}}
+	\caption{It. 5, $\bsigma_h$}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_u_it_10.png}}
+	\caption{It. 10, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_sigma_it_10.png}}
+	\caption{It. 10, $\bsigma_h$}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_u_it_15.png}}
+	\caption{It. 15, $u_h$}
+\end{subfigure}
+	\hfill
+\begin{subfigure}[t]{0.35\textwidth}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_sigma_it_15.png}}
+	\caption{It. 15, $\bsigma_h$}
+\end{subfigure}
+
+\caption{AMR, transport test, f.e. spaces of order 1.}
+% For these pictures, threshold was 0.9
+\label{fig:amr_transp_feorder1}
+\end{figure}
+
+Comparing Figures \ref{fig:amr_transp_feorder0} and \ref{fig:amr_transp_feorder1} it's easy to notice that for the lowest order elements the quality of the results is much poorer. Although the mesh still gets refined around the volume where the solution is concentrated, the solution is dissipating strongly as the time goes. Hence, for the final time the magnitude has already decreased below 30\% of the magnitude at the bottom. Notice that for the exact solution magnitude remains constant in time since the solution is only rotating in space and no dissipation mechanism is present in the problem.
+
+Next, in Table \ref{tab:ur_conv_3D_HdivL2tran_feorder1} we study convergence for uniformly refined mesh in case when we use higher-order elements (elements one order higher than before). For higher-order elements we neither compute functional value nor were able to run the minimization solver. The latter is due to the known limitations on usage higher-order Nedelec elements in MFEM.
+In Table \ref{tab:amr2_conv_3D_HdivL2tran_feorder1} we show the results of adaptive mesh refinement for higher-order elements.
+
+The higher-order elements (see Tables \ref{tab:ur_conv_3D_HdivL2tran_feorder1} and \ref{tab:amr2_conv_3D_HdivL2tran_feorder1},  and also Figure \ref{fig:amr_transp_feorder1}) provide much higher accuracy.
+Convergence rates for the higher-order elements are presented in Figure \ref{fig:comparison_ur_amr}, (E).
+
+\begin{table}[h!]
+\caption{Uniform refinement, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, higher order elements}
+\label{tab:ur_conv_3D_HdivL2tran_feorder1}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
+5280   & 1901  & 0.84 \\ \hline
+41088  & 5424  & 0.67 \\ \hline
+324096 & 19533 & 0.38 \\ \hline 
+\end{tabular}}
+\end{table}
+
+\begin{table}[h!]
+\caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, higher order, MFEM refinement}
+\label{tab:amr2_conv_3D_HdivL2tran_feorder1}
+\scalebox{.85}{
+\begin{tabular}{|c||c|c|} \hline
+\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$  \\ \hline
+41088  & 5424 & 0.67 \\ \hline
+43376  & 5499 & 0.63 \\ \hline
+45404  & 5548 & 0.6  \\ \hline
+48472  & 5598 & 0.55 \\ \hline
+52459  & 5786 & 0.51  \\ \hline
+61451  & 6222 & 0.42  \\ \hline
+64051  & 6191 & 0.41  \\ \hline
+68081  & 6262 & 0.36  \\ \hline
+81123  & 6397 & 0.28  \\ \hline
+91007  & 6535 & 0.26  \\ \hline
+
+98107  & 6642 & 0.26  \\ \hline
+117308 & 6975 & 0.22  \\ \hline
+130091 & 7105 & 0.19  \\ \hline
+151513 & 7257 & 0.17  \\ \hline
+175670 & 7574 & 0.13   \\ \hline
+
+187058 & 7585 & 0.12  \\ \hline
+209330 & 7799 & 0.11   \\ \hline
+222115 & 7652 & 0.11   \\ \hline
+262318 & 8066 & 0.1   \\ \hline
+\end{tabular}}
+% conservative strategy, 0.9
+% beta = infty
+\end{table}
+
+For Table \ref{tab:amr2_conv_3D_HdivL2tran_feorder1} one can find in Figure \ref{fig:amr_transp_feorder1} numerical solution snapshots for certain iterations.
+
+Taking advantage of MARS refinement becoming available to test, in Table \ref{tab:amr2_conv_3D_HdivL2tran_mars} we compare AMR performance using MFEM's refinement implementation in 3D vs. refinement from MARS. An important detail is that MARS is a serial code and thus the largest meshes which it can handle are those which fit into the memory of a single computational node.
+
+Comparing Tables \ref{tab:amr2_conv_3D_HdivL2tran} and \ref{tab:amr2_conv_3D_HdivL2tran_mars} one can see that the last AMR iteration in the first table with about 55k of dofs gives about the same accuracy as the closest  (in terms of dof number) AMR iteration with 58k of dofs reported for MARS, 0.59 vs. 0.56. So, results are comparable. In Figures \ref{fig:amr_trans3D_mars} and \ref{fig:amr_trans3D_paraview_mars} we provide examples of how the solution and the mesh for the MARS-based AMR for the transport equation behaves. 
 
 \begin{table}[h!]
 \caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, MARS, coarser starting mesh}
@@ -877,12 +1094,11 @@ Taking advantage of MARS refinement becoming available to test, in the next tabl
 % beta = infty
 \end{table}
 
-Comparing Tables \ref{tab:amr2_conv_3D_HdivL2tran} and \ref{tab:amr2_conv_3D_HdivL2tran_mars} one can see that the last AMR iteration in the first table with about 55k of dofs gives about the same accuracy as the closest  (in terms of dof number) AMR iteration with 58k of dofs reported for MARS, 0.59 vs. 0.56. So, results are comparable.
 
-Below, in Figures \ref{fig:amr_trans3D_mars} and \ref{fig:amr_trans3D_paraview_mars} we provide examples of how the solution and the mesh for the MARS-based AMR for the transport equation behaves.
+It is natural to assume that for a deeper AMR process (with more levels), the solution's dissipation (smearing) at the top boundary will decrease (for a simple reason that the overall error must get much smaller). In Tables \ref{tab:amr2_conv_3D_HdivL2tran_mfem_longrun} and \ref{tab:amr2_conv_3D_HdivL2tran_mars_longrun} we explore this statement for MFEM and MARS based refinements. Results presented in Table \ref{tab:amr2_conv_3D_HdivL2tran_mfem_longrun} are illustrated in Figures \ref{fig:amr_trans3D_paraview_mfem_longrun_part1} - \ref{fig:amr_trans3D_paraview_mfem_longrun_part3}, results presented in Table \ref{tab:amr2_conv_3D_HdivL2tran_mars_longrun} are illustrated in Figures \ref{fig:amr_trans3D_paraview_mars_longrun_part1} - \ref{fig:amr_trans3D_paraview_mars_longrun_part2}. The smearing of the solution with time is illustrated by comparison (for MARS refinement) between slices at the top and bottom of the domain in Figures \ref{fig:amr_trans3D_pv_mars_topbot_part1} and \ref{fig:amr_trans3D_pv_mars_topbot_part3}.
 
-We suppose that for deeper AMR process, the solution and its noticeable dissipation at the top boundary will decrease (for a simple reason of getting the overall error smaller). 
-% It would be good to carry out corresponding experiments. For any refinement method.
+
+
 
 \begin{table}[h!]
 \caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, MFEM ref-t, coarser starting mesh, longrun}
@@ -910,8 +1126,6 @@ We suppose that for deeper AMR process, the solution and its noticeable dissipat
 % beta = infty
 \end{table}
 
-Results presented in Table \ref{tab:amr2_conv_3D_HdivL2tran_mfem_longrun} are illustrated in Figures \ref{fig:amr_trans3D_paraview_mfem_longrun_part1} - \ref{fig:amr_trans3D_paraview_mfem_longrun_part3}.
-
 \begin{table}[h!]
 \caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, MARS ref-t, coarser starting mesh, longrun}
 \label{tab:amr2_conv_3D_HdivL2tran_mars_longrun}
@@ -936,35 +1150,11 @@ Results presented in Table \ref{tab:amr2_conv_3D_HdivL2tran_mfem_longrun} are il
 % beta = infty
 \end{table}
 
-Results presented in Table \ref{tab:amr2_conv_3D_HdivL2tran_mars_longrun} are illustrated in Figures \ref{fig:amr_trans3D_paraview_mars_longrun_part1} - \ref{fig:amr_trans3D_paraview_mars_longrun_part2}. The smearing of the solution with time is illustrated by comparison between slices at the top and bottom of the domain in Figures \ref{fig:amr_trans3D_pv_mars_topbot_part1} and \ref{fig:amr_trans3D_pv_mars_topbot_part3}.
-
-
-\begin{table}[h!]
-\caption{AMR, rotating Gaussian hill $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation, MARS ref-t, coarser starting mesh, longrun}
-\label{tab:amr2_conv_4D_HdivL2tran_mars_longrun}
-\scalebox{.85}{
-\begin{tabular}{|c||c|c|c|} \hline
-\#dofs & AMR It. \# & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
-1939     & 0   & 162  & 1.0   \\ \hline
-6365     & 2   & 361  & 1.07   \\ \hline
-54488    & 4   & 755  & 0.99   \\ \hline
-396548   & 6   & 1230 & 0.91   \\ \hline
-2425486  & 8   & 1663 & 0.69   \\ \hline
-14123750 & 10  & 1869 & 0.49   \\ \hline
-38681500 & 11  & 2074 & 0.40   \\ \hline %10196s in serial
-\end{tabular}}
-% conservative strategy, 0.95
-% beta = infty
-\end{table}
-
-Results presented in Table \ref{tab:amr2_conv_4D_HdivL2tran_mars_longrun} are illustrated in Figures \ref{fig:amr_trans4D_paraview_mars_longrun_part1} - \ref{fig:amr_trans4D_paraview_mars_longrun_part2}.
-
-
-In Table \ref{tab:amr2_conv_4D_HdivL2tran_mars_mfem_longrun_cont} we continue AMR with MFEM refinement, in parallel, based on the last mesh obtained using MARS refinement (from Table \ref{tab:amr2_conv_4D_HdivL2tran_mars_longrun}. Although the error for $\bsigma$ slightly increases at the beginning, the energy error is actually decreasing.
+In Table \ref{tab:amr2_conv_3D_HdivL2tran_mars_mfem_longrun_cont} we continue AMR with MFEM refinement (in parallel), based on the last mesh obtained using MARS refinement (one more AMR iteration after the last line from Table \ref{tab:amr2_conv_3D_HdivL2tran_mars_longrun}). Although the error for $\bsigma$ slightly increases at the beginning, the energy error is actually decreasing.
 
 \begin{table}[h!]
-\caption{AMR, rotating Gaussian hill $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation, MFEM ref-t, after MARS refinement, longrun}
-\label{tab:amr2_conv_4D_HdivL2tran_mars_mfem_longrun_cont}
+\caption{AMR, rotating Gaussian hill $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation, MFEM ref-t (in parallel), after MARS refinement, longrun}
+\label{tab:amr2_conv_3D_HdivL2tran_mars_mfem_longrun_cont}
 \scalebox{.85}{
 \begin{tabular}{|c||c|c|c|} \hline
 \#dofs & AMR It. \# & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
@@ -983,6 +1173,8 @@ In Table \ref{tab:amr2_conv_4D_HdivL2tran_mars_mfem_longrun_cont} we continue AM
 147175902 & 12 & 5520 & 0.042  \\ \hline
 149765079 & 13 & 5533 & 0.042  \\ \hline
 160518380 & 14 & 5614 & 0.040  \\ \hline %time 5968.65s
+163622391 & 15 & 5738 & 0.040  \\ \hline %time 6139.19s
+175398384 & 16 & 5785 & 0.039  \\ \hline %time 4619.56s
 \end{tabular}}
 % conservative strategy, 0.95
 % nprocs 200
@@ -1579,57 +1771,6 @@ In Table \ref{tab:amr2_conv_4D_HdivL2tran_mars_mfem_longrun_cont} we continue AM
 \label{fig:amr_trans4D_paraview_mars_longrun_part2}
 \end{figure}
 
-Next, in Table \ref{tab:ur_conv_3D_HdivL2tran_feorder1} we study convergence for uniformly refined mesh in case when we use higher-order elements (elements one order higher than before). For higher-order elements we neither compute functional value nor were able to run the minimization solver.
-The latter is due to the known limitations on usage higher-order Nedelec elements in MFEM.
-
-\begin{table}[h!]
-\caption{Uniform refinement, rotating Gaussian hill, $H(\div)-L^2$ formulation for the transport equation, higher order elements}
-\label{tab:ur_conv_3D_HdivL2tran_feorder1}
-\scalebox{.85}{
-\begin{tabular}{|c||c|c|c|} \hline
-\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
-5280   & 1901  & 0.84 \\ \hline
-41088  & 5424  & 0.67 \\ \hline
-324096 & 19533 & 0.38 \\ \hline 
-\end{tabular}}
-\end{table}
-
-Now we show the results of adaptive mesh refinement for higher-order elements.
-
-\begin{table}[h!]
-\caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, higher order}
-\label{tab:amr2_conv_3D_HdivL2tran_feorder1}
-\scalebox{.85}{
-\begin{tabular}{|c||c|c|} \hline
-\#dofs & \#iter 2 & $\varepsilon_{\bsigma}$  \\ \hline
-41088  & 5424 & 0.67 \\ \hline
-43376  & 5499 & 0.63 \\ \hline
-45404  & 5548 & 0.6  \\ \hline
-48472  & 5598 & 0.55 \\ \hline
-52459  & 5786 & 0.51  \\ \hline
-61451  & 6222 & 0.42  \\ \hline
-64051  & 6191 & 0.41  \\ \hline
-68081  & 6262 & 0.36  \\ \hline
-81123  & 6397 & 0.28  \\ \hline
-91007  & 6535 & 0.26  \\ \hline
-
-98107  & 6642 & 0.26  \\ \hline
-117308 & 6975 & 0.22  \\ \hline
-130091 & 7105 & 0.19  \\ \hline
-151513 & 7257 & 0.17  \\ \hline
-175670 & 7574 & 0.13   \\ \hline
-
-187058 & 7585 & 0.12  \\ \hline
-209330 & 7799 & 0.11   \\ \hline
-222115 & 7652 & 0.11   \\ \hline
-262318 & 8066 & 0.1   \\ \hline
-\end{tabular}}
-% conservative strategy, 0.9
-% beta = infty
-\end{table}
-
-For Table \ref{tab:amr2_conv_3D_HdivL2tran_feorder1} one can find in Figure \ref{fig:amr_transp_feorder1} numerical solution for certain iterations.
-
 \begin{figure}[h!]
 \centering
 \begin{subfigure}[t]{0.49\textwidth}
@@ -1666,161 +1807,52 @@ For Table \ref{tab:amr2_conv_3D_HdivL2tran_feorder1} one can find in Figure \ref
 \begin{figure}[h!]
 \centering
 \begin{subfigure}[t]{0.49\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/1000000.png}}
-	\caption{$\beta = \infty$}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/comparison_laplace_4d_sigma.png}}
+	\caption{Laplace, 4d, 0th order, $\varepsilon_{\bsigma}$}
 \end{subfigure}
 	\hfill
 \begin{subfigure}[t]{0.49\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{1.0}.png}}
-	\caption{$\beta = 1.0$}
+	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/comparison_laplace_4d_u.png}}
+	\caption{Laplace, 4d, 0th order, $\varepsilon_u$}
 \end{subfigure}
-
-\begin{subfigure}[t]{0.49\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{0.1}.png}}
-	\caption{$\beta = 0.01$}
-\end{subfigure}
-	\hfill
-\begin{subfigure}[t]{0.49\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{0.01}.png}}
-	\caption{$\beta = 0.01$}
-\end{subfigure}
-
-\begin{subfigure}[t]{0.49\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{0.001}.png}}
-	\caption{$\beta = 0.001$}
-\end{subfigure}
-	\hfill
-\begin{subfigure}[t]{0.49\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/{0.0001}.png}}
-    \caption{$\beta = 0.0001$}
-\end{subfigure}
-
-%\subfigure[$\beta = \infty$]{0.49\textwidth}{\includegraphics[scale=.6]{plots/beta_infinity.png}}
-%\hfill
-%%\subfigure[Solver time (log-log plot)]{\includegraphics[scale=.08,clip,trim=3.5cm 0 7cm 2cm]{plots/beta_infinity.png}}
-%\subfigure[$\beta = 1.0$]{\includegraphics[scale=.6]{plots/{beta_1.0}.png}}
-
-%%\subfigure[$\beta = 0.1$]{\includegraphics[scale=.6]{plots/{beta_0.1}.png}}
-%\subfigure[$\beta = 0.01$]{\includegraphics[scale=.6]{plots/{beta_0.01}.png}}
-%\hfill
-%\subfigure[$\beta = 0.001$]{\includegraphics[scale=.6]{plots/{beta_0.001}.png}}
-%
-%\subfigure[$\beta = 0.0001$]{\includegraphics[scale=.6]{plots/{beta_0.0001}.png}}
-\caption{AMR, iteration \# 20, different values of the smoothing parameter $\beta$.}
-\label{fig:amr_lapl_beta3D}
+	
+\caption{Comparison of convergence rates for uniform and adaptive mesh refinement for the Laplace equation in Fichera corner in 4D, $q = 0.1$.}
+\label{fig:comparison_ur_amr_lapl4d}
 \end{figure}
-
-\begin{figure}[h!]
-\centering
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_u_it_0.png}}
-	\caption{It. 0, $u_h$}
-\end{subfigure}
-	\hfill
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_sigma_it_0.png}}
-	\caption{It. 0, $\bsigma_h$}
-\end{subfigure}
-
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_u_it_5.png}}
-	\caption{It. 5, $u_h$}
-\end{subfigure}
-	\hfill
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_sigma_it_5.png}}
-	\caption{It. 5, $\bsigma_h$}
-\end{subfigure}
-
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_u_it_10.png}}
-	\caption{It. 10, $u_h$}
-\end{subfigure}
-	\hfill
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_sigma_it_10.png}}
-	\caption{It. 10, $\bsigma_h$}
-\end{subfigure}
-
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_u_it_15.png}}
-	\caption{It. 15, $u_h$}
-\end{subfigure}
-	\hfill
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder0_sigma_it_15.png}}
-	\caption{It. 15, $\bsigma_h$}
-\end{subfigure}
-
-\caption{AMR, transport test, f.e. spaces of order 0.}
-% For these pictures, threshold was 0.9
-\label{fig:amr_transp_feorder0}
-\end{figure}
-
-
-\begin{figure}[h!]
-\centering
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_u_it_0.png}}
-	\caption{It. 0, $u_h$}
-\end{subfigure}
-	\hfill
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_sigma_it_0.png}}
-	\caption{It. 0, $\bsigma_h$}
-\end{subfigure}
-
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_u_it_5.png}}
-	\caption{It. 5, $u_h$}
-\end{subfigure}
-	\hfill
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_sigma_it_5.png}}
-	\caption{It. 5, $\bsigma_h$}
-\end{subfigure}
-
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_u_it_10.png}}
-	\caption{It. 10, $u_h$}
-\end{subfigure}
-	\hfill
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_sigma_it_10.png}}
-	\caption{It. 10, $\bsigma_h$}
-\end{subfigure}
-
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_u_it_15.png}}
-	\caption{It. 15, $u_h$}
-\end{subfigure}
-	\hfill
-\begin{subfigure}[t]{0.35\textwidth}
-	\raisebox{-\height}{\includegraphics[width=\textwidth]{plots/feorder1_sigma_it_15.png}}
-	\caption{It. 15, $\bsigma_h$}
-\end{subfigure}
-
-\caption{AMR, transport test, f.e. spaces of order 1.}
-% For these pictures, threshold was 0.9
-\label{fig:amr_transp_feorder1}
-\end{figure}
-
-Comparing Figures \ref{fig:amr_transp_feorder0} and \ref{fig:amr_transp_feorder1} it's easy to notice that for the lowest order elements the quality of the results is much poorer. Although the mesh still gets refined around the volume where the solution is concentrated, the solution is dissipating strongly as the time goes. Hence, for the final time the magnitude has already decreased below 30\% of the magnitude at the bottom. Notice that for the exact solution magnitude remains constant in time since the solution is only rotating in space and no dissipation mechanism is present in the problem.
-The higher-order elements (see Fig. \ref{fig:amr_transp_feorder1}) provide much higher accuracy.
 
 \section{Numerical results, 4D}
 
 \begin{itemize}
 	\item Laplace test. \newline
 	Domain: Fichera corner $[-1,1]^3 \times [0,1] \ [0,1]^3 \times [0,1]$ \newline
+	The mesh was constructed as a time cylinder with usual 3D Fichera corner in the base using the developed 4d mesh generator \cite{meshgen_text}.
 	Solution: $u = r_\Xx^q$, where $r_\Xx = \sqrt{x^2 + y^2 + z^2}$ with Sobolev regularity $1.5 + q$.
 	
 	\item Transport test. \newline
-	Domain: \newline
-	Solution: \newline
+	Domain: $[-1,1]^3 \times [0,2]$ \newline
+    Velocity: 
+	$$
+	\bu(x,y,z,t) = 
+	\left(
+	\begin{array}{c}
+	-y \\
+    x  \\
+    0
+	\end{array}
+	\right)
+	$$
+    Exact solution is the rotating ``Gaussian sphere'' with unit speed around the $z$-axis:
+	$$
+	\mbox{Gaussian hill 3D}(x,y,z,t) = exp^{-100 \left( (x-0.5)^2 + y^2 + (z-0.25)^2 \right) }
+	$$
+
 \end{itemize}
 
-In Table \eqref{tab:ur_lapl_fichera4D_HdivH1lapl_smooth} one can find convergence results for the smooth solution ($u \in H^2$) of the Fichera corner problem in 4D.
+In Tables \ref{tab:ur_lapl_fichera4D_HdivH1lapl_smooth} -- \ref{tab:ur_trans_cyl4D_mfem_longrun_cont} one can find results for the 4D case.
+
+\subsection{Laplace, 4D}
+
+First, in Table \ref{tab:ur_lapl_fichera4D_HdivH1lapl_smooth} one can find convergence results for the smooth solution ($u \in H^{2.6}$) of the Fichera corner problem in 4D.
 
 \begin{table}[h!]
 \caption{Uniform refinement, Fichera corner in $\mathbb{R}^4$, $H(\div)-H^1$ formulation for the Laplace equation, $q = 1.0$}
@@ -1834,7 +1866,11 @@ In Table \eqref{tab:ur_lapl_fichera4D_HdivH1lapl_smooth} one can find convergenc
 \end{tabular}}
 \end{table}
 
-Next, we take a less regular solution ($u \in H^{1.6}$).
+Next, we take a less regular solution ($u \in H^{1.6}$), for uniform refinement results are given in Table \ref{tab:ur_lapl_fichera4D_HdivH1lapl_rougher}, for AMR in the Table \ref{tab:amr_lapl_fichera4D_HdivH1lapl_rougher}.
+Notice that since the solution's regularity is much lower, the convergence rate for uniform refinement significantly decreases.
+Comparing these two tables, we see that the adaptive mesh refinement greatly improves the accuracy (and also the convergence rate). To see that, e.g., compare the last line in Table \ref{tab:ur_lapl_fichera4D_HdivH1lapl_rougher} (uniform refinement) with approx. 5mln of dofs and errors 0.642 and 0.009 with the last line of Table \ref{tab:amr_lapl_fichera4D_HdivH1lapl_rougher}, approx. 750k of dofs and errors equal to 0.418 and 0.0038.
+Convergence rates are illustrated in Figure \ref{fig:comparison_ur_amr_lapl4d}.
+
 \begin{table}[h!]
 \caption{Uniform refinement, Fichera corner in $\mathbb{R}^4$, $H(\div)-H^1$ formulation for the Laplace equation, $q = 0.1$}
 \label{tab:ur_lapl_fichera4D_HdivH1lapl_rougher}
@@ -1847,7 +1883,6 @@ Next, we take a less regular solution ($u \in H^{1.6}$).
 \end{tabular}}
 \end{table}
 
-Now, we consider AMR for the less regular solution:
 \begin{table}[h!]
 \caption{AMR, Fichera corner in $\mathbb{R}^4$, $H(\div)-H^1$ formulation for the Laplace equation, $q = 0.1$}
 \label{tab:amr_lapl_fichera4D_HdivH1lapl_rougher}
@@ -1870,6 +1905,11 @@ Now, we consider AMR for the less regular solution:
 %strat = 1;
 \end{table}
 
+\subsection{Transport, 4D}
+
+In Tables \ref{tab:ur_trans_cyl4D} and \ref{tab:amr_trans_cyl4D} we present results for uniform and adaptive mesh refinement for the rotating Gaussian sphere in 4D.
+
+
 \begin{table}[h!]
 \caption{Uniform refinement, Cylinder over a cube in $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation}
 \label{tab:ur_trans_cyl4D}
@@ -1885,7 +1925,7 @@ Now, we consider AMR for the less regular solution:
 \end{table}
 
 \begin{table}[h!]
-\caption{AMR, Cylinder over a cube in $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation}
+\caption{AMR, Cylinder over a cube in $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation, MARS refinement}
 \label{tab:amr_trans_cyl4D}
 \scalebox{.85}{
 \begin{tabular}{|c||c|c|} \hline
@@ -1901,8 +1941,30 @@ Now, we consider AMR for the less regular solution:
 %strat = 1;
 \end{table}
 
+%\begin{table}[h!]
+%\caption{AMR, rotating Gaussian hill $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation, MARS ref-t, coarser starting mesh, longrun}
+%\label{tab:amr2_conv_4D_HdivL2tran_mars_longrun}
+%\scalebox{.85}{
+%\begin{tabular}{|c||c|c|c|} \hline
+%\#dofs & AMR It. \# & \#iter 2 & $\varepsilon_{\bsigma}$ \\ \hline
+%1939     & 0   & 162  & 1.0   \\ \hline
+%6365     & 2   & 361  & 1.07   \\ \hline
+%54488    & 4   & 755  & 0.99   \\ \hline
+%396548   & 6   & 1230 & 0.91   \\ \hline
+%2425486  & 8   & 1663 & 0.69   \\ \hline
+%14123750 & 10  & 1869 & 0.49   \\ \hline
+%38681500 & 11  & 2074 & 0.40   \\ \hline %10196s in serial
+%\end{tabular}}
+%% conservative strategy, 0.95
+%% beta = infty
+%\end{table}
+
+In Table \ref{tab:amr_trans_mars_longrun_cyl4D} we present result for MARS-based refinement with a coarser starting mesh than in Table \ref{tab:amr_trans_cyl4D}. Corresponding solution slices are shown in Figures \ref{fig:amr_trans4D_paraview_mars_longrun_part1} - \ref{fig:amr_trans4D_paraview_mars_longrun_part2}.
+
+In Table \ref{tab:ur_trans_cyl4D_mfem_longrun_cont} we perform single uniform refinement step (in parallel) after the last AMR iteration from Table \ref{tab:amr_trans_mars_longrun_cyl4D}. Thus, 0.27 is the best error currently available for the presented 4D transport test. It still quite large but one can expect that it could be much smaller, if this uniform refinement step was replaced by a sequence of AMR iterations. Unfortunately, currently MARS is serial (and thus capable to handle meshes which fit into the memory of a single computational node only), and there is no local refinement (either serial or parallel) in MFEM's extension with 4d meshes.
+
 \begin{table}[h!]
-\caption{AMR, Cylinder over a cube in $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation}
+\caption{AMR, Cylinder over a cube in $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation, MARS refinement, coarser starting mesh}
 \label{tab:amr_trans_mars_longrun_cyl4D}
 \scalebox{.85}{
 \begin{tabular}{|c||c|c|} \hline
@@ -1930,7 +1992,7 @@ Now, we consider AMR for the less regular solution:
 
 In Table \ref{tab:ur_trans_cyl4D_mfem_longrun_cont} results are given for parallel uniform refinement in 4D which followed the last mesh produced by serial AMR (cf. Table \ref{tab:amr_trans_mars_longrun_cyl4D}).
 \begin{table}[h!]
-\caption{AMR, Cylinder over a cube in $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation}
+\caption{UR after AMR, Cylinder over a cube in $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation}
 \label{tab:ur_trans_cyl4D_mfem_longrun_cont}
 \scalebox{.85}{
 \begin{tabular}{|c||c|c|} \hline
@@ -1942,31 +2004,24 @@ In Table \ref{tab:ur_trans_cyl4D_mfem_longrun_cont} results are given for parall
 %-np 200 -ppn 10
 \end{table}
 
-\section{Conclusion}
+\section{Conclusions}
+The results obtained so far show that despite the lack of theory, adaptive mesh refinement can significantly improve the accuracy of the numerical results and convergence rates in case when the solution has singularities or localized behavior.
+A little bit surprisingly, higher-order elements provide a much better solution even though the solution is not regular enough. Unfortunately, there are severe limitations which don't allow usage of higher-order elements coupled with the presented multilevel minimization solver or in 4D.
 
-
-\section{Possible things for the paper}
-
+Future directions:
 \begin{itemize}
-	\item Minimization solver
-	\item AMR scheme for the minimization solver, three approaches
-	\item Refinement strategies including beta	
-	\item Laplace equation in the L-shaped domain and transport in the cube (pictures, comparison with uniform refinement and comparison between different approaches)
+	\item Rigorous theoretical proofs to justify usage of local functional values as local error indicators in the CFOSLS setup
+	\item It would be interesting to study the benefits of space-time AMR over conventional time-stepping AMR.
+	\item MARS integration into MFEM will make it possible to construct a proper hierarchy of nested meshes and use the minimization solver in 4D
+	\item Local refinement in parallel would help to carry out more test experiments with finer meshes
+	\item Performance of the minimization solver can be studied aiming at further improvements to reduce the overall solution time in 4D
+	\item Properties of the Schwarz smoother and the minimization solver on top of that can be anaylzed theoretically
 \end{itemize}
 
-What would be the main concept (idea) of the paper?
+\section{Acknowledgements}
 
-We can say "we suggest a minimization solver for AMR in the considered CFOSLS setting".
+Financial support by ...
 
-I'd like to say that we can efficiently reuse the previous iterations in terms of the iteration count, but the results don't show it.
-
-\section{To-do list}
-\begin{itemize}
-	\item Write the draft for theoretical sections
-	\item Numerical results: tables
-	\item Numerical resuls: pictures
-	\item Introduction
-\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1974,6 +2029,9 @@ I'd like to say that we can efficiently reuse the previous iterations in terms o
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{\texttt{#1}}\fi
 \expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem[VLNSV]{our_cfosls_paper}
+K. Voronin, C.-S. Lee, M. Neumueller, P. Sepulveda, P.S. Vassilevski. Space-time discretizations using constrained first-order system least squares (CFOSLS), Journal of Comp. Physics, Volume 373, p. 863-876, https://doi.org/10.1016/j.jcp.2018.07.024
 
 \bibitem[WH]{mixedfem_adapt}
 B.I. Wohlmuth and R. H. W. Ronald H. W. Hoppe. A comparison of a posteriori error estimators for mixed finite element discretizations by Raviart-Thomas elements. MATH.COMP, 68:1347–1378, 1999.
@@ -2015,6 +2073,9 @@ High Performance Scientific Computing: Algorithms and Applications, Springer,  2
 \bibitem[HY02]{boomerAMG}
 {\sc V.~E.~Henson and U. M.~ Yang,} ``{\em Boomer{AMG}: A parallel algebraic multigrid solver and preconditioner}'',
 Applied Numerical Mathematics 2002; 41(1):155-177.
+
+\bibitem[KV]{meshgen_text}
+K. Voronin. Text on the parallel mesh generator in 4D.
 
 \end{thebibliography}
 

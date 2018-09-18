@@ -1,0 +1,1177 @@
+031: compute022.cluster
+026: compute019.cluster
+067: compute031.cluster
+003: compute015.cluster
+012: compute017.cluster
+033: compute022.cluster
+021: compute019.cluster
+061: compute031.cluster
+054: compute030.cluster
+006: compute015.cluster
+013: compute017.cluster
+032: compute022.cluster
+025: compute019.cluster
+064: compute031.cluster
+056: compute030.cluster
+000: compute015.cluster
+015: compute017.cluster
+036: compute022.cluster
+027: compute019.cluster
+063: compute031.cluster
+053: compute030.cluster
+002: compute015.cluster
+010: compute017.cluster
+037: compute022.cluster
+022: compute019.cluster
+065: compute031.cluster
+050: compute030.cluster
+004: compute015.cluster
+011: compute017.cluster
+038: compute022.cluster
+024: compute019.cluster
+069: compute031.cluster
+055: compute030.cluster
+007: compute015.cluster
+016: compute017.cluster
+030: compute022.cluster
+023: compute019.cluster
+062: compute031.cluster
+059: compute030.cluster
+009: compute015.cluster
+017: compute017.cluster
+035: compute022.cluster
+066: compute031.cluster
+051: compute030.cluster
+005: compute015.cluster
+018: compute017.cluster
+052: compute030.cluster
+001: compute015.cluster
+014: compute017.cluster
+057: compute030.cluster
+028: compute019.cluster
+029: compute019.cluster
+060: compute031.cluster
+068: compute031.cluster
+008: compute015.cluster
+034: compute022.cluster
+039: compute022.cluster
+020: compute019.cluster
+058: compute030.cluster
+019: compute017.cluster
+071: compute039.cluster
+087: compute040.cluster
+104: compute042.cluster
+158: compute048.cluster
+193: compute054.cluster
+098: compute041.cluster
+144: compute047.cluster
+138: compute046.cluster
+110: compute044.cluster
+174: compute050.cluster
+077: compute039.cluster
+089: compute040.cluster
+105: compute042.cluster
+153: compute048.cluster
+197: compute054.cluster
+091: compute041.cluster
+143: compute047.cluster
+132: compute046.cluster
+116: compute044.cluster
+173: compute050.cluster
+072: compute039.cluster
+086: compute040.cluster
+106: compute042.cluster
+155: compute048.cluster
+191: compute054.cluster
+093: compute041.cluster
+149: compute047.cluster
+133: compute046.cluster
+176: compute050.cluster
+075: compute039.cluster
+084: compute040.cluster
+108: compute042.cluster
+196: compute054.cluster
+092: compute041.cluster
+146: compute047.cluster
+078: compute039.cluster
+083: compute040.cluster
+107: compute042.cluster
+195: compute054.cluster
+097: compute041.cluster
+142: compute047.cluster
+079: compute039.cluster
+088: compute040.cluster
+101: compute042.cluster
+198: compute054.cluster
+096: compute041.cluster
+147: compute047.cluster
+070: compute039.cluster
+109: compute042.cluster
+199: compute054.cluster
+076: compute039.cluster
+082: compute040.cluster
+100: compute042.cluster
+192: compute054.cluster
+094: compute041.cluster
+074: compute039.cluster
+102: compute042.cluster
+090: compute041.cluster
+085: compute040.cluster
+080: compute040.cluster
+073: compute039.cluster
+081: compute040.cluster
+111: compute044.cluster
+134: compute046.cluster
+164: compute049.cluster
+154: compute048.cluster
+175: compute050.cluster
+180: compute051.cluster
+128: compute045.cluster
+043: compute028.cluster
+150: compute048.cluster
+135: compute046.cluster
+166: compute049.cluster
+119: compute044.cluster
+156: compute048.cluster
+131: compute046.cluster
+161: compute049.cluster
+113: compute044.cluster
+151: compute048.cluster
+130: compute046.cluster
+167: compute049.cluster
+152: compute048.cluster
+136: compute046.cluster
+162: compute049.cluster
+157: compute048.cluster
+137: compute046.cluster
+163: compute049.cluster
+160: compute049.cluster
+112: compute044.cluster
+114: compute044.cluster
+095: compute041.cluster
+115: compute044.cluster
+099: compute041.cluster
+117: compute044.cluster
+118: compute044.cluster
+159: compute048.cluster
+165: compute049.cluster
+139: compute046.cluster
+169: compute049.cluster
+168: compute049.cluster
+171: compute050.cluster
+170: compute050.cluster
+179: compute050.cluster
+172: compute050.cluster
+177: compute050.cluster
+178: compute050.cluster
+141: compute047.cluster
+148: compute047.cluster
+145: compute047.cluster
+140: compute047.cluster
+194: compute054.cluster
+190: compute054.cluster
+103: compute042.cluster
+126: compute045.cluster
+187: compute051.cluster
+129: compute045.cluster
+185: compute051.cluster
+127: compute045.cluster
+181: compute051.cluster
+124: compute045.cluster
+184: compute051.cluster
+125: compute045.cluster
+183: compute051.cluster
+121: compute045.cluster
+189: compute051.cluster
+123: compute045.cluster
+186: compute051.cluster
+182: compute051.cluster
+122: compute045.cluster
+188: compute051.cluster
+120: compute045.cluster
+042: compute028.cluster
+045: compute028.cluster
+048: compute028.cluster
+044: compute028.cluster
+040: compute028.cluster
+041: compute028.cluster
+047: compute028.cluster
+049: compute028.cluster
+046: compute028.cluster
+010: /home/kvoronin/soft/experiments
+015: /home/kvoronin/soft/experiments
+030: /home/kvoronin/soft/experiments
+060: /home/kvoronin/soft/experiments
+020: /home/kvoronin/soft/experiments
+051: /home/kvoronin/soft/experiments
+001: /home/kvoronin/soft/experiments
+035: /home/kvoronin/soft/experiments
+061: /home/kvoronin/soft/experiments
+021: /home/kvoronin/soft/experiments
+053: /home/kvoronin/soft/experiments
+002: /home/kvoronin/soft/experiments
+032: /home/kvoronin/soft/experiments
+062: /home/kvoronin/soft/experiments
+022: /home/kvoronin/soft/experiments
+054: /home/kvoronin/soft/experiments
+005: /home/kvoronin/soft/experiments
+033: /home/kvoronin/soft/experiments
+064: /home/kvoronin/soft/experiments
+023: /home/kvoronin/soft/experiments
+056: /home/kvoronin/soft/experiments
+000: /home/kvoronin/soft/experiments
+012: /home/kvoronin/soft/experiments
+031: /home/kvoronin/soft/experiments
+069: /home/kvoronin/soft/experiments
+024: /home/kvoronin/soft/experiments
+058: /home/kvoronin/soft/experiments
+004: /home/kvoronin/soft/experiments
+034: /home/kvoronin/soft/experiments
+063: /home/kvoronin/soft/experiments
+025: /home/kvoronin/soft/experiments
+008: /home/kvoronin/soft/experiments
+036: /home/kvoronin/soft/experiments
+066: /home/kvoronin/soft/experiments
+027: /home/kvoronin/soft/experiments
+003: /home/kvoronin/soft/experiments
+014: /home/kvoronin/soft/experiments
+039: /home/kvoronin/soft/experiments
+067: /home/kvoronin/soft/experiments
+026: /home/kvoronin/soft/experiments
+028: /home/kvoronin/soft/experiments
+013: /home/kvoronin/soft/experiments
+016: /home/kvoronin/soft/experiments
+017: /home/kvoronin/soft/experiments
+019: /home/kvoronin/soft/experiments
+011: /home/kvoronin/soft/experiments
+057: /home/kvoronin/soft/experiments
+055: /home/kvoronin/soft/experiments
+009: /home/kvoronin/soft/experiments
+059: /home/kvoronin/soft/experiments
+018: /home/kvoronin/soft/experiments
+037: /home/kvoronin/soft/experiments
+007: /home/kvoronin/soft/experiments
+052: /home/kvoronin/soft/experiments
+006: /home/kvoronin/soft/experiments
+038: /home/kvoronin/soft/experiments
+068: /home/kvoronin/soft/experiments
+050: /home/kvoronin/soft/experiments
+065: /home/kvoronin/soft/experiments
+029: /home/kvoronin/soft/experiments
+070: /home/kvoronin/soft/experiments
+072: /home/kvoronin/soft/experiments
+073: /home/kvoronin/soft/experiments
+075: /home/kvoronin/soft/experiments
+076: /home/kvoronin/soft/experiments
+078: /home/kvoronin/soft/experiments
+071: /home/kvoronin/soft/experiments
+074: /home/kvoronin/soft/experiments
+079: /home/kvoronin/soft/experiments
+077: /home/kvoronin/soft/experiments
+157: /home/kvoronin/soft/experiments
+098: /home/kvoronin/soft/experiments
+130: /home/kvoronin/soft/experiments
+158: /home/kvoronin/soft/experiments
+156: /home/kvoronin/soft/experiments
+191: /home/kvoronin/soft/experiments
+160: /home/kvoronin/soft/experiments
+087: /home/kvoronin/soft/experiments
+080: /home/kvoronin/soft/experiments
+082: /home/kvoronin/soft/experiments
+086: /home/kvoronin/soft/experiments
+084: /home/kvoronin/soft/experiments
+085: /home/kvoronin/soft/experiments
+081: /home/kvoronin/soft/experiments
+154: /home/kvoronin/soft/experiments
+104: /home/kvoronin/soft/experiments
+101: /home/kvoronin/soft/experiments
+150: /home/kvoronin/soft/experiments
+106: /home/kvoronin/soft/experiments
+153: /home/kvoronin/soft/experiments
+151: /home/kvoronin/soft/experiments
+152: /home/kvoronin/soft/experiments
+097: /home/kvoronin/soft/experiments
+094: /home/kvoronin/soft/experiments
+090: /home/kvoronin/soft/experiments
+093: /home/kvoronin/soft/experiments
+091: /home/kvoronin/soft/experiments
+099: /home/kvoronin/soft/experiments
+095: /home/kvoronin/soft/experiments
+145: /home/kvoronin/soft/experiments
+195: /home/kvoronin/soft/experiments
+197: /home/kvoronin/soft/experiments
+190: /home/kvoronin/soft/experiments
+198: /home/kvoronin/soft/experiments
+192: /home/kvoronin/soft/experiments
+193: /home/kvoronin/soft/experiments
+194: /home/kvoronin/soft/experiments
+199: /home/kvoronin/soft/experiments
+131: /home/kvoronin/soft/experiments
+135: /home/kvoronin/soft/experiments
+138: /home/kvoronin/soft/experiments
+137: /home/kvoronin/soft/experiments
+134: /home/kvoronin/soft/experiments
+155: /home/kvoronin/soft/experiments
+139: /home/kvoronin/soft/experiments
+132: /home/kvoronin/soft/experiments
+136: /home/kvoronin/soft/experiments
+096: /home/kvoronin/soft/experiments
+133: /home/kvoronin/soft/experiments
+089: /home/kvoronin/soft/experiments
+088: /home/kvoronin/soft/experiments
+142: /home/kvoronin/soft/experiments
+102: /home/kvoronin/soft/experiments
+109: /home/kvoronin/soft/experiments
+100: /home/kvoronin/soft/experiments
+083: /home/kvoronin/soft/experiments
+105: /home/kvoronin/soft/experiments
+108: /home/kvoronin/soft/experiments
+103: /home/kvoronin/soft/experiments
+181: /home/kvoronin/soft/experiments
+140: /home/kvoronin/soft/experiments
+147: /home/kvoronin/soft/experiments
+165: /home/kvoronin/soft/experiments
+149: /home/kvoronin/soft/experiments
+169: /home/kvoronin/soft/experiments
+148: /home/kvoronin/soft/experiments
+143: /home/kvoronin/soft/experiments
+146: /home/kvoronin/soft/experiments
+159: /home/kvoronin/soft/experiments
+107: /home/kvoronin/soft/experiments
+092: /home/kvoronin/soft/experiments
+161: /home/kvoronin/soft/experiments
+141: /home/kvoronin/soft/experiments
+196: /home/kvoronin/soft/experiments
+183: /home/kvoronin/soft/experiments
+180: /home/kvoronin/soft/experiments
+182: /home/kvoronin/soft/experiments
+189: /home/kvoronin/soft/experiments
+186: /home/kvoronin/soft/experiments
+188: /home/kvoronin/soft/experiments
+185: /home/kvoronin/soft/experiments
+184: /home/kvoronin/soft/experiments
+187: /home/kvoronin/soft/experiments
+144: /home/kvoronin/soft/experiments
+168: /home/kvoronin/soft/experiments
+118: /home/kvoronin/soft/experiments
+119: /home/kvoronin/soft/experiments
+174: /home/kvoronin/soft/experiments
+176: /home/kvoronin/soft/experiments
+166: /home/kvoronin/soft/experiments
+179: /home/kvoronin/soft/experiments
+175: /home/kvoronin/soft/experiments
+162: /home/kvoronin/soft/experiments
+164: /home/kvoronin/soft/experiments
+167: /home/kvoronin/soft/experiments
+163: /home/kvoronin/soft/experiments
+114: /home/kvoronin/soft/experiments
+171: /home/kvoronin/soft/experiments
+173: /home/kvoronin/soft/experiments
+177: /home/kvoronin/soft/experiments
+047: /home/kvoronin/soft/experiments
+043: /home/kvoronin/soft/experiments
+045: /home/kvoronin/soft/experiments
+042: /home/kvoronin/soft/experiments
+044: /home/kvoronin/soft/experiments
+049: /home/kvoronin/soft/experiments
+048: /home/kvoronin/soft/experiments
+041: /home/kvoronin/soft/experiments
+046: /home/kvoronin/soft/experiments
+040: /home/kvoronin/soft/experiments
+113: /home/kvoronin/soft/experiments
+116: /home/kvoronin/soft/experiments
+111: /home/kvoronin/soft/experiments
+170: /home/kvoronin/soft/experiments
+172: /home/kvoronin/soft/experiments
+178: /home/kvoronin/soft/experiments
+110: /home/kvoronin/soft/experiments
+117: /home/kvoronin/soft/experiments
+115: /home/kvoronin/soft/experiments
+112: /home/kvoronin/soft/experiments
+124: /home/kvoronin/soft/experiments
+128: /home/kvoronin/soft/experiments
+126: /home/kvoronin/soft/experiments
+122: /home/kvoronin/soft/experiments
+129: /home/kvoronin/soft/experiments
+120: /home/kvoronin/soft/experiments
+127: /home/kvoronin/soft/experiments
+123: /home/kvoronin/soft/experiments
+125: /home/kvoronin/soft/experiments
+121: /home/kvoronin/soft/experiments
+Solving (С)FOSLS Transport equation in AMR setting 
+Options used:
+   --mesh final_amr_mesh_3.mesh
+   --feorder 0
+   --sref 0
+   --pref 0
+   --whichD 3
+   --no-visualization
+   --prec-option 1
+   --spaceS L2
+   --spacesigma Hdiv
+   --no-visualization
+Space for sigma: Hdiv 
+Space for S: L2 
+S is eliminated from the system 
+WARNING: CYLINDER_CUBE_TEST works only when the domain is a cube [0,1]! 
+For the records: numsol = 8, mesh_file = final_amr_mesh_3.mesh
+HDIVL2L2 passive 
+AMR active 
+APPROACH_0 active 
+APPROACH_1 passive 
+APPROACH_2 passive 
+APPROACH_3 passive 
+PARTSOL_SETUP passive 
+DIVFREE_MINSOLVER passive 
+CLEVER_STARTING_PARTSOL passive 
+CYLINDER_CUBE_TEST active 
+OVERCONSTRAINED active 
+RECOARSENING_AMR passive 
+Number of mpi processes: 200
+Reading a 3d mesh from the file final_amr_mesh_3.mesh
+Creating parmesh(3d) from the serial mesh (3d)
+Parallel Mesh Stats:
+
+                minimum     average     maximum       total
+ vertices         15355       17613       20034     3522789
+ edges           112969      121864      131081    24372976
+ faces           198777      208455      218272    41691138
+ elements        101164      104204      107240    20840950
+ neighbors            5          13          45
+
+            minimum     maximum
+ h       0.00348006    0.280616
+ kappa      2.35828     2.56159
+
+ Euler number             1
+
+Number of blocks in the formulation: 2
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+fosls_func_version = 1
+fosls_func_version = 1
+starting n_el = 105748
+Running AMR ... 
+
+AMR iteration 0
+Number of unknowns: 62532088
+
+Iterative solver converged in 4323 iterations with a residual norm of 1.9697e-14.
+Iterative solver took 3366.29s. 
+component No. 0: || error || / || exact_sol || = 0.0445719
+component No. 0: || exact - proj || / || exact || = 0.0177009
+|| div (sigma_h) || = 3.20567e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.044744
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0132237
+|| sigma_h ||_M^2 = 7.01781e-06
+|| sigma_h ||_M = 0.00264911
+Energy Error = 0.00264911
+Sum of local mass = 4.58861e-16
+Sum of local mass loss = 8.9095e-13
+component No. 0: || error || / || exact_sol || = 0.0445719
+component No. 0: || exact - proj || / || exact || = 0.0177009
+|| div (sigma_h) || = 3.20567e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.044744
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0132237
+|| sigma_h ||_M^2 = 7.01781e-06
+|| sigma_h ||_M = 0.00264911
+Energy Error = 0.00264911
+Sum of local mass = 4.58861e-16
+Sum of local mass loss = 8.9095e-13
+global_total_error = 0.197817
+
+Refinement statistics: 
+Marked elements percentage = 0.89957 % 
+nmarked_el = 187479, nel_before = 20840950
+nel_after = 22491882
+number of elements introduced = 1650932
+percentage (w.r.t to # before) of elements introduced = 7.92158% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 1
+Number of unknowns: 67485271
+
+Iterative solver converged in 4302 iterations with a residual norm of 1.97998e-14.
+Iterative solver took 4605.33s. 
+component No. 0: || error || / || exact_sol || = 0.0445555
+component No. 0: || exact - proj || / || exact || = 0.0176925
+|| div (sigma_h) || = 4.33503e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0458172
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.013219
+|| sigma_h ||_M^2 = 6.72744e-06
+|| sigma_h ||_M = 0.00259373
+Energy Error = 0.00259373
+Sum of local mass = 4.58889e-16
+Sum of local mass loss = 1.01722e-12
+component No. 0: || error || / || exact_sol || = 0.0445555
+component No. 0: || exact - proj || / || exact || = 0.0176925
+|| div (sigma_h) || = 4.33503e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0458172
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.013219
+|| sigma_h ||_M^2 = 6.72744e-06
+|| sigma_h ||_M = 0.00259373
+Energy Error = 0.00259373
+Sum of local mass = 4.58889e-16
+Sum of local mass loss = 1.01722e-12
+global_total_error = 0.19782
+
+Refinement statistics: 
+Marked elements percentage = 1.78096 % 
+nmarked_el = 400572, nel_before = 22491882
+nel_after = 26348620
+number of elements introduced = 3856738
+percentage (w.r.t to # before) of elements introduced = 17.1472% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 2
+Number of unknowns: 79056120
+
+Iterative solver converged in 4662 iterations with a residual norm of 1.84145e-14.
+Iterative solver took 4233.14s. 
+component No. 0: || error || / || exact_sol || = 0.0455177
+component No. 0: || exact - proj || / || exact || = 0.0176576
+|| div (sigma_h) || = 4.57552e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0463371
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0131982
+|| sigma_h ||_M^2 = 6.56583e-06
+|| sigma_h ||_M = 0.00256239
+Energy Error = 0.00256239
+Sum of local mass = 4.5889e-16
+Sum of local mass loss = 9.84268e-13
+component No. 0: || error || / || exact_sol || = 0.0455177
+component No. 0: || exact - proj || / || exact || = 0.0176576
+|| div (sigma_h) || = 4.57552e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0463371
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0131982
+|| sigma_h ||_M^2 = 6.56583e-06
+|| sigma_h ||_M = 0.00256239
+Energy Error = 0.00256239
+Sum of local mass = 4.5889e-16
+Sum of local mass loss = 9.84268e-13
+global_total_error = 0.197886
+
+Refinement statistics: 
+Marked elements percentage = 0.567274 % 
+nmarked_el = 149469, nel_before = 26348620
+nel_after = 28855640
+number of elements introduced = 2507020
+percentage (w.r.t to # before) of elements introduced = 9.51481% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 3
+Number of unknowns: 86577740
+
+Iterative solver converged in 4874 iterations with a residual norm of 1.87096e-14.
+Iterative solver took 3355.2s. 
+component No. 0: || error || / || exact_sol || = 0.0462308
+component No. 0: || exact - proj || / || exact || = 0.0176129
+|| div (sigma_h) || = 3.26599e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0467576
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0131708
+|| sigma_h ||_M^2 = 6.42374e-06
+|| sigma_h ||_M = 0.00253451
+Energy Error = 0.00253451
+Sum of local mass = 4.5889e-16
+Sum of local mass loss = 7.56192e-13
+component No. 0: || error || / || exact_sol || = 0.0462308
+component No. 0: || exact - proj || / || exact || = 0.0176129
+|| div (sigma_h) || = 3.26599e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0467576
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0131708
+|| sigma_h ||_M^2 = 6.42374e-06
+|| sigma_h ||_M = 0.00253451
+Energy Error = 0.00253451
+Sum of local mass = 4.5889e-16
+Sum of local mass loss = 7.56192e-13
+global_total_error = 0.197942
+
+Refinement statistics: 
+Marked elements percentage = 0.374935 % 
+nmarked_el = 108190, nel_before = 28855640
+nel_after = 31209796
+number of elements introduced = 2354156
+percentage (w.r.t to # before) of elements introduced = 8.15839% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 4
+Number of unknowns: 93640631
+
+Iterative solver converged in 4947 iterations with a residual norm of 1.83512e-14.
+Iterative solver took 5726.09s. 
+component No. 0: || error || / || exact_sol || = 0.0469335
+component No. 0: || exact - proj || / || exact || = 0.0175566
+|| div (sigma_h) || = 3.18431e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0475124
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.013136
+|| sigma_h ||_M^2 = 6.33079e-06
+|| sigma_h ||_M = 0.00251611
+Energy Error = 0.00251611
+Sum of local mass = 4.58892e-16
+Sum of local mass loss = 7.15512e-13
+component No. 0: || error || / || exact_sol || = 0.0469335
+component No. 0: || exact - proj || / || exact || = 0.0175566
+|| div (sigma_h) || = 3.18431e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0475124
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.013136
+|| sigma_h ||_M^2 = 6.33079e-06
+|| sigma_h ||_M = 0.00251611
+Energy Error = 0.00251611
+Sum of local mass = 4.58892e-16
+Sum of local mass loss = 7.15512e-13
+global_total_error = 0.198013
+
+Refinement statistics: 
+Marked elements percentage = 0.0987094 % 
+nmarked_el = 30807, nel_before = 31209796
+nel_after = 32248042
+number of elements introduced = 1038246
+percentage (w.r.t to # before) of elements introduced = 3.32667% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 5
+Number of unknowns: 96755600
+
+Iterative solver converged in 5105 iterations with a residual norm of 1.82858e-14.
+Iterative solver took 8352.33s. 
+component No. 0: || error || / || exact_sol || = 0.0468114
+component No. 0: || exact - proj || / || exact || = 0.0175247
+|| div (sigma_h) || = 3.85799e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0475154
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0131165
+|| sigma_h ||_M^2 = 6.29344e-06
+|| sigma_h ||_M = 0.00250867
+Energy Error = 0.00250867
+Sum of local mass = 4.58889e-16
+Sum of local mass loss = 8.16255e-13
+component No. 0: || error || / || exact_sol || = 0.0468114
+component No. 0: || exact - proj || / || exact || = 0.0175247
+|| div (sigma_h) || = 3.85799e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0475154
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0131165
+|| sigma_h ||_M^2 = 6.29344e-06
+|| sigma_h ||_M = 0.00250867
+Energy Error = 0.00250867
+Sum of local mass = 4.58889e-16
+Sum of local mass loss = 8.16255e-13
+global_total_error = 0.198034
+
+Refinement statistics: 
+Marked elements percentage = 0.656068 % 
+nmarked_el = 211569, nel_before = 32248042
+nel_after = 35935808
+number of elements introduced = 3687766
+percentage (w.r.t to # before) of elements introduced = 11.4356% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 6
+Number of unknowns: 107819557
+
+Iterative solver converged in 5113 iterations with a residual norm of 1.89027e-14.
+Iterative solver took 7254.32s. 
+component No. 0: || error || / || exact_sol || = 0.0470708
+component No. 0: || exact - proj || / || exact || = 0.0174161
+|| div (sigma_h) || = 3.92561e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.047775
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0130481
+|| sigma_h ||_M^2 = 6.16579e-06
+|| sigma_h ||_M = 0.0024831
+Energy Error = 0.0024831
+Sum of local mass = 4.58875e-16
+Sum of local mass loss = 8.59932e-13
+component No. 0: || error || / || exact_sol || = 0.0470708
+component No. 0: || exact - proj || / || exact || = 0.0174161
+|| div (sigma_h) || = 3.92561e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.047775
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0130481
+|| sigma_h ||_M^2 = 6.16579e-06
+|| sigma_h ||_M = 0.0024831
+Energy Error = 0.0024831
+Sum of local mass = 4.58875e-16
+Sum of local mass loss = 8.59932e-13
+global_total_error = 0.198154
+
+Refinement statistics: 
+Marked elements percentage = 0.132787 % 
+nmarked_el = 47718, nel_before = 35935808
+nel_after = 37434418
+number of elements introduced = 1498610
+percentage (w.r.t to # before) of elements introduced = 4.17024% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 7
+Number of unknowns: 112315805
+
+Iterative solver converged in 5143 iterations with a residual norm of 1.79443e-14.
+Iterative solver took 3282.48s. 
+component No. 0: || error || / || exact_sol || = 0.0465668
+component No. 0: || exact - proj || / || exact || = 0.0173596
+|| div (sigma_h) || = 3.62308e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0472597
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0130132
+|| sigma_h ||_M^2 = 6.08894e-06
+|| sigma_h ||_M = 0.00246758
+Energy Error = 0.00246758
+Sum of local mass = 4.58876e-16
+Sum of local mass loss = 7.83164e-13
+component No. 0: || error || / || exact_sol || = 0.0465668
+component No. 0: || exact - proj || / || exact || = 0.0173596
+|| div (sigma_h) || = 3.62308e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0472597
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0130132
+|| sigma_h ||_M^2 = 6.08894e-06
+|| sigma_h ||_M = 0.00246758
+Energy Error = 0.00246758
+Sum of local mass = 4.58876e-16
+Sum of local mass loss = 7.83164e-13
+global_total_error = 0.198181
+
+Refinement statistics: 
+Marked elements percentage = 0.33696 % 
+nmarked_el = 126139, nel_before = 37434418
+nel_after = 40276404
+number of elements introduced = 2841986
+percentage (w.r.t to # before) of elements introduced = 7.59191% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 8
+Number of unknowns: 120842189
+
+Iterative solver converged in 5305 iterations with a residual norm of 1.75335e-14.
+Iterative solver took 2133.93s. 
+component No. 0: || error || / || exact_sol || = 0.045819
+component No. 0: || exact - proj || / || exact || = 0.0172517
+|| div (sigma_h) || = 3.80521e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0465039
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0129456
+|| sigma_h ||_M^2 = 6.03694e-06
+|| sigma_h ||_M = 0.00245702
+Energy Error = 0.00245702
+Sum of local mass = 4.5887e-16
+Sum of local mass loss = 7.86136e-13
+component No. 0: || error || / || exact_sol || = 0.045819
+component No. 0: || exact - proj || / || exact || = 0.0172517
+|| div (sigma_h) || = 3.80521e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0465039
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0129456
+|| sigma_h ||_M^2 = 6.03694e-06
+|| sigma_h ||_M = 0.00245702
+Energy Error = 0.00245702
+Sum of local mass = 4.5887e-16
+Sum of local mass loss = 7.86136e-13
+global_total_error = 0.198277
+
+Refinement statistics: 
+Marked elements percentage = 0.0926523 % 
+nmarked_el = 37317, nel_before = 40276404
+nel_after = 41492318
+number of elements introduced = 1215914
+percentage (w.r.t to # before) of elements introduced = 3.01892% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 9
+Number of unknowns: 124490318
+
+Iterative solver converged in 5258 iterations with a residual norm of 1.78014e-14.
+Iterative solver took 3280.87s. 
+component No. 0: || error || / || exact_sol || = 0.045334
+component No. 0: || exact - proj || / || exact || = 0.0172003
+|| div (sigma_h) || = 3.7794e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0462186
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0129136
+|| sigma_h ||_M^2 = 5.98209e-06
+|| sigma_h ||_M = 0.00244583
+Energy Error = 0.00244583
+Sum of local mass = 4.58878e-16
+Sum of local mass loss = 7.91125e-13
+component No. 0: || error || / || exact_sol || = 0.045334
+component No. 0: || exact - proj || / || exact || = 0.0172003
+|| div (sigma_h) || = 3.7794e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0462186
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0129136
+|| sigma_h ||_M^2 = 5.98209e-06
+|| sigma_h ||_M = 0.00244583
+Energy Error = 0.00244583
+Sum of local mass = 4.58878e-16
+Sum of local mass loss = 7.91125e-13
+global_total_error = 0.198302
+
+Refinement statistics: 
+Marked elements percentage = 0.298978 % 
+nmarked_el = 124053, nel_before = 41492318
+nel_after = 44546242
+number of elements introduced = 3053924
+percentage (w.r.t to # before) of elements introduced = 7.36022% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 10
+Number of unknowns: 133652532
+
+Iterative solver converged in 5294 iterations with a residual norm of 1.80414e-14.
+Iterative solver took 2156.87s. 
+component No. 0: || error || / || exact_sol || = 0.0439734
+component No. 0: || exact - proj || / || exact || = 0.0170728
+|| div (sigma_h) || = 4.67675e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0448188
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0128337
+|| sigma_h ||_M^2 = 5.92918e-06
+|| sigma_h ||_M = 0.00243499
+Energy Error = 0.00243499
+Sum of local mass = 4.58917e-16
+Sum of local mass loss = 9.59619e-13
+component No. 0: || error || / || exact_sol || = 0.0439734
+component No. 0: || exact - proj || / || exact || = 0.0170728
+|| div (sigma_h) || = 4.67675e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0448188
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0128337
+|| sigma_h ||_M^2 = 5.92918e-06
+|| sigma_h ||_M = 0.00243499
+Energy Error = 0.00243499
+Sum of local mass = 4.58917e-16
+Sum of local mass loss = 9.59619e-13
+global_total_error = 0.198394
+
+Refinement statistics: 
+Marked elements percentage = 0.0728479 % 
+nmarked_el = 32451, nel_before = 44546242
+nel_after = 45652948
+number of elements introduced = 1106706
+percentage (w.r.t to # before) of elements introduced = 2.4844% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 11
+Number of unknowns: 136972988
+
+Iterative solver converged in 5451 iterations with a residual norm of 1.78048e-14.
+Iterative solver took 3948.7s. 
+component No. 0: || error || / || exact_sol || = 0.0435199
+component No. 0: || exact - proj || / || exact || = 0.0170272
+|| div (sigma_h) || = 4.43147e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0453088
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0128052
+|| sigma_h ||_M^2 = 5.87478e-06
+|| sigma_h ||_M = 0.0024238
+Energy Error = 0.0024238
+Sum of local mass = 4.58904e-16
+Sum of local mass loss = 9.05311e-13
+component No. 0: || error || / || exact_sol || = 0.0435199
+component No. 0: || exact - proj || / || exact || = 0.0170272
+|| div (sigma_h) || = 4.43147e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0453088
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0128052
+|| sigma_h ||_M^2 = 5.87478e-06
+|| sigma_h ||_M = 0.0024238
+Energy Error = 0.0024238
+Sum of local mass = 4.58904e-16
+Sum of local mass loss = 9.05311e-13
+global_total_error = 0.198415
+
+Refinement statistics: 
+Marked elements percentage = 0.280365 % 
+nmarked_el = 127995, nel_before = 45652948
+nel_after = 49053726
+number of elements introduced = 3400778
+percentage (w.r.t to # before) of elements introduced = 7.4492% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 12
+Number of unknowns: 147175902
+
+Iterative solver converged in 5520 iterations with a residual norm of 1.75761e-14.
+Iterative solver took 5163.75s. 
+component No. 0: || error || / || exact_sol || = 0.0419905
+component No. 0: || exact - proj || / || exact || = 0.0168852
+|| div (sigma_h) || = 5.05191e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0455643
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0127161
+|| sigma_h ||_M^2 = 5.82546e-06
+|| sigma_h ||_M = 0.0024136
+Energy Error = 0.0024136
+Sum of local mass = 4.58901e-16
+Sum of local mass loss = 1.00837e-12
+component No. 0: || error || / || exact_sol || = 0.0419905
+component No. 0: || exact - proj || / || exact || = 0.0168852
+|| div (sigma_h) || = 5.05191e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0455643
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0127161
+|| sigma_h ||_M^2 = 5.82546e-06
+|| sigma_h ||_M = 0.0024136
+Energy Error = 0.0024136
+Sum of local mass = 4.58901e-16
+Sum of local mass loss = 1.00837e-12
+global_total_error = 0.198505
+
+Refinement statistics: 
+Marked elements percentage = 0.0502082 % 
+nmarked_el = 24629, nel_before = 49053726
+nel_after = 49916696
+number of elements introduced = 862970
+percentage (w.r.t to # before) of elements introduced = 1.75923% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 13
+Number of unknowns: 149765079
+
+Iterative solver converged in 5533 iterations with a residual norm of 1.74822e-14.
+Iterative solver took 3305.61s. 
+component No. 0: || error || / || exact_sol || = 0.0416324
+component No. 0: || exact - proj || / || exact || = 0.0168486
+|| div (sigma_h) || = 3.96644e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0456796
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.012693
+|| sigma_h ||_M^2 = 5.78938e-06
+|| sigma_h ||_M = 0.00240611
+Energy Error = 0.00240611
+Sum of local mass = 4.58911e-16
+Sum of local mass loss = 8.50586e-13
+component No. 0: || error || / || exact_sol || = 0.0416324
+component No. 0: || exact - proj || / || exact || = 0.0168486
+|| div (sigma_h) || = 3.96644e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0456796
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.012693
+|| sigma_h ||_M^2 = 5.78938e-06
+|| sigma_h ||_M = 0.00240611
+Energy Error = 0.00240611
+Sum of local mass = 4.58911e-16
+Sum of local mass loss = 8.50586e-13
+global_total_error = 0.198523
+
+Refinement statistics: 
+Marked elements percentage = 0.256954 % 
+nmarked_el = 128263, nel_before = 49916696
+nel_after = 53500902
+number of elements introduced = 3584206
+percentage (w.r.t to # before) of elements introduced = 7.18038% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 14
+Number of unknowns: 160518380
+
+Iterative solver converged in 5614 iterations with a residual norm of 1.8274e-14.
+Iterative solver took 5968.65s. 
+component No. 0: || error || / || exact_sol || = 0.040182
+component No. 0: || exact - proj || / || exact || = 0.0166928
+|| div (sigma_h) || = 6.23402e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0456395
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0125951
+|| sigma_h ||_M^2 = 5.70598e-06
+|| sigma_h ||_M = 0.00238872
+Energy Error = 0.00238872
+Sum of local mass = 4.58907e-16
+Sum of local mass loss = 1.23535e-12
+component No. 0: || error || / || exact_sol || = 0.040182
+component No. 0: || exact - proj || / || exact || = 0.0166928
+|| div (sigma_h) || = 6.23402e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0456395
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0125951
+|| sigma_h ||_M^2 = 5.70598e-06
+|| sigma_h ||_M = 0.00238872
+Energy Error = 0.00238872
+Sum of local mass = 4.58907e-16
+Sum of local mass loss = 1.23535e-12
+global_total_error = 0.198613
+
+Refinement statistics: 
+Marked elements percentage = 0.0553505 % 
+nmarked_el = 29613, nel_before = 53500902
+nel_after = 54535486
+number of elements introduced = 1034584
+percentage (w.r.t to # before) of elements introduced = 1.93377% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 15
+Number of unknowns: 163622391
+
+Iterative solver converged in 5738 iterations with a residual norm of 1.66794e-14.
+Iterative solver took 6139.19s. 
+component No. 0: || error || / || exact_sol || = 0.0399073
+component No. 0: || exact - proj || / || exact || = 0.0166531
+|| div (sigma_h) || = 4.59835e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0466203
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0125699
+|| sigma_h ||_M^2 = 5.67525e-06
+|| sigma_h ||_M = 0.00238228
+Energy Error = 0.00238228
+Sum of local mass = 4.58926e-16
+Sum of local mass loss = 9.16418e-13
+component No. 0: || error || / || exact_sol || = 0.0399073
+component No. 0: || exact - proj || / || exact || = 0.0166531
+|| div (sigma_h) || = 4.59835e-12 (norm_div = 0) 
+|| S_h - S_ex || / || S_ex || = 0.0466203
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0125699
+|| sigma_h ||_M^2 = 5.67525e-06
+|| sigma_h ||_M = 0.00238228
+Energy Error = 0.00238228
+Sum of local mass = 4.58926e-16
+Sum of local mass loss = 9.16418e-13
+global_total_error = 0.198635
+
+Refinement statistics: 
+Marked elements percentage = 0.248024 % 
+nmarked_el = 135261, nel_before = 54535486
+nel_after = 58460592
+number of elements introduced = 3925106
+percentage (w.r.t to # before) of elements introduced = 7.19734% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+AMR iteration 16
+Number of unknowns: 175398384
+
+Iterative solver converged in 5785 iterations with a residual norm of 1.82265e-14.
+Iterative solver took 4619.56s. 
+component No. 0: || error || / || exact_sol || = 0.0388918
+component No. 0: || exact - proj || / || exact || = 0.0164879
+|| div (sigma_h) || = 4.58098e-12 (norm_div = 0) 
+   Iteration :   0  (B r, r) = 6.8746e-12 ...
+   Iteration : 5000  (B r, r) = 1.30909e-14
+PCG: No convergence!
+Average reduction factor = 0.999374
+|| S_h - S_ex || / || S_ex || = 0.0473911
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0124661
+|| sigma_h ||_M^2 = 5.60533e-06
+|| sigma_h ||_M = 0.00236756
+Energy Error = 0.00236756
+Sum of local mass = 4.58912e-16
+Sum of local mass loss = 9.81246e-13
+component No. 0: || error || / || exact_sol || = 0.0388918
+component No. 0: || exact - proj || / || exact || = 0.0164879
+|| div (sigma_h) || = 4.58098e-12 (norm_div = 0) 
+   Iteration :   0  (B r, r) = 6.8746e-12 ...
+   Iteration : 5000  (B r, r) = 1.30909e-14
+PCG: No convergence!
+Average reduction factor = 0.999374
+|| S_h - S_ex || / || S_ex || = 0.0473911
+|| S_ex - Pi_h S_ex || / || S_ex || = 0.0124661
+|| sigma_h ||_M^2 = 5.60533e-06
+|| sigma_h ||_M = 0.00236756
+Energy Error = 0.00236756
+Sum of local mass = 4.58912e-16
+Sum of local mass loss = 9.81246e-13
+   Iteration :   0  (B r, r) = 6.8746e-12 ...
+   Iteration : 5000  (B r, r) = 1.30909e-14
+PCG: No convergence!
+Average reduction factor = 0.999374
+   Iteration :   0  (B r, r) = 6.8746e-12 ...
+   Iteration : 5000  (B r, r) = 1.30909e-14
+PCG: No convergence!
+Average reduction factor = 0.999374
+global_total_error = 0.198727
+
+Refinement statistics: 
+Marked elements percentage = 0.0398456 % 
+nmarked_el = 23294, nel_before = 58460592
+nel_after = 59301002
+number of elements introduced = 840410
+percentage (w.r.t to # before) of elements introduced = 1.43757% 
+
+Block diagonal preconditioner: 
+Diag(A) for H(div) or H1vec 
+BoomerAMG(D Diag^(-1)(A) D^t) for L2 lagrange multiplier 
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 17877 RUNNING AT compute030
+=   EXIT CODE: 9
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+End
