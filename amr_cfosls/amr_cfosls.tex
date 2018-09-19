@@ -181,27 +181,27 @@
 \begin{document}
  
 \begin{abstract}
-Adaptive mesh refinement is studied for constrained first-order system least-squares (CFOSLS) formulations of linear transport (in space-time setting) and Laplace equations in 3D. The problems are considered as minimization problems, for which we use local functional values as a natural measure of the local error. For solving the arising linear systems, an efficient multilevel algorithm is proposed which minimizes the energy functional over a dynamically constructed hierarchy of mesh levels.
+Adaptive mesh refinement is studied for constrained first-order system least-squares (CFOSLS) formulations of linear transport (in space-time setting) and Laplace equations in 3D and 4D. The problems are considered as minimization problems, for which we use local functional values as a natural measure of the local error. For solving the arising linear systems, an efficient multilevel algorithm is proposed which minimizes the energy functional over a dynamically constructed hierarchy of mesh levels. As a default solver, we use MINRES with a block-diagonal preconditioner.
 
-Two specific test problems are considered, the Laplace equation in an L-shaped domain and the transport equation in $H(\div)-L^2$ formulation.
+Two specific test problems are considered, the Laplace equation in an L-shaped domain and the transport equation in a cube with a localized rotating solution in $H(\div)-L^2$ formulation.
 
 Efficiency of the proposed refinement strategy is compared numerically to the uniform refinement. In addition to the traditional refinement strategy based on local element errors, a modified strategy which noticeably smoothes out the error distribution is implemented by exploiting supplementary face error indicators.
 
-The results obtained show that despite the lack of theory, adaptive mesh refinement can significantly improve the accuracy of the numerical results and convergence rates in case when the solution has singularities or localized behavior. Furthermore, the proposed multilevel algorithm outperforms the simpler block-diagonal preconditioners in terms of iteration count significantly.
+The results obtained show that despite the lack of theory adaptive mesh refinement can significantly improve the accuracy of the numerical results and convergence rates in case when the solution has singularities or localized behavior. Also, the proposed multilevel algorithm outperforms the simpler block-diagonal preconditioners in terms of iteration count significantly when it is applicable.
 \end{abstract}
 \maketitle
 
 \section{Introduction}
 
-This text is a collection of all results related to the experiments with adaptive mesh refinement in CFOSLS setting which were carried out within a research project at PSU.
+This text is a collection of results related to the experiments with adaptive mesh refinement in CFOSLS setting which were carried out within a research project at PSU.
 Short description of the entire text is given in the abstract.
 
-Theoretical framework is outlined in Sections 2 -- 4. Mostly, it is a shorter version of the framework presented in \cite{our_cfosls_paper}. Except simplifications, it also contains a novel description of the minimization solver in the Subsection 4.2.
+Theoretical framework is outlined in Sections 2 -- 4. Mostly, this part is a shorter version of the framework presented in \cite{our_cfosls_paper}. Additionally, it also contains a novel description of the minimization solver in the Subsection 4.2.
 Adaptive refinement strategies are discussed in Section 5. The main theme is using the element values of the FOSLS functional as local error indicators.
 Numerical results in 3D and 4D are presented in Sections 6 and 7 correspondingly.
 The text is concluded with the result summary and future directions.
 
-The code is available at the link \cite{cfosls_code}. If you have any questions, feel free to contact the author.
+The code is available in the Github repository \cite{cfosls_code}. If you have any questions, feel free to contact the author.
 
 Project collaborators:
 \begin{itemize}
@@ -666,7 +666,7 @@ In this section we present numerical results for the application of the proposed
 	$$
 	Exact solution is the Gaussian hill rotating with unit speed around the origin:
 	$$
-	\mbox{Gaussian hill}(x,y,t) = exp^{-100 \left( (x-0.5)^2 + y^2 \right) }
+	\mbox{Gaussian hill}(x,y) = exp^{-100 \left( (x-0.5)^2 + y^2 \right) }
 	$$
 \end{itemize}
 
@@ -736,8 +736,8 @@ As one might notice, looking at Figure \ref{fig:amr_lapl_beta3D}, for the standa
 \end{tabular}}
 % minsolver tolerance 1.0e-6
 \end{table}
-In Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl} convergence in case of uniform refinement is given for the Laplace equation. Each row of the table corresponds to a refinement level. The second and third columns give the number of iterations of the proposed multilevel solver (using all levels which are available at the current iteration) and the block-diagonal preconditioner for the saddle-point system. The third and fourth column show the relative errors in $L^2$ for $\bsigma$ and $u$.
-The last column gives the FOSLS functional value for the computed solution and for the projection of the exact analytical solution (in parentheses).
+In Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl} convergence in case of uniform refinement is given for the Laplace equation. Each row of the table corresponds to a refinement level. The second and third columns give the number of iterations of the proposed multilevel solver (using all levels which are available at the current iteration) and the block-diagonal preconditioner for the saddle-point system. The third and fourth column show the relative errors in $L^2$ for $\bsigma$ and $u$. One might notice that the convergence rate for $\bsigma$ approaches (but yet is less than) 1.0, while for $u$ the order is about $1.5$. The reason for that is, although we use linear f.e. to approximate $u$, $u$ is coupled with $\bsigma$ and thus lower order of convergence for $\bsigma$ affects the convergence rate for $u$.
+The last column gives the FOSLS functional value for the computed solution and, in parentheses, for the projection of the exact analytical solution.
 
 \begin{table}[h!]
 \caption{AMR, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation}
@@ -773,7 +773,7 @@ The last column gives the FOSLS functional value for the computed solution and f
 \end{table}
 In Table \ref{tab:amr_lapl_lshape3D_HdivH1lapl} (cf. with Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl}) results for the adaptive mesh refinement refinement is given for the Laplace problem. Notice that for approx. 60k uniform refinement gives errors 0.073 and 0.08 (for $\bsigma$ and $u$), while the AMR provides 0.053 and 0.0046 correspondingly for approx. the same number of dofs. The increased convergence rate for AMR is illustrated in Figure \ref{fig:comparison_ur_amr}, (A).
 
-As it will be clear from the transport case, higher-order elements might provide a much better results, even for the solutions which are less regular. To check this statement for the Laplace problem, in Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl_feorder1} we provide results for higher-order elements, cf. with Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl}.
+As it will be clear from the transport case, higher-order elements might provide a much better  accuracy, even for the solutions which are not regular enough. To check this statement for the Laplace problem, in Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl_feorder1} we provide results for higher-order elements, cf. with Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl}. Notice that the convergence rates are about equal, although the error magnitude is much smaller for the similar number of dofs.
 
 \begin{table}[h!]
 \caption{Uniform refinement, L-shaped domain in $\mathbb{R}^3$, $H(\div)-H^1$ formulation for the Laplace equation, higher order}
@@ -837,8 +837,8 @@ Convergence rates for the higher order elements are shown in Figure \ref{fig:com
 \end{tabular}}
 % minsolver tolerance 1.0e-8
 \end{table}
-In Table \ref{tab:ur_conv_3D_HdivL2tran} convergence in case of uniform refinement is given for the transport equation.
-The last column gives the FOSLS functional value for the computed solution and for the projection of the exact analytical solution (in parentheses). As one can notice, the results are significantly worse than in case of the Laplace equation (cf. Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl}). There are at least two reasons for that. First, the exact solution, as it is typical for hyperbolic problems, is essentially discontinuous, with very steep gradients and thus is less regular than the solution of the Laplace test.
+In Table \ref{tab:ur_conv_3D_HdivL2tran} results in case of uniform refinement are presented for the transport equation.
+The last column gives the FOSLS functional value for the computed solution and for the projection of the exact analytical solution (in parentheses). As one can notice, the results are significantly worse than in case of the Laplace equation (cf. Table \ref{tab:ur_lapl_lshape3D_HdivH1lapl}), both the accuracy and the convergence rate. There are at least two reasons for that. First, the exact solution, as it is typical for hyperbolic problems, is almost discontinuous, with very steep gradients and thus is less regular than the solution of the Laplace test.
 Second, one should not forget the hyperbolic nature of the problem at hand. It makes the functional converge much slower and thus worsens the behavior of the linear solvers, due to the presence of the semi-definite matrix weight in the mass matrix in the first block of the matrix in  \eqref{eq:alt_discrete_problem}. 
 
 \begin{table}[h!]
@@ -876,9 +876,7 @@ Second, one should not forget the hyperbolic nature of the problem at hand. It m
 % conservative strategy, 0.95
 % beta = infty
 \end{table}
-In Table \ref{tab:amr_conv_3D_HdivL2tran} (cf. with Table \ref{tab:ur_conv_3D_HdivL2tran}) convergence in case of adaptive mesh refinement refinement is analyzed for the transport equation. In Table \ref{tab:amr2_conv_3D_HdivL2tran} we look at the AMR results in case when we start with a coarser starting mesh. Corresponding solution snapshots are shown in Figure \ref{fig:amr_transp_feorder0}. 
-
-Though the overall errors are large, the obvious improvement was obtained by the AMR. Convergence rates are compared in Figure \ref{fig:comparison_ur_amr}, (B).
+In Table \ref{tab:amr_conv_3D_HdivL2tran} (cf. with Table \ref{tab:ur_conv_3D_HdivL2tran}) convergence in case of adaptive mesh refinement refinement is analyzed for the transport equation. In Table \ref{tab:amr2_conv_3D_HdivL2tran} we look at the AMR results in case when we start with a coarser starting mesh. Corresponding solution snapshots are shown in Figure \ref{fig:amr_transp_feorder0}.  Though the overall errors still remain large, the obvious improvement  over the uniform refinement was obtained by the AMR. Observed convergence rates are compared in Figure \ref{fig:comparison_ur_amr}, (B).
 
 \begin{table}[h!]
 \caption{AMR, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, MFEM refinement, coarser starting mesh}
@@ -1011,13 +1009,13 @@ Though the overall errors are large, the obvious improvement was obtained by the
 \label{fig:amr_transp_feorder1}
 \end{figure}
 
-Comparing Figures \ref{fig:amr_transp_feorder0} and \ref{fig:amr_transp_feorder1} it's easy to notice that for the lowest order elements the quality of the results is much poorer. Although the mesh still gets refined around the volume where the solution is concentrated, the solution is dissipating strongly as the time goes. Hence, for the final time the magnitude has already decreased below 30\% of the magnitude at the bottom. Notice that for the exact solution magnitude remains constant in time since the solution is only rotating in space and no dissipation mechanism is present in the problem.
-
 Next, in Table \ref{tab:ur_conv_3D_HdivL2tran_feorder1} we study convergence for uniformly refined mesh in case when we use higher-order elements (elements one order higher than before). For higher-order elements we neither compute functional value nor were able to run the minimization solver. The latter is due to the known limitations on usage higher-order Nedelec elements in MFEM.
-In Table \ref{tab:amr2_conv_3D_HdivL2tran_feorder1} we show the results of adaptive mesh refinement for higher-order elements.
+In Table \ref{tab:amr2_conv_3D_HdivL2tran_feorder1} we show the results of adaptive mesh refinement for higher-order elements. For Table \ref{tab:amr2_conv_3D_HdivL2tran_feorder1} one can find in Figure \ref{fig:amr_transp_feorder1} numerical solution snapshots for certain iterations.
 
-The higher-order elements (see Tables \ref{tab:ur_conv_3D_HdivL2tran_feorder1} and \ref{tab:amr2_conv_3D_HdivL2tran_feorder1},  and also Figure \ref{fig:amr_transp_feorder1}) provide much higher accuracy.
+Comparing Figures \ref{fig:amr_transp_feorder0} and \ref{fig:amr_transp_feorder1} it's easy to notice that for the lowest order elements the quality of the results is much poorer. The higher-order elements (see Tables \ref{tab:ur_conv_3D_HdivL2tran_feorder1} and \ref{tab:amr2_conv_3D_HdivL2tran_feorder1},  and also Figure \ref{fig:amr_transp_feorder1}) provide much higher accuracy.
+Although the mesh still gets refined around the volume where the solution is concentrated, the solution is dissipating strongly as the time goes. Hence, for the final time the magnitude has already decreased below 30\% of the magnitude at the bottom. Notice that for the exact solution magnitude remains constant in time since the solution is only rotating in space and no dissipation mechanism is present in the problem.
 Convergence rates for the higher-order elements are presented in Figure \ref{fig:comparison_ur_amr}, (E).
+
 
 \begin{table}[h!]
 \caption{Uniform refinement, rotating Gaussian hill $\mathbb{R}^3$, $H(\div)-L^2$ formulation for the transport equation, higher order elements}
@@ -1063,8 +1061,6 @@ Convergence rates for the higher-order elements are presented in Figure \ref{fig
 % beta = infty
 \end{table}
 
-For Table \ref{tab:amr2_conv_3D_HdivL2tran_feorder1} one can find in Figure \ref{fig:amr_transp_feorder1} numerical solution snapshots for certain iterations.
-
 Taking advantage of MARS refinement becoming available to test, in Table \ref{tab:amr2_conv_3D_HdivL2tran_mars} we compare AMR performance using MFEM's refinement implementation in 3D vs. refinement from MARS. An important detail is that MARS is a serial code and thus the largest meshes which it can handle are those which fit into the memory of a single computational node.
 
 Comparing Tables \ref{tab:amr2_conv_3D_HdivL2tran} and \ref{tab:amr2_conv_3D_HdivL2tran_mars} one can see that the last AMR iteration in the first table with about 55k of dofs gives about the same accuracy as the closest  (in terms of dof number) AMR iteration with 58k of dofs reported for MARS, 0.59 vs. 0.56. So, results are comparable. In Figures \ref{fig:amr_trans3D_mars} and \ref{fig:amr_trans3D_paraview_mars} we provide examples of how the solution and the mesh for the MARS-based AMR for the transport equation behaves. 
@@ -1097,7 +1093,7 @@ Comparing Tables \ref{tab:amr2_conv_3D_HdivL2tran} and \ref{tab:amr2_conv_3D_Hdi
 \end{table}
 
 
-It is natural to assume that for a deeper AMR process (with more levels), the solution's dissipation (smearing) at the top boundary will decrease (for a simple reason that the overall error must get much smaller). In Tables \ref{tab:amr2_conv_3D_HdivL2tran_mfem_longrun} and \ref{tab:amr2_conv_3D_HdivL2tran_mars_longrun} we explore this statement for MFEM and MARS based refinements. Results presented in Table \ref{tab:amr2_conv_3D_HdivL2tran_mfem_longrun} are illustrated in Figures \ref{fig:amr_trans3D_paraview_mfem_longrun_part1} - \ref{fig:amr_trans3D_paraview_mfem_longrun_part3}, results presented in Table \ref{tab:amr2_conv_3D_HdivL2tran_mars_longrun} are illustrated in Figures \ref{fig:amr_trans3D_paraview_mars_longrun_part1} - \ref{fig:amr_trans3D_paraview_mars_longrun_part2}. The smearing of the solution with time is illustrated by comparison (for MARS refinement) between slices at the top and bottom of the domain in Figures \ref{fig:amr_trans3D_pv_mars_topbot_part1} and \ref{fig:amr_trans3D_pv_mars_topbot_part3}.
+It is natural to assume that for a deeper AMR process (with more levels), the solution's dissipation (smearing) at the top boundary will decrease (for a simple reason that the overall error must get much smaller). In Tables \ref{tab:amr2_conv_3D_HdivL2tran_mfem_longrun} and \ref{tab:amr2_conv_3D_HdivL2tran_mars_longrun} we explore this statement for MFEM and MARS based refinements. Results presented in Table \ref{tab:amr2_conv_3D_HdivL2tran_mfem_longrun} are illustrated in Figures \ref{fig:amr_trans3D_paraview_mfem_longrun_part1} - \ref{fig:amr_trans3D_paraview_mfem_longrun_part3}, results presented in Table \ref{tab:amr2_conv_3D_HdivL2tran_mars_longrun} are illustrated in Figures \ref{fig:amr_trans3D_paraview_mars_longrun_part1} - \ref{fig:amr_trans3D_paraview_mars_longrun_part2}. The smearing of the solution with time is illustrated by comparison (for MARS refinement) between slices at the top and bottom of the domain in Figures \ref{fig:amr_trans3D_pv_mars_topbot_part1} --\ref{fig:amr_trans3D_pv_mars_topbot_part3}.
 
 
 
@@ -1826,7 +1822,10 @@ In Table \ref{tab:amr2_conv_3D_HdivL2tran_mars_mfem_longrun_cont} we continue AM
 
 \begin{itemize}
 	\item Laplace test. \newline
-	Domain: Fichera corner $[-1,1]^3 \times [0,1] \ [0,1]^3 \times [0,1]$ \newline
+	Domain: Time cylinder with the Fichera corner in the base, 
+	$$
+	[-1,1]^3 \times [0,1] \, \backslash \, [0,1]^3 \times [0,1]
+	$$
 	The mesh was constructed as a time cylinder with usual 3D Fichera corner in the base using the developed 4d mesh generator \cite{meshgen_report}.
 	Solution: $u = r_\Xx^q$, where $r_\Xx = \sqrt{x^2 + y^2 + z^2}$ with Sobolev regularity $1.5 + q$.
 	
@@ -1845,7 +1844,7 @@ In Table \ref{tab:amr2_conv_3D_HdivL2tran_mars_mfem_longrun_cont} we continue AM
 	$$
     Exact solution is the rotating ``Gaussian sphere'' with unit speed around the $z$-axis:
 	$$
-	\mbox{Gaussian hill 3D}(x,y,z,t) = exp^{-100 \left( (x-0.5)^2 + y^2 + (z-0.25)^2 \right) }
+	\mbox{Gaussian hill 3D}(x,y,z) = exp^{-100 \left( (x-0.5)^2 + y^2 + (z-0.25)^2 \right) }
 	$$
 
 \end{itemize}
@@ -1854,7 +1853,7 @@ In Tables \ref{tab:ur_lapl_fichera4D_HdivH1lapl_smooth} -- \ref{tab:ur_trans_cyl
 
 \subsection{Laplace, 4D}
 
-First, in Table \ref{tab:ur_lapl_fichera4D_HdivH1lapl_smooth} one can find convergence results for the smooth solution ($u \in H^{2.6}$) of the Fichera corner problem in 4D.
+First, in Table \ref{tab:ur_lapl_fichera4D_HdivH1lapl_smooth} one can find convergence results for the smooth solution ($u \in H^{2.6}$) of the Fichera corner problem in 4D. Notice that convergence rates for this nice case are about 1.0 for $\bsigma$ and around 2.0 for $u$. The iteration counts for the block-diagonal preconditioner are almost flat.
 
 \begin{table}[h!]
 \caption{Uniform refinement, Fichera corner in $\mathbb{R}^4$, $H(\div)-H^1$ formulation for the Laplace equation, $q = 1.0$}
@@ -1869,8 +1868,8 @@ First, in Table \ref{tab:ur_lapl_fichera4D_HdivH1lapl_smooth} one can find conve
 \end{table}
 
 Next, we take a less regular solution ($u \in H^{1.6}$), for uniform refinement results are given in Table \ref{tab:ur_lapl_fichera4D_HdivH1lapl_rougher}, for AMR in the Table \ref{tab:amr_lapl_fichera4D_HdivH1lapl_rougher}.
-Notice that since the solution's regularity is much lower, the convergence rate for uniform refinement significantly decreases.
-Comparing these two tables, we see that the adaptive mesh refinement greatly improves the accuracy (and also the convergence rate). To see that, e.g., compare the last line in Table \ref{tab:ur_lapl_fichera4D_HdivH1lapl_rougher} (uniform refinement) with approx. 5mln of dofs and errors 0.642 and 0.009 with the last line of Table \ref{tab:amr_lapl_fichera4D_HdivH1lapl_rougher}, approx. 750k of dofs and errors equal to 0.418 and 0.0038.
+Notice that since the solution's regularity is much lower, the convergence rate for uniform refinement significantly drops down.
+Comparing the two last tables, we see that the adaptive mesh refinement greatly improves the accuracy (and also the convergence rate). To see that, e.g., compare the last line in Table \ref{tab:ur_lapl_fichera4D_HdivH1lapl_rougher} (uniform refinement) with approx. 5mln of dofs and errors 0.642 and 0.009 with the last line of Table \ref{tab:amr_lapl_fichera4D_HdivH1lapl_rougher}, approx. 750k of dofs and errors equal to 0.418 and 0.0038.
 Convergence rates are illustrated in Figure \ref{fig:comparison_ur_amr_lapl4d}.
 
 \begin{table}[h!]
@@ -1909,7 +1908,7 @@ Convergence rates are illustrated in Figure \ref{fig:comparison_ur_amr_lapl4d}.
 
 \subsection{Transport, 4D}
 
-In Tables \ref{tab:ur_trans_cyl4D} and \ref{tab:amr_trans_cyl4D} we present results for uniform and adaptive mesh refinement for the rotating Gaussian sphere in 4D.
+In Tables \ref{tab:ur_trans_cyl4D} and \ref{tab:amr_trans_cyl4D} we present results for uniform and adaptive mesh refinement for the rotating Gaussian sphere in 4D. Apparently, AMR leads to a faster convergence rate.
 
 
 \begin{table}[h!]
@@ -1961,9 +1960,9 @@ In Tables \ref{tab:ur_trans_cyl4D} and \ref{tab:amr_trans_cyl4D} we present resu
 %% beta = infty
 %\end{table}
 
-In Table \ref{tab:amr_trans_mars_longrun_cyl4D} we present result for MARS-based refinement with a coarser starting mesh than in Table \ref{tab:amr_trans_cyl4D}. Corresponding solution slices are shown in Figures \ref{fig:amr_trans4D_paraview_mars_longrun_part1} - \ref{fig:amr_trans4D_paraview_mars_longrun_part2}.
+In Table \ref{tab:amr_trans_mars_longrun_cyl4D} we present result for MARS-based refinement with a coarser starting mesh than in Table \ref{tab:amr_trans_cyl4D}. Corresponding solution slices are shown in Figures \ref{fig:amr_trans4D_paraview_mars_longrun_part1} -- \ref{fig:amr_trans4D_paraview_mars_longrun_part2}.
 
-In Table \ref{tab:ur_trans_cyl4D_mfem_longrun_cont} we perform single uniform refinement step (in parallel) after the last AMR iteration from Table \ref{tab:amr_trans_mars_longrun_cyl4D}. Thus, 0.27 is the best error currently available for the presented 4D transport test. It still quite large but one can expect that it could be much smaller, if this uniform refinement step was replaced by a sequence of AMR iterations. Unfortunately, currently MARS is serial (and thus capable to handle meshes which fit into the memory of a single computational node only), and there is no local refinement (either serial or parallel) in MFEM's extension with 4d meshes.
+In Table \ref{tab:ur_trans_cyl4D_mfem_longrun_cont} we perform single uniform refinement step (in parallel) after the last AMR iteration from Table \ref{tab:amr_trans_mars_longrun_cyl4D}. Thus, 0.27 is the best relative error for $\bsigma$ which is currently available for the presented 4D transport tests. It still quite large but one can expect that it could get smaller, if this uniform refinement step was replaced by a sequence of AMR iterations. Unfortunately, as mentioned earlier, currently MARS is serial (and thus capable only to handle meshes which fit into the memory of a single computational node), and there is no local refinement (either serial or parallel) in MFEM's extension with 4d meshes.
 
 \begin{table}[h!]
 \caption{AMR, Cylinder over a cube in $\mathbb{R}^4$, $H(\div)-L^2$ formulation for the transport equation, MARS refinement, coarser starting mesh}
